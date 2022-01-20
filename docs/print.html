@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Chapter 1</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Index</a></li><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">2.</strong> Chapter 1</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -143,7 +143,18 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
+                        <hr />
+<h2 id="title-software-development-cookbook"><a class="header" href="#title-software-development-cookbook">title: Software Development Cookbook</a></h2>
+<h1 id="-pagetitle-"><a class="header" href="#-pagetitle-">{{ page.title }}</a></h1>
+<p>This is mostly a collection of <strong>gists</strong> I noted from my own experience
+and many others that I collected over the years and still collecting.</p>
+<h2 id="table-of-contents"><a class="header" href="#table-of-contents">Table of contents</a></h2>
+<p>{% for topic in site.topics %}</p>
+<ul>
+<li><a href="%7B%7Btopic.url%7Crelative_url%7D%7D">{{topic.title}}</a> 
+{% endfor %}</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
 
                     </main>
 
