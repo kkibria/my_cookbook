@@ -1,6 +1,6 @@
-# Summary
-
-[Software](.\index.md)
+[.\doclist.md](.\doclist.md)
+[Software Development Cookbook](.\index.md)
+[.\SUMMARY.md](.\SUMMARY.md)
 [Developing 3D models](.\topics\3d.md)
 [Artificial Intelligence](.\topics\ai.md)
 [Angular, bootstrap, firebase](.\topics\angular.md)
@@ -18,11 +18,11 @@
 [Flutter Sign-in for your users](.\topics\fluttersignin.md)
 [Frontend code development](.\topics\fronend.md)
 [Go language](.\topics\go.md)
-[Jekyll stuff](.\topics\jekyll.md)
 [Hugo stuff](.\topics\hugo.md)
 [Inspiration and plans](.\topics\inspiration.md)
 [Java development](.\topics\java.md)
 [Translating Java to Go language](.\topics\java2go.md)
+[Jekyll stuff](.\topics\jekyll.md)
 [Javascript library](.\topics\jslib.md)
 [Linux from scratch (Part 1)](.\topics\lfs.md)
 [Linux from scratch (Part 2)](.\topics\lfs2.md)
@@ -44,4 +44,3 @@
 [Ubuntu](.\topics\ubuntu.md)
 [Using vscode](.\topics\vscode.md)
 [Windows MSI installer](.\topics\winmsi.md)
-

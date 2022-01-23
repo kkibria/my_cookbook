@@ -7,3 +7,6 @@ title = "My software development cookbook"
 
 [build]
 build-dir = "docs"
+
+[preprocessor.frntmtr]
+command = "mdbook-frntmtr"

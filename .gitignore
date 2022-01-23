@@ -1,1 +1,4 @@
-book
+mdbook-frntmtr/target
+docs
+.vscode
+__pycache__
