@@ -29,10 +29,6 @@ maven config file can change the default. The config file is located at the foll
 Reading materials:
 * [Simple ways to add and work with a `.jar` file in your local maven setup](https://www.eviltester.com/2017/10/maven-local-dependencies.html).
 
-## Antlr 4
-
-Todo.
-
 
 
 

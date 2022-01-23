@@ -2,9 +2,10 @@
 title: Build book with mdbook
 ---
 
+# {{ page.title }}
 
-To do a new book,
-# install mdbook and the front matter preprocessor
+To do a new book, first you need to install `rust`.
+## install mdbook and the front matter preprocessor
 We support a subset of Yaml in front matter.
 
 ```bash
@@ -12,12 +13,12 @@ cargo install mdbook
 cargo install --git https://github.com/kkibria/mdbook-frntmtr.git
 ```
 
-# initialize a folder
+## initialize a folder
 mdbook init my_book
 cd my_book
 git init
 
-# setup `book.toml`
+## setup `book.toml`
 add following,
 ```
 [book]
@@ -30,11 +31,11 @@ build-dir = "docs"
 command = "mdbook-frntmtr"
 ```
 
-# publish to github
+## publish to github
 publish your folder in github. in github rep settings go to github pages and
 change folder to `docs` and note the public url.
 
-# add content
+## add content
 start the server,
 ```
 mdbook serve -o

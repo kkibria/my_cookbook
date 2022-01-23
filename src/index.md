@@ -1,5 +1,5 @@
 ---
-title: What is it?
+title: A Few Words
 ---
 
 # {{ page.title }}
