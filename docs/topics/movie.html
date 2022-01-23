@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Movie production tools - My software development cookbook</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">What is it?</a></li><li class="chapter-item expanded affix "><li class="part-title">3D Related</li><li class="chapter-item expanded "><a href="../topics/3d.html"><strong aria-hidden="true">1.</strong> Developing 3D models</a></li><li class="chapter-item expanded "><a href="../topics/cloth.html"><strong aria-hidden="true">2.</strong> Cloth Simulation</a></li><li class="chapter-item expanded affix "><li class="part-title">Frontend Development</li><li class="chapter-item expanded "><a href="../topics/angular.html"><strong aria-hidden="true">3.</strong> Angular, bootstrap, firebase</a></li><li class="chapter-item expanded "><a href="../topics/community.html"><strong aria-hidden="true">4.</strong> Community portal</a></li><li class="chapter-item expanded "><a href="../topics/firebase.html"><strong aria-hidden="true">5.</strong> Firebase matters</a></li><li class="chapter-item expanded "><a href="../topics/firestore.html"><strong aria-hidden="true">6.</strong> Firestore matters</a></li><li class="chapter-item expanded "><a href="../topics/flutter.html"><strong aria-hidden="true">7.</strong> Flutter Apps</a></li><li class="chapter-item expanded "><a href="../topics/flutterreading.html"><strong aria-hidden="true">8.</strong> Flutter matters</a></li><li class="chapter-item expanded "><a href="../topics/fluttersignin.html"><strong aria-hidden="true">9.</strong> Flutter Sign-in for your users</a></li><li class="chapter-item expanded "><a href="../topics/fronend.html"><strong aria-hidden="true">10.</strong> Frontend code development</a></li><li class="chapter-item expanded "><a href="../topics/markdown.html"><strong aria-hidden="true">11.</strong> Markdown renderer and editor in browser</a></li><li class="chapter-item expanded affix "><li class="part-title">Media Development</li><li class="chapter-item expanded "><a href="../topics/audio.html"><strong aria-hidden="true">12.</strong> Audio Processing</a></li><li class="chapter-item expanded "><a href="../topics/broadcasting.html"><strong aria-hidden="true">13.</strong> Broadcasting</a></li><li class="chapter-item expanded "><a href="../topics/movie.html" class="active"><strong aria-hidden="true">14.</strong> Movie production tools</a></li><li class="chapter-item expanded "><a href="../topics/music.html"><strong aria-hidden="true">15.</strong> Music</a></li><li class="chapter-item expanded "><a href="../topics/dvd2mp4.html"><strong aria-hidden="true">16.</strong> Converting old DVDs/cd into mp4/mp3</a></li><li class="chapter-item expanded affix "><li class="part-title">Programming Languages</li><li class="chapter-item expanded "><a href="../topics/go.html"><strong aria-hidden="true">17.</strong> Go language</a></li><li class="chapter-item expanded "><a href="../topics/java.html"><strong aria-hidden="true">18.</strong> Java development</a></li><li class="chapter-item expanded "><a href="../topics/java2go.html"><strong aria-hidden="true">19.</strong> Translating Java to Go language</a></li><li class="chapter-item expanded "><a href="../topics/jslib.html"><strong aria-hidden="true">20.</strong> Javascript library</a></li><li class="chapter-item expanded "><a href="../topics/py2js.html"><strong aria-hidden="true">21.</strong> Translating Python to Javascript language</a></li><li class="chapter-item expanded "><a href="../topics/rust.html"><strong aria-hidden="true">22.</strong> Rust language</a></li><li class="chapter-item expanded "><a href="../topics/sapper.html"><strong aria-hidden="true">23.</strong> Sapper, a server side framework with Svelte</a></li><li class="chapter-item expanded "><a href="../topics/ssr.html"><strong aria-hidden="true">24.</strong> Server side and/or Headless rendering</a></li><li class="chapter-item expanded "><a href="../topics/svelte.html"><strong aria-hidden="true">25.</strong> Svelte, firebase</a></li><li class="chapter-item expanded affix "><li class="part-title">Machine Learning</li><li class="chapter-item expanded "><a href="../topics/ai.html"><strong aria-hidden="true">26.</strong> Artificial Intelligence</a></li><li class="chapter-item expanded affix "><li class="part-title">System Development</li><li class="chapter-item expanded "><a href="../topics/cross.html"><strong aria-hidden="true">27.</strong> Cross Compilation</a></li><li class="chapter-item expanded "><a href="../topics/lfs.html"><strong aria-hidden="true">28.</strong> Linux from scratch (Part 1)</a></li><li class="chapter-item expanded "><a href="../topics/lfs2.html"><strong aria-hidden="true">29.</strong> Linux from scratch (Part 2)</a></li><li class="chapter-item expanded "><a href="../topics/lfs3.html"><strong aria-hidden="true">30.</strong> Linux from scratch (Part 3)</a></li><li class="chapter-item expanded "><a href="../topics/os.html"><strong aria-hidden="true">31.</strong> Custom O/S</a></li><li class="chapter-item expanded affix "><li class="part-title">Content Management</li><li class="chapter-item expanded "><a href="../topics/jekyll.html"><strong aria-hidden="true">32.</strong> Jekyll stuff</a></li><li class="chapter-item expanded "><a href="../topics/hugo.html"><strong aria-hidden="true">33.</strong> Hugo stuff</a></li><li class="chapter-item expanded "><a href="../topics/mdbook.html"><strong aria-hidden="true">34.</strong> mdbook</a></li><li class="chapter-item expanded affix "><li class="part-title">Compilers</li><li class="chapter-item expanded "><a href="../topics/parse.html"><strong aria-hidden="true">35.</strong> Compilers/Parsers</a></li><li class="chapter-item expanded "><a href="../topics/peg.html"><strong aria-hidden="true">36.</strong> Peg Parsers</a></li><li class="chapter-item expanded affix "><li class="part-title">Software Projects</li><li class="chapter-item expanded "><a href="../topics/project.html"><strong aria-hidden="true">37.</strong> How to create a new project in gitlab or github</a></li><li class="chapter-item expanded "><a href="../topics/ubuntu.html"><strong aria-hidden="true">38.</strong> Ubuntu</a></li><li class="chapter-item expanded "><a href="../topics/vscode.html"><strong aria-hidden="true">39.</strong> Using vscode</a></li><li class="chapter-item expanded "><a href="../topics/winmsi.html"><strong aria-hidden="true">40.</strong> Windows MSI installer</a></li><li class="chapter-item expanded affix "><li class="part-title">Raspberry Pi</li><li class="chapter-item expanded "><a href="../topics/pirust.html"><strong aria-hidden="true">41.</strong> Rust in Raspberry Pi</a></li><li class="chapter-item expanded "><a href="../topics/raspberrypi.html"><strong aria-hidden="true">42.</strong> Using Raspberry Pi</a></li><li class="chapter-item expanded "><a href="../topics/embedded.html"><strong aria-hidden="true">43.</strong> Building Embedded System</a></li><li class="chapter-item expanded affix "><li class="part-title">Future</li><li class="chapter-item expanded "><a href="../topics/inspiration.html"><strong aria-hidden="true">44.</strong> Inspiration and plans</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">My software development cookbook</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="movie-production-tools"><a class="header" href="#movie-production-tools">Movie production tools</a></h1>
+<h2 id="storyboarding"><a class="header" href="#storyboarding">Storyboarding</a></h2>
+<ul>
+<li>Krita</li>
+<li>Opentoonz</li>
+<li>Tahoma fork</li>
+<li>Laidout</li>
+<li>Gegl-qt binding</li>
+<li><a href="https://github.com/imgflo/imgflo">https://github.com/imgflo/imgflo</a> ui for gegl</li>
+<li><a href="https://youtu.be/FVpho_UiDAY">https://youtu.be/FVpho_UiDAY</a></li>
+</ul>
+<blockquote>
+<p>We will have bunch of loose topics here, later to be organized.</p>
+</blockquote>
+<h3 id="notes"><a class="header" href="#notes">Notes</a></h3>
+<p>initial storyboarding thoughts. I will use pyqt.... all the speed critical operation will be in qt and c++ world, python binding will be used on top of that.</p>
+<p>prototyping will be easy???
+other option is to build the whole thing in c++, qt
+build the app in rust using qt-rust binding.
+how do we incorporate,</p>
+<ul>
+<li>gegl ?? </li>
+<li>brush engine ??</li>
+</ul>
+<h2 id="sfx"><a class="header" href="#sfx">sfx</a></h2>
+<ul>
+<li><a href="https://youtu.be/RxD6H3ri8RI">https://youtu.be/RxD6H3ri8RI</a></li>
+</ul>
+<h2 id="pdf"><a class="header" href="#pdf">pdf</a></h2>
+<ul>
+<li><a href="https://github.com/foliojs/pdfkit">https://github.com/foliojs/pdfkit</a></li>
+</ul>
+<h2 id="fountain-tools"><a class="header" href="#fountain-tools">fountain tools</a></h2>
+<ul>
+<li><a href="https://github.com/ifrost/afterwriting-labs">https://github.com/ifrost/afterwriting-labs</a></li>
+</ul>
+<h2 id="3d-modelling"><a class="header" href="#3d-modelling">3d modelling</a></h2>
+<ul>
+<li><a href="https://dust3d.org/">dust3d</a></li>
+<li><a href="https://youtu.be/MytN8t4guuM">https://youtu.be/MytN8t4guuM</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../topics/broadcasting.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../topics/music.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../topics/broadcasting.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../topics/music.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3000/__livereload");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

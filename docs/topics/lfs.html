@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Linux from scratch (Part 1) - My software development cookbook</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">What is it?</a></li><li class="chapter-item expanded affix "><li class="part-title">3D Related</li><li class="chapter-item expanded "><a href="../topics/3d.html"><strong aria-hidden="true">1.</strong> Developing 3D models</a></li><li class="chapter-item expanded "><a href="../topics/cloth.html"><strong aria-hidden="true">2.</strong> Cloth Simulation</a></li><li class="chapter-item expanded affix "><li class="part-title">Frontend Development</li><li class="chapter-item expanded "><a href="../topics/angular.html"><strong aria-hidden="true">3.</strong> Angular, bootstrap, firebase</a></li><li class="chapter-item expanded "><a href="../topics/community.html"><strong aria-hidden="true">4.</strong> Community portal</a></li><li class="chapter-item expanded "><a href="../topics/firebase.html"><strong aria-hidden="true">5.</strong> Firebase matters</a></li><li class="chapter-item expanded "><a href="../topics/firestore.html"><strong aria-hidden="true">6.</strong> Firestore matters</a></li><li class="chapter-item expanded "><a href="../topics/flutter.html"><strong aria-hidden="true">7.</strong> Flutter Apps</a></li><li class="chapter-item expanded "><a href="../topics/flutterreading.html"><strong aria-hidden="true">8.</strong> Flutter matters</a></li><li class="chapter-item expanded "><a href="../topics/fluttersignin.html"><strong aria-hidden="true">9.</strong> Flutter Sign-in for your users</a></li><li class="chapter-item expanded "><a href="../topics/fronend.html"><strong aria-hidden="true">10.</strong> Frontend code development</a></li><li class="chapter-item expanded "><a href="../topics/markdown.html"><strong aria-hidden="true">11.</strong> Markdown renderer and editor in browser</a></li><li class="chapter-item expanded affix "><li class="part-title">Media Development</li><li class="chapter-item expanded "><a href="../topics/audio.html"><strong aria-hidden="true">12.</strong> Audio Processing</a></li><li class="chapter-item expanded "><a href="../topics/broadcasting.html"><strong aria-hidden="true">13.</strong> Broadcasting</a></li><li class="chapter-item expanded "><a href="../topics/movie.html"><strong aria-hidden="true">14.</strong> Movie production tools</a></li><li class="chapter-item expanded "><a href="../topics/music.html"><strong aria-hidden="true">15.</strong> Music</a></li><li class="chapter-item expanded "><a href="../topics/dvd2mp4.html"><strong aria-hidden="true">16.</strong> Converting old DVDs/cd into mp4/mp3</a></li><li class="chapter-item expanded affix "><li class="part-title">Programming Languages</li><li class="chapter-item expanded "><a href="../topics/go.html"><strong aria-hidden="true">17.</strong> Go language</a></li><li class="chapter-item expanded "><a href="../topics/java.html"><strong aria-hidden="true">18.</strong> Java development</a></li><li class="chapter-item expanded "><a href="../topics/java2go.html"><strong aria-hidden="true">19.</strong> Translating Java to Go language</a></li><li class="chapter-item expanded "><a href="../topics/jslib.html"><strong aria-hidden="true">20.</strong> Javascript library</a></li><li class="chapter-item expanded "><a href="../topics/py2js.html"><strong aria-hidden="true">21.</strong> Translating Python to Javascript language</a></li><li class="chapter-item expanded "><a href="../topics/rust.html"><strong aria-hidden="true">22.</strong> Rust language</a></li><li class="chapter-item expanded "><a href="../topics/sapper.html"><strong aria-hidden="true">23.</strong> Sapper, a server side framework with Svelte</a></li><li class="chapter-item expanded "><a href="../topics/ssr.html"><strong aria-hidden="true">24.</strong> Server side and/or Headless rendering</a></li><li class="chapter-item expanded "><a href="../topics/svelte.html"><strong aria-hidden="true">25.</strong> Svelte, firebase</a></li><li class="chapter-item expanded affix "><li class="part-title">Machine Learning</li><li class="chapter-item expanded "><a href="../topics/ai.html"><strong aria-hidden="true">26.</strong> Artificial Intelligence</a></li><li class="chapter-item expanded affix "><li class="part-title">System Development</li><li class="chapter-item expanded "><a href="../topics/cross.html"><strong aria-hidden="true">27.</strong> Cross Compilation</a></li><li class="chapter-item expanded "><a href="../topics/lfs.html" class="active"><strong aria-hidden="true">28.</strong> Linux from scratch (Part 1)</a></li><li class="chapter-item expanded "><a href="../topics/lfs2.html"><strong aria-hidden="true">29.</strong> Linux from scratch (Part 2)</a></li><li class="chapter-item expanded "><a href="../topics/lfs3.html"><strong aria-hidden="true">30.</strong> Linux from scratch (Part 3)</a></li><li class="chapter-item expanded "><a href="../topics/os.html"><strong aria-hidden="true">31.</strong> Custom O/S</a></li><li class="chapter-item expanded affix "><li class="part-title">Content Management</li><li class="chapter-item expanded "><a href="../topics/jekyll.html"><strong aria-hidden="true">32.</strong> Jekyll stuff</a></li><li class="chapter-item expanded "><a href="../topics/hugo.html"><strong aria-hidden="true">33.</strong> Hugo stuff</a></li><li class="chapter-item expanded "><a href="../topics/mdbook.html"><strong aria-hidden="true">34.</strong> mdbook</a></li><li class="chapter-item expanded affix "><li class="part-title">Compilers</li><li class="chapter-item expanded "><a href="../topics/parse.html"><strong aria-hidden="true">35.</strong> Compilers/Parsers</a></li><li class="chapter-item expanded "><a href="../topics/peg.html"><strong aria-hidden="true">36.</strong> Peg Parsers</a></li><li class="chapter-item expanded affix "><li class="part-title">Software Projects</li><li class="chapter-item expanded "><a href="../topics/project.html"><strong aria-hidden="true">37.</strong> How to create a new project in gitlab or github</a></li><li class="chapter-item expanded "><a href="../topics/ubuntu.html"><strong aria-hidden="true">38.</strong> Ubuntu</a></li><li class="chapter-item expanded "><a href="../topics/vscode.html"><strong aria-hidden="true">39.</strong> Using vscode</a></li><li class="chapter-item expanded "><a href="../topics/winmsi.html"><strong aria-hidden="true">40.</strong> Windows MSI installer</a></li><li class="chapter-item expanded affix "><li class="part-title">Raspberry Pi</li><li class="chapter-item expanded "><a href="../topics/pirust.html"><strong aria-hidden="true">41.</strong> Rust in Raspberry Pi</a></li><li class="chapter-item expanded "><a href="../topics/raspberrypi.html"><strong aria-hidden="true">42.</strong> Using Raspberry Pi</a></li><li class="chapter-item expanded "><a href="../topics/embedded.html"><strong aria-hidden="true">43.</strong> Building Embedded System</a></li><li class="chapter-item expanded affix "><li class="part-title">Future</li><li class="chapter-item expanded "><a href="../topics/inspiration.html"><strong aria-hidden="true">44.</strong> Inspiration and plans</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">My software development cookbook</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="linux-from-scratch-part-1"><a class="header" href="#linux-from-scratch-part-1">Linux from scratch (Part 1)</a></h1>
+<h2 id="projects-using-lfs"><a class="header" href="#projects-using-lfs">Projects using LFS</a></h2>
+<ul>
+<li><a href="https://github.com/jfdelnero/LinuxFromScratch">Linux From scratch build scripts</a></li>
+<li><a href="http://www.linuxfromscratch.org/hints/downloads/files/dpkg.txt">Use dpkg (.deb) package management on LFS 6.3</a></li>
+<li><a href="http://www.linuxfromscratch.org/hints/downloads/files/fakeroot.txt">Fakeroot approach for package installation</a></li>
+<li><a href="https://clfs.org/view/clfs-embedded/arm/">LFS cross compile for arm</a></li>
+<li><a href="https://pixelspark.nl/2019/making-your-own-linux-distribution-for-the-raspberry-pi-for-fun-and-profit-part-1">Making your own Linux distribution for the Raspberry Pi</a></li>
+<li><a href="http://www.tldp.org/">The Linux Documentation Project</a></li>
+<li><a href="https://www.tldp.org/HOWTO/Program-Library-HOWTO/index.html">https://www.tldp.org/HOWTO/Program-Library-HOWTO/index.html</a></li>
+<li><a href="https://github.com/LeeKyuHyuk/PiCLFS">Cross Linux From Scratch (CLFS) on the Raspberry Pi</a></li>
+<li><a href="https://github.com/hisham-maged10/Building-Linux-From-Scratch">someones journal of building LFS</a></li>
+<li><a href="https://solarianprogrammer.com/2018/05/06/building-gcc-cross-compiler-raspberry-pi/">Building GCC as a cross compiler for Raspberry Pi</a></li>
+<li><a href="https://github.com/reinterpretcat/lfs">Docker configuration for building Linux From Scratch system</a></li>
+</ul>
+<h2 id="lfs-with-wsl2"><a class="header" href="#lfs-with-wsl2">LFS with wsl2</a></h2>
+<p>Get the <a href="http://www.linuxfromscratch.org/lfs/download.html">LFS book</a>. This book provides step by step guide to build an LFS system. Following will provide steps for chapter 1 &amp; 2.</p>
+<h2 id="chapter-1-and-2-setup-and-disc-image"><a class="header" href="#chapter-1-and-2-setup-and-disc-image">Chapter 1 and 2, Setup and Disc image</a></h2>
+<p>We will be needing few packages that we will install if they are not installed,</p>
+<pre><code class="language-bash">sudo apt-get install subversion xsltproc
+</code></pre>
+<p>run setup.sh which will create <code>sourceMe.sh</code> in the current folder. It will also download the book source to create other scripts and files.</p>
+<pre><code class="language-bash">sh /mnt/c/Users/&lt;user&gt;/Documents/linux/LFS/lfs-scripts/setup.sh
+</code></pre>
+<p>Now source <code>sourceMe.sh</code> to mount the scripts</p>
+<pre><code class="language-bash">$ source sourceMe.sh
+Mounting /mnt/c/Users/&lt;user&gt;/Documents/linux/LFS/lfs-scripts on lfs-scripts
+umount: lfs-scripts: not mounted.
+sh: mount-lfs.sh: No such file or directory
+</code></pre>
+<p>Check the requirements for LFS,</p>
+<pre><code class="language-bash">sh lfs-scripts/version-check.sh
+</code></pre>
+<p>Change shell to bash from dash if necessary,</p>
+<pre><code class="language-bash">sh lfs-scripts/ch2bash.sh
+</code></pre>
+<p>Let us create an empty disk image with two partitions,</p>
+<pre><code class="language-bash">sh lfs-scripts/mkdiscimg.sh
+</code></pre>
+<p>This will create <code>lfs.img</code> with two partitions and a script <code>mount-lfs.sh</code> to mount the image. Check the image, </p>
+<pre><code class="language-bash">$ fdisk -lu lfs.img
+Disk lfs.img: 10.26 GiB, 11010048000 bytes, 21504000 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x0e0d22a7
+
+Device     Boot  Start      End  Sectors  Size Id Type
+lfs.img1          8192   532479   524288  256M  c W95 FAT32 (LBA)
+lfs.img2        532480 21503999 20971520   10G 83 Linux
+</code></pre>
+<p>Now source <code>sourceMe.sh</code> the second time to mount the image.</p>
+<p>From now on, you can source <code>sourceMe.sh</code> before you start working to have everything setup after you boot between steps if necessary.</p>
+<p>We are ready to go with chapter 3. </p>
+<h2 id="chapter-3-get-sources"><a class="header" href="#chapter-3-get-sources">Chapter 3, Get sources</a></h2>
+<p>When we ran <code>setup.sh</code>, it downloaded the book and created,</p>
+<ul>
+<li><code>packages.sh</code></li>
+<li><code>patches.sh</code></li>
+<li><code>wget-list</code></li>
+<li><code>md5sums</code>
+Feel free to examine them.</li>
+</ul>
+<p>Lets proceed to download the sources,</p>
+<pre><code class="language-bash">sudo mkdir -v $LFS/sources
+sudo chmod -v a+wt $LFS/sources
+wget --input-file=wget-list --continue --directory-prefix=$LFS/sources
+cp md5sums $LFS/sources
+pushd $LFS/sources
+md5sum -c md5sums
+popd
+</code></pre>
+<p>Note that if a download fails you have to find an alternate source by googling and then adjust <code>wget-list</code>.
+At the time of this writing mpfr url had to be changed to <code>https://ftp.gnu.org/gnu/mpfr/mpfr-4.0.2.tar.xz</code>.</p>
+<blockquote>
+<p>Writing a makefile using <code>packages.sh</code> and <code>patches.sh</code> could be an alternative.</p>
+</blockquote>
+<p>We are ready to go with chapter 4.</p>
+<h2 id="chapter-4-setup-user-to-build-toolchain"><a class="header" href="#chapter-4-setup-user-to-build-toolchain">Chapter 4, Setup user to build toolchain</a></h2>
+<p>create user <code>lfs</code> and set permissions,</p>
+<pre><code class="language-bash">sudo mkdir -v $LFS/tools
+sudo ln -sv $LFS/tools /
+sudo groupadd lfs
+sudo useradd -s /bin/bash -g lfs -m -k /dev/null lfs
+sudo passwd lfs
+sudo chown -v lfs $LFS/tools
+sudo chown -v lfs $LFS/sources
+</code></pre>
+<p>Login as <code>lfs</code>,</p>
+<pre><code class="language-bash">su - lfs
+</code></pre>
+<p>Setup <code>lfs</code>'s environment,</p>
+<pre><code class="language-bash">cat &gt; ~/.bash_profile &lt;&lt; &quot;EOF&quot;
+exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash
+EOF
+
+cat &gt; ~/.bashrc &lt;&lt; &quot;EOF&quot;
+set +h
+umask 022
+LFS=/mnt/lfs
+LC_ALL=POSIX
+LFS_TGT=$(uname -m)-lfs-linux-gnu
+PATH=/tools/bin:/bin:/usr/bin
+export LFS LC_ALL LFS_TGT PATH
+EOF
+
+source ~/.bash_profile
+</code></pre>
+<p>This concludes chapter 4. Go to <a href="lfs2">Part 2</a> for next chapters.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../topics/cross.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../topics/lfs2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../topics/cross.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../topics/lfs2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3000/__livereload");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
