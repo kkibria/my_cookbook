@@ -12,7 +12,7 @@ I have written large Python projects in the past, looking into converting some t
 
 ## virtual environment for python
 
-The venv module provides support for creating lightweight “virtual environments” with their own site directories, optionally isolated from system site directories. Each virtual environment has its own Python binary (which matches the version of the binary that was used to create this environment) and can have its own independent set of installed Python packages in its site directories.
+The venv module provides support for creating lightweight "virtual environments" with their own site directories, optionally isolated from system site directories. Each virtual environment has its own Python binary (which matches the version of the binary that was used to create this environment) and can have its own independent set of installed Python packages in its site directories.
 
 1. First find out the python
 path of the version of python you need to use, for example, ``C:/Python39/python.exe``.

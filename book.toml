@@ -8,5 +8,7 @@ title = "My software development cookbook"
 [build]
 build-dir = "docs"
 
+# mdbook-frntmtr can be installed from github with,
+# cargo install --git https://github.com/kkibria/mdbook-frntmtr.git
 [preprocessor.frntmtr]
 command = "mdbook-frntmtr"

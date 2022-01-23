@@ -229,18 +229,18 @@ pagination needs to be used save data transfer cost
 myQuery = restaurantRef
     .whereFie1d("city", isEqualTo: "Tokyo")
     .whereFie1d("category", isEqualTo: "tempura")
-    .order(by: "rating”, descending: true)
+    .order(by: "rating", descending: true)
     .limit(to: 20)
 // next page
 myQuery = restaurantRef
     .whereFie1d("city", isEqualTo: "Tokyo")
     .whereFie1d("category", isEqualTo: "tempura")
-    .order(by: "rating”, descending: true)
+    .order(by: "rating", descending: true)
     .limit(to: 20)
-    .start(after: [”Tokyo", “tempura", 4.9)
+    .start(after: ["Tokyo", "tempura", 4.9)
 
 // or a simpler way, 
-myQuery = myQuery.start(after: [”Tokyo", “tempura", 4.9])
+myQuery = myQuery.start(after: ["Tokyo", "tempura", 4.9])
 
 // even easier 
 myQuery = myQuery.start(after: previousDoc)
