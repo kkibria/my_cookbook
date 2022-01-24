@@ -4,9 +4,6 @@ title: Firebase matters
 
 # {{ page.title }}
 
-* TOC
-{:toc}
-
 ## Firebase Auth sample
 * YouTube [Flutter Web - Firebase Authentication for your web apps](https://youtu.be/qtJU5T0tF-M).
   Github [link](https://github.com/rajayogan/flutterweb-firebaseauth) used in this video.
