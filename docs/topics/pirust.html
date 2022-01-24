@@ -1,0 +1,425 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Rust in Raspberry Pi - My Development Cookbook</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">A Few Words</a></li><li class="chapter-item expanded affix "><li class="part-title">Software Projects</li><li class="chapter-item expanded "><a href="../topics/project.html"><strong aria-hidden="true">1.</strong> Project in gitlab or github</a></li><li class="chapter-item expanded "><a href="../topics/vscode.html"><strong aria-hidden="true">2.</strong> Using vscode</a></li><li class="chapter-item expanded "><a href="../topics/winmsi.html"><strong aria-hidden="true">3.</strong> Windows MSI installer</a></li><li class="chapter-item expanded affix "><li class="part-title">Frontend Development</li><li class="chapter-item expanded "><a href="../topics/fronend.html"><strong aria-hidden="true">4.</strong> Frontend code development</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../topics/markdown.html"><strong aria-hidden="true">4.1.</strong> Markdown editor</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Backend Development</li><li class="chapter-item expanded "><a href="../topics/ssr.html"><strong aria-hidden="true">5.</strong> Server side and/or Headless rendering</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../topics/firebase.html"><strong aria-hidden="true">5.1.</strong> Firebase matters</a></li><li class="chapter-item expanded "><a href="../topics/firestore.html"><strong aria-hidden="true">5.2.</strong> Firestore matters</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">App with html</li><li class="chapter-item expanded "><a href="../topics/svelte.html"><strong aria-hidden="true">6.</strong> Svelte</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../topics/svelte-app.html"><strong aria-hidden="true">6.1.</strong> Svelte Desktop and mobile app</a></li><li class="chapter-item expanded "><a href="../topics/sveltekit.html"><strong aria-hidden="true">6.2.</strong> Sveltekit</a></li><li class="chapter-item expanded "><a href="../topics/sapper.html"><strong aria-hidden="true">6.3.</strong> Sapper, a server side framework with Svelte</a></li></ol></li><li class="chapter-item expanded "><a href="../topics/angular.html"><strong aria-hidden="true">7.</strong> Angular, bootstrap, firebase</a></li><li class="chapter-item expanded "><a href="../topics/flutter.html"><strong aria-hidden="true">8.</strong> Flutter Apps</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../topics/fluttersignin.html"><strong aria-hidden="true">8.1.</strong> Flutter Sign-in for your users</a></li><li class="chapter-item expanded "><a href="../topics/flutterreading.html"><strong aria-hidden="true">8.2.</strong> Flutter matters</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Content Management</li><li class="chapter-item expanded "><a href="../topics/text-content.html"><strong aria-hidden="true">9.</strong> Textual Contents</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../topics/mdbook.html"><strong aria-hidden="true">9.1.</strong> Mdbook</a></li><li class="chapter-item expanded "><a href="../topics/hugo.html"><strong aria-hidden="true">9.2.</strong> Hugo</a></li><li class="chapter-item expanded "><a href="../topics/jekyll.html"><strong aria-hidden="true">9.3.</strong> Jekyll</a></li></ol></li><li class="chapter-item expanded "><a href="../topics/gen-content.html"><strong aria-hidden="true">10.</strong> Beyond Textual Contents</a></li><li class="chapter-item expanded "><a href="../topics/community.html"><strong aria-hidden="true">11.</strong> Community portal</a></li><li class="chapter-item expanded affix "><li class="part-title">Programming Languages</li><li class="chapter-item expanded "><a href="../topics/go.html"><strong aria-hidden="true">12.</strong> Go language</a></li><li class="chapter-item expanded "><a href="../topics/java.html"><strong aria-hidden="true">13.</strong> Java development</a></li><li class="chapter-item expanded "><a href="../topics/java2go.html"><strong aria-hidden="true">14.</strong> Translating Java to Go language</a></li><li class="chapter-item expanded "><a href="../topics/jslib.html"><strong aria-hidden="true">15.</strong> Javascript library</a></li><li class="chapter-item expanded "><a href="../topics/py2js.html"><strong aria-hidden="true">16.</strong> Translating Python to Javascript language</a></li><li class="chapter-item expanded "><a href="../topics/rust.html"><strong aria-hidden="true">17.</strong> Rust language</a></li><li class="chapter-item expanded affix "><li class="part-title">Crafting Compilers</li><li class="chapter-item expanded "><a href="../topics/parse.html"><strong aria-hidden="true">18.</strong> Compilers/Parsers</a></li><li class="chapter-item expanded "><a href="../topics/peg.html"><strong aria-hidden="true">19.</strong> Peg Parsers</a></li><li class="chapter-item expanded affix "><li class="part-title">System Development</li><li class="chapter-item expanded "><a href="../topics/cross.html"><strong aria-hidden="true">20.</strong> Cross Compilation</a></li><li class="chapter-item expanded "><a href="../topics/lfs.html"><strong aria-hidden="true">21.</strong> Linux from scratch</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../topics/lfs1.html"><strong aria-hidden="true">21.1.</strong> LFS (Part 1)</a></li><li class="chapter-item expanded "><a href="../topics/lfs2.html"><strong aria-hidden="true">21.2.</strong> LFS (Part 2)</a></li><li class="chapter-item expanded "><a href="../topics/lfs3.html"><strong aria-hidden="true">21.3.</strong> LFS (Part 3)</a></li></ol></li><li class="chapter-item expanded "><a href="../topics/os.html"><strong aria-hidden="true">22.</strong> Custom O/S</a></li><li class="chapter-item expanded affix "><li class="part-title">Raspberry Pi</li><li class="chapter-item expanded "><a href="../topics/pirust.html" class="active"><strong aria-hidden="true">23.</strong> Rust in Raspberry Pi</a></li><li class="chapter-item expanded "><a href="../topics/raspberrypi.html"><strong aria-hidden="true">24.</strong> Using Raspberry Pi</a></li><li class="chapter-item expanded "><a href="../topics/embedded.html"><strong aria-hidden="true">25.</strong> Building Embedded System</a></li><li class="chapter-item expanded affix "><li class="part-title">Distro setup</li><li class="chapter-item expanded "><a href="../topics/ubuntu.html"><strong aria-hidden="true">26.</strong> Ubuntu</a></li><li class="chapter-item expanded affix "><li class="part-title">Machine Learning</li><li class="chapter-item expanded "><a href="../topics/ai.html"><strong aria-hidden="true">27.</strong> Artificial Intelligence</a></li><li class="chapter-item expanded affix "><li class="part-title">3D Related</li><li class="chapter-item expanded "><a href="../topics/3d.html"><strong aria-hidden="true">28.</strong> Developing 3D models</a></li><li class="chapter-item expanded "><a href="../topics/cloth.html"><strong aria-hidden="true">29.</strong> Cloth Simulation</a></li><li class="chapter-item expanded affix "><li class="part-title">Media Topics</li><li class="chapter-item expanded "><a href="../topics/audio.html"><strong aria-hidden="true">30.</strong> Audio Processing</a></li><li class="chapter-item expanded "><a href="../topics/broadcasting.html"><strong aria-hidden="true">31.</strong> Broadcasting</a></li><li class="chapter-item expanded "><a href="../topics/movie.html"><strong aria-hidden="true">32.</strong> Movie production tools</a></li><li class="chapter-item expanded "><a href="../topics/music.html"><strong aria-hidden="true">33.</strong> Music</a></li><li class="chapter-item expanded "><a href="../topics/dvd2mp4.html"><strong aria-hidden="true">34.</strong> Converting old DVDs/cd into mp4/mp3</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">My Development Cookbook</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="rust-in-raspberry-pi"><a class="header" href="#rust-in-raspberry-pi">Rust in Raspberry Pi</a></h1>
+<h2 id="notes"><a class="header" href="#notes">Notes</a></h2>
+<ul>
+<li><a href="https://github.com/diwic/dbus-rs/blob/master/libdbus-sys/cross_compile.md">https://github.com/diwic/dbus-rs/blob/master/libdbus-sys/cross_compile.md</a></li>
+<li><a href="https://github.com/diwic/dbus-rs/issues/184#issuecomment-520228758">https://github.com/diwic/dbus-rs/issues/184#issuecomment-520228758</a></li>
+</ul>
+<h2 id="setup-wsl2-for-cross-compile"><a class="header" href="#setup-wsl2-for-cross-compile">Setup wsl2 for cross compile</a></h2>
+<p>First install cross compile toolchain from <a href="https://github.com/kkibria/raspi-toolchain">https://github.com/kkibria/raspi-toolchain</a> in wsl2. 
+The toolchain install will create a temporary download area, which will contain the Raspbian image file. 
+Save the file image file of save the download area as we will need this to install additional
+libraries if required.</p>
+<h2 id="setup-wsl2-for-rust"><a class="header" href="#setup-wsl2-for-rust">Setup wsl2 for rust</a></h2>
+<p>Now install rust and setup rust,</p>
+<pre><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+. ~/.bashrc
+rustc --version
+rustup target add arm-unknown-linux-gnueabihf
+</code></pre>
+<p>We need to add our build target to <code>~/.cargo/config</code> by adding the following lines, so that rust knows which linker to use.</p>
+<pre><code>[build]
+# Specifies that the default target is ARM.
+target = &quot;arm-unknown-linux-gnueabihf&quot;
+rustflags = [&quot;-L&quot;, &quot;/lib/arm-linux-gnueabihf&quot;]
+
+[target.arm-unknown-linux-gnueabihf]
+linker = &quot;arm-linux-gnueabihf-gcc&quot;
+
+[target.arm-unknown-linux-gnueabihf.dbus]
+# Specifies the library search paths. Since they cannot be relative paths,
+# we use a build script to provide them.
+rustc-link-search = [
+    # Provided by the build script.
+]
+
+# Specifies the names of the native libraries that are required to build DBus.
+rustc-link-lib = [
+    &quot;dbus-1&quot;,
+    &quot;gcrypt&quot;,
+    &quot;gpg-error&quot;,
+    &quot;lz4&quot;,
+    &quot;lzma&quot;,
+    &quot;pcre&quot;,
+    &quot;selinux&quot;,
+    &quot;systemd&quot;,
+]
+</code></pre>
+<p>Now you have a working Rust cross-compilation toolchain set up. Next, we need to configure the DBus crate for cross compilation.</p>
+<p>Configuring the DBus crate for cross compilation
+The DBus crate uses a build script that uses pkg_config to locate the native dbus libraries. This works well when compiling for the host system, but not when cross compiling. In this case, we have to do what the Cargo book tells us and generate the output of the build script ourselves.</p>
+<p>The crate's build script is specified in Cargo.toml and is normally executed at every build. There are two Cargo keys that have to be returned by us:</p>
+<p>layout</p>
+<pre><code>.
+├── Cargo.toml
+├── build.rs
+└── src
+    └── main.rs
+</code></pre>
+<p><code>cargo:rustc-link-search</code>, which is the library search path.
+<code>cargo:rust-link-lib</code>, which is the name of a library to link.
+There are two ways we can provide these keys to Cargo:</p>
+<ul>
+<li>In a Cargo config file.</li>
+<li>In our own build script.
+Usually a Cargo config file should be enough, just specify the names of the libraries and the paths to them and we should be good to go, right? Not so fast. Currently, there is an issue with how Cargo handles relative paths in rustc-link-search: They are resolved relative to the location of the extracted crate, not relative to our project! So we would have to specify the library search paths absolute for the config file to work. Since it is a bit ridiculous to require the repository to be at the same location for each user, we can additionally use another build script to provide the library search paths.</li>
+</ul>
+<p>Enough talk, to action! To see how to set up the DBus crate for cross compilation, we create a new project for it. Create an empty directory somewhere and start a terminal in it. Then execute the following commands.</p>
+<p>Bash</p>
+<pre><code># Initialize a new Rust project in the current folder.
+cargo init
+</code></pre>
+<p>Change the contents of main.rs to the following. This is just so that we actually use something from the DBus crate, otherwise there would be no reference to it in the final executable and nothing for the linker to do.</p>
+<p><code>main.rs</code></p>
+<pre><code>use dbus::{BusType, Connection, Interface, Member};
+use std::error::Error;
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    let conn = Connection::get_private(BusType::System)?;
+    let obj = conn.with_path(&quot;org.freedesktop.DBus&quot;, &quot;/&quot;, 5000);
+    let msg = obj.method_call_with_args(
+        &amp;Interface::from(&amp;&quot;org.freedesktop.DBus&quot;.to_owned()),
+        &amp;Member::from(&amp;&quot;ListNames&quot;.to_owned()),
+        |_| (),
+    )?;
+    let names: Vec&lt;String&gt; = msg.get1().unwrap_or(Vec::new());
+    for name in names {
+        println!(&quot;{}&quot;, name);
+    }
+    Ok(())
+}
+</code></pre>
+<p>Next, add the DBus crate as an dependency by editing Cargo.toml.</p>
+<p>Cargo.toml</p>
+<pre><code>[dependencies]
+dbus = &quot;0.6&quot;
+</code></pre>
+<p>Create a Cargo configuration file, which has to be in a <code>.cargo</code> folder at the root of the repository, that specifies that the default target is ARMv7 and lists all the native ARMv7 libraries that are required to build DBus.</p>
+<p>Create the build script that will provide the library search paths. The build script will be named <code>build.rs</code> (which is the default) and lives at the root of the project, next to <code>Cargo.toml</code>.</p>
+<p><code>build.rs</code> (we don't really need this but this one shows if we needed additional search paths)</p>
+<pre><code>use std::env::var;
+
+fn main() {
+    // The manifest dir points to the root of the project containing this file.
+    let manifest_dir = var(&quot;CARGO_MANIFEST_DIR&quot;).unwrap();
+    // We tell Cargo that our native ARMv7 libraries are inside a &quot;libraries&quot; folder.
+    println!(&quot;cargo:rustc-link-search={}/libraries/lib/arm-linux-gnueabihf&quot;, manifest_dir);
+    println!(&quot;cargo:rustc-link-search={}/libraries/usr/lib/arm-linux-gnueabihf&quot;, manifest_dir);
+}
+</code></pre>
+<p>If you tried building the project at this point, you should get a rather long error message with this at the top: linking with arm-linux-gnueabihf-gcc failed. The final (and most tedious) step is finding and downloading the native ARMv7 libraries required by DBus.</p>
+<h2 id="details-on-getting-libraries"><a class="header" href="#details-on-getting-libraries">Details on getting libraries</a></h2>
+<p>How do you even find out which of the native packages are required? If you take a look at this line in the DBus build script, you see that it is looking for &quot;dbus-1&quot;, which means libdbus-1.</p>
+<p>OK, now which version of libdbus-1 is required? If you have your target system at hand, you can connect to it and run apt show libdbus-1* on it, which should show something like this.</p>
+<p>libdbus-1 Information</p>
+<pre><code>Package: libdbus-1-3
+Version: 1.12.16-1
+...
+Depends: libc6 (&gt;= 2.28), libsystemd0
+...
+</code></pre>
+<p>If you do not have the target system at hand, there is still a way: If you are using the Raspbian release based on Debian buster, head to this link (this is a huge file!) and search for Package: libdbus-1 inside there. You should see the same information.</p>
+<p>Now we know that we have to download libdbus1-3 version 1.12.16-1 and it depends on libc6 (which is provided by the cross compilation toolchain) and libsystemd0 (which is not and which we also have to download).</p>
+<p>In total, you have to download the following packages (the .deb files). This list contains the versions for the Raspbian release based on Debian buster. They may have changed since, check the versions installed on your target system. Click each of the package names below and download the correct file.</p>
+<pre><code>libdbus-1-3 is at version 1.12.16-1
+libgcrypt20 is at version 1.8.4-5
+libgpg-error0 is at version 1.35-1
+liblz4-1 is at version 1.8.3-1
+liblzma5 is at version 5.2.4-1
+libpcre3 is at version 2:8.39-12
+libselinux1 is at version 2.8-1+b1
+libsystemd0 is at version 241-5+rpi1
+</code></pre>
+<p>Next, you have to extract each of these downloaded .deb files separately into an empty folder.</p>
+<p>Bash</p>
+<pre><code>dpkg-deb -x /path/to/package.deb /path/to/empty/folder
+</code></pre>
+<h2 id="use-libget-to-get-the-required-libraries"><a class="header" href="#use-libget-to-get-the-required-libraries">Use <strong>libget</strong> to get the required libraries</a></h2>
+<p>when you installed the toolchain in wsl2, it also installed <code>libget</code>. This automates everything
+we discussed in above section. this will install the libraries in <code>~/rootfs</code>. 
+We can add the libraries to our root file system from ~/rootfs using <code>rsync</code></p>
+<pre><code>pushd ~/rootfs
+rsync -vR --progress -rl --delete-after --safe-links {etc,lib,sbin,usr,var} $HOME/rpi/rootfs
+popd
+</code></pre>
+<h2 id="details-on-links-to-library-for-rust"><a class="header" href="#details-on-links-to-library-for-rust">Details on links to library for rust</a></h2>
+<p>Enter the folder you have extracted the package into and take a look at the files. The folder structure can be ./lib/arm-linux-gnueabihf or even ./usr/lib/arm-linux-gnueabihf inside this folder. The relevant files are the .so files. Some libraries however have another number after the .so, for example library.so.3. In this case, you have to add a symlink to library.so because that's where the GCC linker will look for it. The symlink must be in the same directory as the file it points to. To create a symlink called library.so that points to library.so.3, you would use the following command.</p>
+<p>Bash</p>
+<pre><code>ln -s library.so.3 library.so
+</code></pre>
+<p>in our case,
+for dbus, we will create links</p>
+<pre><code>pushd /lib/arm-linux-gnueabihf
+ln -sf libdbus-1.so.3 libdbus-1.so
+ln -sf libgcrypt.so.20 libgcrypt.so
+ln -sf libgpg-error.so.0 libgpg-error.so
+ln -sf liblz4.so.1 liblz4.so
+ln -sf libpcre.so.3 libpcre.so
+ln -sf liblzma.so.5 liblzma.so
+ln -sf libpthread.so.0 libpthread.so
+ln -sf libdl.so.2 libdl.so
+ln -sf libselinux.so.1 libselinux.so
+ln -sf libsystemd.so.0 libsystemd.so
+popd
+</code></pre>
+<p>Then take all the contents of the folder you extracted the package into and move them into another folder called libraries, which you create at the root of your Rust project. This is the location we directed the GCC linker to look for the libraries.</p>
+<p>Repeat the extraction, symlinking and moving for all the other libraries.</p>
+<p>Finally, after all this is done, your libraries folder should look something like this (the version numbers may differ):</p>
+<pre><code>./lib/arm-linux-gnueabihf/libdbus-1.so
+./lib/arm-linux-gnueabihf/libdbus-1.so.3
+./lib/arm-linux-gnueabihf/libdbus-1.so.3.14.15
+./lib/arm-linux-gnueabihf/libgcrypt.so
+...
+./usr/lib/arm-linux-gnueabihf/liblz4.so
+./usr/lib/arm-linux-gnueabihf/liblz4.so.1
+...
+</code></pre>
+<h2 id="use-liblink-to-make-links-to-library-for-rust"><a class="header" href="#use-liblink-to-make-links-to-library-for-rust">Use <strong>liblink</strong> to make links to library for rust</a></h2>
+<p>When you installed the toolchain in wsl2, it also installed <code>liblink</code>. This automates everything
+we discussed in above section. This will install the links in <code>~/liblink</code> folder. </p>
+<pre><code>liblink dbus-1 gcrypt gpg-error lz4 pcre lzma pthread dl selinux systemd
+</code></pre>
+<blockquote>
+<p><code>~/liblink</code> is
+not inside the rust project folder. As a result, we can simply choose to make
+rust use this folder directly for linking. In such case, we will specify 
+the absolute path of <code>~/liblink</code>
+in <code>~/.cargo/config</code> search link section, <code>rustc-link-search</code> without 
+using <code>build.rs</code>.</p>
+</blockquote>
+<h2 id="cross-compile"><a class="header" href="#cross-compile">Cross compile</a></h2>
+<p>Finally, you will be able to cross compile the project without error messages.</p>
+<p>Bash</p>
+<pre><code>cargo build
+# Should print something like: Finished dev [unoptimized + debuginfo] target(s) in 0.57s
+</code></pre>
+<h2 id="note-on-getting-dbus-interfaces"><a class="header" href="#note-on-getting-dbus-interfaces">Note on getting dbus interfaces</a></h2>
+<blockquote>
+<p>Lot of the followings have been actually updated, check <a href="https://github.com/kkibria/dbus-dev">https://github.com/kkibria/dbus-dev</a></p>
+</blockquote>
+<p>the xml files were generated in raspberry pi</p>
+<pre><code class="language-bash">dbus-send --system --dest=fi.w1.wpa_supplicant1 \
+  --type=method_call --print-reply=literal /fi/w1/wpa_supplicant1 \
+  org.freedesktop.DBus.Introspectable.Introspect &gt; wpa.xml
+
+dbus-send --system --dest=org.freedesktop.timedate1 \
+  --type=method_call --print-reply=literal /org/freedesktop/timedate1 \
+  org.freedesktop.DBus.Introspectable.Introspect &gt; timedate.xml
+</code></pre>
+<p>and copied in the project.</p>
+<p>then on wsl we can use the xml files</p>
+<pre><code class="language-bash">dbus-codegen-rust -s -f org.freedesktop.timedate1 &lt; timedate.xml &gt; src/timedate.rs
+dbus-codegen-rust -s -f fi.w1.wpa_supplicant1 &lt; wpa.xml &gt; src/wpa.rs
+</code></pre>
+<p>alternatively we can use dbus-codegen-rust on pi to generate rust files directly and copy to rust project</p>
+<p>put it all together in <code>get-pi-rs.sh</code></p>
+<pre><code class="language-bash">#assuming RPI is already exported in .bashrc
+ssh $RPI 'bash -s' &lt;&lt;-&quot;EOF&quot;
+ export PATH=$HOME/.cargo/bin:$PATH
+ rm -rf temp-wsl
+ mkdir temp-wsl
+ pushd temp-wsl
+ dbus-codegen-rust -s -d org.freedesktop.timedate1 -p &quot;/org/freedesktop/timedate1&quot; -f org.freedesktop.timedate1 &gt; timedate.rs
+ dbus-codegen-rust -s -d fi.w1.wpa_supplicant1 -p &quot;/fi/w1/wpa_supplicant1&quot; -f fi.w1.wpa_supplicant1 &gt; wpa.rs
+ popd
+EOF
+rcp $RPI:temp-wsl/*.rs src
+</code></pre>
+<h2 id="python-example-for-dbus"><a class="header" href="#python-example-for-dbus">Python example for dbus</a></h2>
+<ul>
+<li><a href="https://android.googlesource.com/platform/external/wpa_supplicant_8/+/master/wpa_supplicant/examples/wpas-dbus-new.py">wpas-dbus-new.py</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../topics/os.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../topics/raspberrypi.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../topics/os.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../topics/raspberrypi.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
