@@ -1749,21 +1749,122 @@ gathered popularity and is being used quite widely. This format is really just a
 text file that can be produced by any text editor.</p>
 <p>We will look into Content Management with markdown for web sites. These sites can contain
 a collection of markdown files. Content Management allows them to be organized and navigated
-in a useful way. They are translated to html before they are rendered in a browser.</p>
+in a useful way. They are transformed to html before they are rendered in a browser.</p>
+<p>However, wherever you will host the content, their flow is something important to
+understand clearly before you start. For instance, we can talk about github pages.</p>
+<h2 id="hosting-content-in-github-pages"><a class="header" href="#hosting-content-in-github-pages">Hosting Content in github pages</a></h2>
+<p>Github pages is quite popular for hosting as it is free and git
+controlled. Although there are several options available for github pages,
+there is a idea of separation of concern behind those options.
+They implemented the idea by using two different git branches. 
+One for textual content like markdown source files and the
+other for generated html. Usually, the markdown source file lives in the default branch
+<code>master</code> as we may edit those files more frequently. When we are ready to deploy our
+content, the generated html will live in another branch, lets call it <code>gh-pages</code>.
+github allows configuring the repository such that it's web server will check out html
+from <code>gh-pages</code> branch and use.</p>
+<h3 id="scaffolding-setup"><a class="header" href="#scaffolding-setup">Scaffolding setup</a></h3>
+<p>Knowing this, we will need to scaffold our project in way so that it is convenient
+to manage. As such, I will suggest one way that felt most convenient for me.</p>
+<pre><code class="language-text">my_project (folder)
+   +-- .git (points to master branch)
+   +-- .gitignore (set to ignore gh-pages folder)
+   +-- (markdown contents)
+   +-- deploy.sh (used for deploying generated content)
+   +-- gh-pages (folder)
+         +-- .git (points to gh-pages branch)
+         +-- (generated html contents)
+</code></pre>
+<p>Using terminal, create a project folder and open it in vscode,</p>
+<pre><code class="language-bash">mkdir my_project
+cd my_project
+echo &quot;gh-pages&quot; &gt; .gitignore
+mkdir gh-pages
+
+# This will create the master branch
+git init
+git add .
+git commit -m &quot;first commit&quot; 
+
+code .
+</code></pre>
+<h3 id="create-repository-in-github-and-publish-the-default-branch"><a class="header" href="#create-repository-in-github-and-publish-the-default-branch">Create repository in github and publish the default branch</a></h3>
+<p>With vscode, in source control panel, create a github repository and 
+push everything we have so far to github. </p>
+<p>If you are not using vscode, then you can manually create github repository
+and push the <code>master</code> branch.</p>
+<h3 id="create-and-publish-the-html-branch"><a class="header" href="#create-and-publish-the-html-branch">Create and publish the html branch</a></h3>
+<p>Now we create the <code>gh-pages</code> branch.
+Following bash script will do this,</p>
+<pre><code class="language-bash">URL=`git remote get-url origin`
+pushd gh-pages
+git clone $URL .
+
+# create gh-pages branch
+git checkout -b gh-pages
+
+# clear everything came from master 
+git branch -D master
+git rm -r .
+git commit -m &quot;clearing master contents&quot;
+
+# push the branch to github
+git push origin gh-pages
+popd
+</code></pre>
+<p>Now the scaffolding is ready. We need to create a script that will deploy
+generated content.</p>
+<h3 id="setup-a-deploy-script"><a class="header" href="#setup-a-deploy-script">Setup a deploy script</a></h3>
+<p><code>deploy.sh</code></p>
+<pre><code class="language-bash">command_to_generate_html
+pushd gh-pages
+git add .
+git commit -m &quot;deploy&quot;
+git push origin gh-pages
+popd
+</code></pre>
+<p>If you are in windows, you can create equivalent powershell or command line scripts.</p>
+<h3 id="setup-github-to-pick-up-the-branch-and-folder"><a class="header" href="#setup-github-to-pick-up-the-branch-and-folder">Setup github to pick up the branch and folder</a></h3>
+<p>In github repo settings go to <code>github pages</code> and
+branch to <code>gh-pages</code> and change folder to <code>docs</code> and note the public url 
+they provide for the site.</p>
+<h3 id="create-and-publish-the-html-branch-powershell-version"><a class="header" href="#create-and-publish-the-html-branch-powershell-version">Create and publish the html branch (powershell version)</a></h3>
+<pre><code>$url = git remote get-url origin
+mkdir gh-pages
+Set-Location gh-pages
+git clone $url .
+git checkout -b gh-pages
+git rm -r .
+git commit -m &quot;clearing master contents&quot;
+git push origin gh-pages
+git branch -D master
+Set-Location ..
+</code></pre>
+<h3 id="setup-a-deploy-script-powershell-version"><a class="header" href="#setup-a-deploy-script-powershell-version">Setup a deploy script (powershell version)</a></h3>
+<p><code>deploy.ps1</code></p>
+<pre><code>command_to_generate_html
+Set-Location gh-pages
+git add .
+git commit -m &quot;deploy&quot;
+git push origin gh-pages
+Set-Location ..
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="mdbook"><a class="header" href="#mdbook">Mdbook</a></h1>
 <p>To do a new book, first you need to install <code>rust</code>.</p>
-<h2 id="install-mdbook-and-the-front-matter-preprocessor"><a class="header" href="#install-mdbook-and-the-front-matter-preprocessor">install mdbook and the front matter preprocessor</a></h2>
-<p>We support a subset of Yaml in front matter.</p>
+<h2 id="install-mdbook-and-the-front-matter-preprocessor"><a class="header" href="#install-mdbook-and-the-front-matter-preprocessor">Install mdbook and the front matter preprocessor</a></h2>
+<p>With this preprocessor we can support a subset of Yaml in front matter.</p>
 <pre><code class="language-bash">cargo install mdbook
 cargo install --git https://github.com/kkibria/mdbook-frntmtr.git
 </code></pre>
-<h2 id="initialize-a-folder"><a class="header" href="#initialize-a-folder">initialize a folder</a></h2>
-<p>mdbook init my_book
-cd my_book
-git init</p>
-<h2 id="hosting-the-content-at-github-pages"><a class="header" href="#hosting-the-content-at-github-pages">Hosting the content at github pages</a></h2>
-<p>For static sites github pages is a great choice. It is free and easy to use.</p>
-<h3 id="setup-booktoml"><a class="header" href="#setup-booktoml">setup <code>book.toml</code></a></h3>
+<h2 id="hosting-at-github-pages"><a class="header" href="#hosting-at-github-pages">Hosting at github pages</a></h2>
+<p>For static sites, github pages is a great choice. It is free and easy to use.
+Generate the scaffolding using instructions from <a href="topics/text-content.html#hosting-content-in-github-pages">Hosting Content in github pages</a> section.</p>
+<h2 id="initialize-project-folder"><a class="header" href="#initialize-project-folder">Initialize Project folder</a></h2>
+<pre><code class="language-bash">cd my_project
+mdbook init
+mkdir src
+</code></pre>
+<h3 id="setup-booktoml"><a class="header" href="#setup-booktoml">Setup <code>book.toml</code></a></h3>
 <p>add following,</p>
 <pre><code>[book]
 src = &quot;src&quot;
@@ -1774,30 +1875,13 @@ build-dir = &quot;gh-pages/docs&quot;
 [preprocessor.frntmtr]
 command = &quot;mdbook-frntmtr&quot;
 </code></pre>
-<h3 id="setup-the-project-branches"><a class="header" href="#setup-the-project-branches">Setup the Project branches</a></h3>
-<p><code>setup.ps1</code></p>
-<pre><code>git push origin -d gh-pages
-mkdir gh-pages
-Set-Location gh-pages
-$url = git remote get-url origin
-git clone $url .
-git checkout -b gh-pages
-git rm -r .
-git commit -m &quot;clearing master contents&quot;
-git push origin gh-pages
-git branch -D master
-Set-Location ..
-</code></pre>
-<h3 id="setup-github-to-pick-up-the-branch-and-folder"><a class="header" href="#setup-github-to-pick-up-the-branch-and-folder">Setup github to pick up the branch and folder</a></h3>
-<p>Publish your folder in github. In github repo settings go to <code>github pages</code> and
-branch to <code>gh-pages</code> and change folder to <code>docs</code> and note the public url for the site.</p>
 <h3 id="add-content"><a class="header" href="#add-content">Add content</a></h3>
 <p>Start the local server for development,</p>
 <pre><code>mdbook serve -o
 </code></pre>
 <p>Now modify or add contents in <code>src</code> folder. It will live update. Once you are happy with the
 content you can deploy.</p>
-<h3 id="deploy-to-github-pages"><a class="header" href="#deploy-to-github-pages">Deploy to github pages</a></h3>
+<h3 id="deploy-to-github-pages-powershell-version"><a class="header" href="#deploy-to-github-pages-powershell-version">Deploy to github pages (powershell version)</a></h3>
 <p><code>deploy.ps1</code></p>
 <pre><code>mdbook build
 Set-Location gh-pages
