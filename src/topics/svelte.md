@@ -1,5 +1,5 @@
 ---
-title: Svelte, firebase
+title: Svelte
 ---
 # {{ page.title }}
 

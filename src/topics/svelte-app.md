@@ -22,7 +22,7 @@ title: Svelte Desktop and mobile app
 * <https://gist.github.com/dalezak/a6b1de39091f4ace220695d72717ac71>
 
 
-## electron and local file issue
+## local file loading in electron
 * [Electron should be able to load local resources with enabled webSecurity](https://github.com/electron/electron/issues/23393)
 * <https://www.electronjs.org/docs/api/protocol#protocolregisterfileprotocolscheme-handler-completion>
 

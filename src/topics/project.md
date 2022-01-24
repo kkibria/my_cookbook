@@ -1,5 +1,5 @@
 ---
-title: How to create a new project in gitlab or github
+title: Project in gitlab or github
 ---
 
 # {{ page.title }}

@@ -26,7 +26,7 @@
     - [Flutter matters](.\topics\flutterreading.md)
 
 # Content Management
-- [Texual Content Collection](.\topics\text-content.md)
+- [Textual Content Collection](.\topics\text-content.md)
     - [mdbook](.\topics\mdbook.md)
     - [Hugo stuff](.\topics\hugo.md)
     - [Jekyll stuff](.\topics\jekyll.md)
