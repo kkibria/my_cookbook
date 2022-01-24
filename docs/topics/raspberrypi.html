@@ -1,0 +1,835 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Using Raspberry Pi - My Development Cookbook</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">A Few Words</a></li><li class="chapter-item expanded affix "><li class="part-title">Software Projects</li><li class="chapter-item expanded "><a href="../topics/project.html"><strong aria-hidden="true">1.</strong> Project in gitlab or github</a></li><li class="chapter-item expanded "><a href="../topics/vscode.html"><strong aria-hidden="true">2.</strong> Using vscode</a></li><li class="chapter-item expanded "><a href="../topics/winmsi.html"><strong aria-hidden="true">3.</strong> Windows MSI installer</a></li><li class="chapter-item expanded affix "><li class="part-title">Frontend Development</li><li class="chapter-item expanded "><a href="../topics/fronend.html"><strong aria-hidden="true">4.</strong> Frontend code development</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../topics/markdown.html"><strong aria-hidden="true">4.1.</strong> Markdown editor</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Backend Development</li><li class="chapter-item expanded "><a href="../topics/ssr.html"><strong aria-hidden="true">5.</strong> Server side and/or Headless rendering</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../topics/firebase.html"><strong aria-hidden="true">5.1.</strong> Firebase matters</a></li><li class="chapter-item expanded "><a href="../topics/firestore.html"><strong aria-hidden="true">5.2.</strong> Firestore matters</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">App with html</li><li class="chapter-item expanded "><a href="../topics/svelte.html"><strong aria-hidden="true">6.</strong> Svelte</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../topics/svelte-app.html"><strong aria-hidden="true">6.1.</strong> Svelte Desktop and mobile app</a></li><li class="chapter-item expanded "><a href="../topics/sveltekit.html"><strong aria-hidden="true">6.2.</strong> Sveltekit</a></li><li class="chapter-item expanded "><a href="../topics/sapper.html"><strong aria-hidden="true">6.3.</strong> Sapper, a server side framework with Svelte</a></li></ol></li><li class="chapter-item expanded "><a href="../topics/angular.html"><strong aria-hidden="true">7.</strong> Angular, bootstrap, firebase</a></li><li class="chapter-item expanded "><a href="../topics/flutter.html"><strong aria-hidden="true">8.</strong> Flutter Apps</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../topics/fluttersignin.html"><strong aria-hidden="true">8.1.</strong> Flutter Sign-in for your users</a></li><li class="chapter-item expanded "><a href="../topics/flutterreading.html"><strong aria-hidden="true">8.2.</strong> Flutter matters</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Content Management</li><li class="chapter-item expanded "><a href="../topics/text-content.html"><strong aria-hidden="true">9.</strong> Textual Contents</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../topics/mdbook.html"><strong aria-hidden="true">9.1.</strong> Mdbook</a></li><li class="chapter-item expanded "><a href="../topics/hugo.html"><strong aria-hidden="true">9.2.</strong> Hugo</a></li><li class="chapter-item expanded "><a href="../topics/jekyll.html"><strong aria-hidden="true">9.3.</strong> Jekyll</a></li></ol></li><li class="chapter-item expanded "><a href="../topics/gen-content.html"><strong aria-hidden="true">10.</strong> Beyond Textual Contents</a></li><li class="chapter-item expanded "><a href="../topics/community.html"><strong aria-hidden="true">11.</strong> Community portal</a></li><li class="chapter-item expanded affix "><li class="part-title">Programming Languages</li><li class="chapter-item expanded "><a href="../topics/go.html"><strong aria-hidden="true">12.</strong> Go language</a></li><li class="chapter-item expanded "><a href="../topics/java.html"><strong aria-hidden="true">13.</strong> Java development</a></li><li class="chapter-item expanded "><a href="../topics/java2go.html"><strong aria-hidden="true">14.</strong> Translating Java to Go language</a></li><li class="chapter-item expanded "><a href="../topics/jslib.html"><strong aria-hidden="true">15.</strong> Javascript library</a></li><li class="chapter-item expanded "><a href="../topics/py2js.html"><strong aria-hidden="true">16.</strong> Translating Python to Javascript language</a></li><li class="chapter-item expanded "><a href="../topics/rust.html"><strong aria-hidden="true">17.</strong> Rust language</a></li><li class="chapter-item expanded affix "><li class="part-title">Crafting Compilers</li><li class="chapter-item expanded "><a href="../topics/parse.html"><strong aria-hidden="true">18.</strong> Compilers/Parsers</a></li><li class="chapter-item expanded "><a href="../topics/peg.html"><strong aria-hidden="true">19.</strong> Peg Parsers</a></li><li class="chapter-item expanded affix "><li class="part-title">System Development</li><li class="chapter-item expanded "><a href="../topics/cross.html"><strong aria-hidden="true">20.</strong> Cross Compilation</a></li><li class="chapter-item expanded "><a href="../topics/lfs.html"><strong aria-hidden="true">21.</strong> Linux from scratch</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../topics/lfs1.html"><strong aria-hidden="true">21.1.</strong> LFS (Part 1)</a></li><li class="chapter-item expanded "><a href="../topics/lfs2.html"><strong aria-hidden="true">21.2.</strong> LFS (Part 2)</a></li><li class="chapter-item expanded "><a href="../topics/lfs3.html"><strong aria-hidden="true">21.3.</strong> LFS (Part 3)</a></li></ol></li><li class="chapter-item expanded "><a href="../topics/os.html"><strong aria-hidden="true">22.</strong> Custom O/S</a></li><li class="chapter-item expanded affix "><li class="part-title">Raspberry Pi</li><li class="chapter-item expanded "><a href="../topics/pirust.html"><strong aria-hidden="true">23.</strong> Rust in Raspberry Pi</a></li><li class="chapter-item expanded "><a href="../topics/raspberrypi.html" class="active"><strong aria-hidden="true">24.</strong> Using Raspberry Pi</a></li><li class="chapter-item expanded "><a href="../topics/embedded.html"><strong aria-hidden="true">25.</strong> Building Embedded System</a></li><li class="chapter-item expanded affix "><li class="part-title">Distro setup</li><li class="chapter-item expanded "><a href="../topics/ubuntu.html"><strong aria-hidden="true">26.</strong> Ubuntu</a></li><li class="chapter-item expanded affix "><li class="part-title">Machine Learning</li><li class="chapter-item expanded "><a href="../topics/ai.html"><strong aria-hidden="true">27.</strong> Artificial Intelligence</a></li><li class="chapter-item expanded affix "><li class="part-title">3D Related</li><li class="chapter-item expanded "><a href="../topics/3d.html"><strong aria-hidden="true">28.</strong> Developing 3D models</a></li><li class="chapter-item expanded "><a href="../topics/cloth.html"><strong aria-hidden="true">29.</strong> Cloth Simulation</a></li><li class="chapter-item expanded affix "><li class="part-title">Media Topics</li><li class="chapter-item expanded "><a href="../topics/audio.html"><strong aria-hidden="true">30.</strong> Audio Processing</a></li><li class="chapter-item expanded "><a href="../topics/broadcasting.html"><strong aria-hidden="true">31.</strong> Broadcasting</a></li><li class="chapter-item expanded "><a href="../topics/movie.html"><strong aria-hidden="true">32.</strong> Movie production tools</a></li><li class="chapter-item expanded "><a href="../topics/music.html"><strong aria-hidden="true">33.</strong> Music</a></li><li class="chapter-item expanded "><a href="../topics/dvd2mp4.html"><strong aria-hidden="true">34.</strong> Converting old DVDs/cd into mp4/mp3</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">My Development Cookbook</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="using-raspberry-pi"><a class="header" href="#using-raspberry-pi">Using Raspberry Pi</a></h1>
+<h2 id="pi-documentation"><a class="header" href="#pi-documentation">Pi Documentation</a></h2>
+<ul>
+<li><a href="https://www.raspberrypi.org/documentation/">https://www.raspberrypi.org/documentation/</a>.</li>
+<li><a href="https://www.raspberrypi.org/documentation/configuration/">https://www.raspberrypi.org/documentation/configuration/</a>.</li>
+<li><a href="https://pifi.imti.co/">https://pifi.imti.co/</a>.</li>
+<li><a href="https://youtu.be/qeHpXVUwI08">https://youtu.be/qeHpXVUwI08</a></li>
+<li><a href="https://youtu.be/RlgLIr2gZFg">https://youtu.be/RlgLIr2gZFg</a></li>
+</ul>
+<h2 id="iot"><a class="header" href="#iot">IOT</a></h2>
+<p>If we want to make an IOT with Pi, we will need to setup a headless pi first. We will use raspberry pi zero W since it has built-in wireless which
+can be used to network for development as well as connecting the device to the internet without additional hardware.</p>
+<h2 id="setup-for-development"><a class="header" href="#setup-for-development">Setup for development</a></h2>
+<p>We will use a PC to do code editing and run code to test during development. We will setup the wifi to connect the pi to a network that the PC is connected to.</p>
+<h3 id="setup-for-headless-wifi-and-usb-networking"><a class="header" href="#setup-for-headless-wifi-and-usb-networking">Setup for headless wifi and USB networking</a></h3>
+<p>First burn the minimal boot image to SD card using the PC. After the image is prepared,<br />
+take out the and reinsert the SD card in the PC to make the new filesystem visible. Now go to the root directory
+of the SD.</p>
+<p>First we will setup the wifi networking. 
+Create following two files in the disk image root directory.</p>
+<ol>
+<li><code>wpa_supplicant.conf</code>.</li>
+<li><code>ssh</code>.</li>
+</ol>
+<p>The <code>wpa_supplicant.conf</code> file should contain the following content,</p>
+<pre><code class="language-auto">country=US
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+	ssid=&quot;Wifi-Network-Name&quot;
+	psk=&quot;Wifi-Network-Password&quot;
+	key_mgmt=WPA-PSK
+}
+</code></pre>
+<p>The <code>ssh</code> file should be empty. This will enable incoming ssh connections into pi.</p>
+<p>These two files will setup the config during boot and then will be deleted after boot, but we will not boot it yet.</p>
+<p>Next we will setup USB networking. 
+Use a text editor to edit <code>config.txt</code> in the same directory.
+Go to the bottom and add,</p>
+<pre><code class="language-auto">dtoverlay=dwc2
+</code></pre>
+<p>Save the <code>config.txt</code>.</p>
+<p>Now edit <code>cmdline.txt</code> file and insert after <code>rootwait</code> (the last word on the first line) add a space and then <code>modules-load=dwc2,g_ether</code>. Note that this line is a very long line. </p>
+<pre><code class="language-auto">... rootwait modules-load=dwc2,g_ether ...
+</code></pre>
+<p>Save the <code>cmdline.txt</code></p>
+<p>Insert the SD in pi. Now we can use 
+USB networking to ssh into pi for development. First make sure that there is
+<strong>no power cable is connected to the Pi</strong>. Simply plug in the Pi USB OTG port to a PC or laptop with a cable. PC will recognize the
+Pi device power it thru the cable. After the boot completed, you can ssh into <code>pi@raspberrypi.local</code> using the default password <code>raspberry</code>.</p>
+<p>You can also ssh thru wifi. Detach the cable from computer.
+Plug in the power cable to the power port 
+and turn power on. After the boot completed, 
+we can connect to headless pi thru ssh from the computer on the wifi network.</p>
+<p>You should change the default password on this first boot to something else. </p>
+<h3 id="secure-the-ssh"><a class="header" href="#secure-the-ssh">Secure the ssh</a></h3>
+<p>Now that you are connected to pi via ssh, 
+it is best to setup key-based authentication instead of using password for ssh at this point to make it more secure. 
+Key pairs are two cryptographically secure keys and extremely difficult to break. One is private, and one is public. These keys are stored by default in the <code>.ssh</code> folder in your home directory on the PC. The private key will be called <code>id_rsa</code> and the associated public key will be called <code>id_rsa.pub</code>. If you don't have those files already, simply use <code>ssh-keygen</code> command to generate them.</p>
+<p>We will need to copy the public key to Raspberry Pi.
+Run the following commands on Pi over ssh,</p>
+<pre><code class="language-bash">mkdir -p ~/.ssh
+echo &gt;&gt; ~/.ssh/authorized_keys
+</code></pre>
+<p>Next, we will put the key in <code>~/.ssh/authorized_keys</code> using nano,</p>
+<pre><code class="language-bash">nano ~/.ssh/authorized_keys
+</code></pre>
+<p><code>id_rsa.pub</code> is just a text file, open it on your PC and copy the entire
+content and paste it in nano at the end of the <code>~/.ssh/authorized_keys</code> and save.<br />
+Now log in again using ssh using another terminal. If it didn't ask for password then
+we have successfully set up the keys.</p>
+<p>We can safely disable password logins now,
+so that all authentication is done by only the key pairs without locking us out.
+On pi we will change <code>/etc/ssh/sshd_config</code>,</p>
+<pre><code class="language-bash">sudo nano /etc/ssh/sshd_config
+</code></pre>
+<p>There are three lines that need to be changed to <code>no</code>, if they are not set that way already,</p>
+<pre><code class="language-auto">ChallengeResponseAuthentication no
+PasswordAuthentication no
+UsePAM no
+</code></pre>
+<p>Save the file and either restart the ssh system with <code>sudo service ssh reload</code> or reboot. Now you should be able to do ssh
+into <code>pi@raspberrypi.local</code> from the authorized PC only and you will not need to enter any password. </p>
+<h3 id="create-a-samba-share"><a class="header" href="#create-a-samba-share">Create a Samba share</a></h3>
+<p>We will use code editor on the PC to edit files directly on the pi. We will 
+install Samba to do this.
+Samba is available in Raspbian’s standard software repositories. We’re going to update our repository index, make sure our operating system is fully updated, and install Samba using apt-get. In ssh terminal and type:</p>
+<pre><code class="language-bash">sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install samba samba-common-bin
+</code></pre>
+<p>We’re going to create a dedicated shared directory on our Pi’s SD. </p>
+<pre><code>sudo mkdir -m 1777 /home/pi/devcode
+</code></pre>
+<p>This command sets the sticky bit (1) to help prevent the directory from being accidentally deleted and gives read/write/execute (777) permissions on it.</p>
+<p>Edit Samba’s config files to make the file share visible to the Windows PCs on the network.</p>
+<pre><code>sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.orig
+sudo nano /etc/samba/smb.conf
+</code></pre>
+<p>In our example, you’ll need to add the following entry:</p>
+<pre><code>[devcode]
+Comment = Pi shared folder
+path = /home/pi/devcode
+writeable = yes
+create mask = 0750
+directory mask = 0750
+valid users = pi 
+public = no
+</code></pre>
+<p>Make sure that the <code>path</code> points to a folder that has read write permission for all the<code>valid users</code>. 
+If you want to force a user or group when you write a file in your samba share you can use following,</p>
+<pre><code>[devcode]
+...
+force user = user1
+force group = group1
+</code></pre>
+<p>It is also best to comment out anything that you don't need to use such <code>printers</code> or <code>home</code> sections.</p>
+<p>Before we start the server, you’ll want to set a Samba password - this is not the same as your standard default password (raspberry), but there’s no harm in reusing this if you want to, as this is a low-security, local network project.</p>
+<pre><code>sudo smbpasswd -a pi
+</code></pre>
+<p>Then set a password as prompted.</p>
+<p>Finally, let’s restart Samba:</p>
+<pre><code>sudo /etc/init.d/smbd restart
+</code></pre>
+<p>From now on, Samba will start automatically whenever you power on your Pi. From you windows PC file explorer you can connect to <code>\\raspberrypi</code> and map <code>devcode</code>
+to a drive letter. You can do rest of your development using popular <code>vscode</code> or any other editor from your PC on the newly created drive.</p>
+<h2 id="vscode-for-development"><a class="header" href="#vscode-for-development">vscode for development</a></h2>
+<p>It is quite easy to setup. Read <a href="https://www.hanselman.com/blog/VisualStudioCodeRemoteDevelopmentOverSSHToARaspberryPiIsButter.aspx">Visual Studio Code Remote Development over SSH to a Raspberry Pi is butter</a>. Unfortunately, pi zero does not work because the microsoft's vscode remote server is not compiled for armv6 only supports armv7. I am not sure if the source code is available for one to re-compile for armv6.</p>
+<p>This kind of capability has been done for atom called atom-remote what uses rmate (remote for another editor called textmate). They do the editing ove ssh. There is also rmate extension for vscode, <a href="https://github.com/rafaelmaiolla/remote-vscode">https://github.com/rafaelmaiolla/remote-vscode</a>. More reading to do for sure.</p>
+<ul>
+<li><a href="https://github.com/randy3k/remote-atom">https://github.com/randy3k/remote-atom</a></li>
+<li><a href="https://github.com/aurora/rmate">https://github.com/aurora/rmate</a></li>
+</ul>
+<h2 id="configure-iot-setup-mechanism-by-user"><a class="header" href="#configure-iot-setup-mechanism-by-user">Configure IOT setup mechanism by user</a></h2>
+<p>If we build IOT device, it needs to be configured. For example the user needs to setup the wifi connection information so that it can be connected to internet.
+The question is, how do we set it up with a PC or cell phone and input those
+setup?</p>
+<p>The basic strategy is to setup up a web page that collects the configuration data. We will need to setup a web server first to produce the interface.</p>
+<p>Once done, we can scan wifi networks from pi to get all the available access points. Fot instance we can following shell command to scan and return the result.</p>
+<pre><code class="language-bash">sudo iw wlan0 scan
+</code></pre>
+<p>We can use returned info in the configuration webpage 
+for the user to select a
+a wifi connection and provide password. </p>
+<h3 id="installing-the-web-server"><a class="header" href="#installing-the-web-server">Installing the web server</a></h3>
+<p>We will be using instructions from <a href="https://mike632t.wordpress.com/2013/09/21/installing-lighttpd-with-python-cgi-support/#:%7E:text=Lighttpd%20is%20a%20lightweight%20web,such%20as%20the%20Raspberry%20Pi.">Installing Lighttpd with Python CGI support</a>.</p>
+<p>Install <code>lighthttpd</code> web server</p>
+<pre><code class="language-bash">sudo apt-get install lighttpd
+</code></pre>
+<p>Create a directory for the content</p>
+<pre><code class="language-bash">mkdir -p /home/pi/devcode/httpd/cgi-bin
+cp -Rv /var/www/* /home/pi/devcode/httpd
+sudo chown -R www-data /home/pi/devcode/httpd
+sudo chgrp -R www-data /home/pi/devcode/httpd
+find /home/pi/devcode/httpd -type d -exec sudo chmod g+ws {} \;
+sudo adduser pi www-data
+</code></pre>
+<p>We will edit <code>/etc/lighttpd/lighttpd.conf</code> with <code>nano</code> to update server configuration.</p>
+<pre><code class="language-bash">sudo nano /etc/lighttpd/lighttpd.conf
+</code></pre>
+<p>We will change document root in <code>/etc/lighttpd/lighttpd.conf</code>,</p>
+<pre><code class="language-auto">server.document-root        = &quot;/home/pi/devcode/httpd/public&quot;
+</code></pre>
+<p>We will Append following to the end of <code>/etc/lighttpd/lighttpd.conf</code> to enable cgi,</p>
+<pre><code class="language-auto">server.modules += ( &quot;mod_cgi&quot;, &quot;mod_setenv&quot; )
+static-file.exclude-extensions += ( &quot;.py&quot;, &quot;.sh&quot;, )
+$HTTP[&quot;url&quot;] =~ &quot;^/cgi-bin/&quot; {
+        alias.url = ( &quot;/cgi-bin/&quot; =&gt; &quot;/home/pi/devcode/httpd/cgi-bin/&quot; )
+        cgi.assign = (
+                &quot;.py&quot; =&gt; &quot;/usr/bin/python3&quot;,
+                &quot;.pl&quot;  =&gt; &quot;/usr/bin/perl&quot;,
+                &quot;.sh&quot;  =&gt; &quot;/bin/sh&quot;,
+        )
+        setenv.set-environment = ( &quot;PYTHONPATH&quot; =&gt; &quot;/home/pi/devcode/httpd/lib&quot; )
+}
+
+server.modules += (&quot;mod_rewrite&quot;)
+url.rewrite-once = ( &quot;^/json-api/(.*)\.json&quot; =&gt; &quot;/cgi-bin/$1.py&quot; )
+</code></pre>
+<p>This example also will setup search path for any python custom module and any url rewrite you may need.</p>
+<p>Restart the server</p>
+<pre><code class="language-bash">sudo service lighttpd restart
+</code></pre>
+<p>Now we can put static contents in <code>httpd/html</code> directory and all the handlers
+in <code>httpd/cgi-bin</code> directory. Go ahead, test the server from a web browser with some static content and cgi.</p>
+<h2 id="custom-fastcgi-for-lighttpd"><a class="header" href="#custom-fastcgi-for-lighttpd">custom fastcgi for lighttpd</a></h2>
+<ul>
+<li><a href="https://github.com/jerryvig/lighttpd-fastcgi-c">https://github.com/jerryvig/lighttpd-fastcgi-c</a></li>
+<li><a href="https://docs.rs/fastcgi/1.0.0/fastcgi/">https://docs.rs/fastcgi/1.0.0/fastcgi/</a></li>
+<li><a href="https://dafyddcrosby.com/rust-dreamhost-fastcgi/">https://dafyddcrosby.com/rust-dreamhost-fastcgi/</a></li>
+</ul>
+<h3 id="using-privileged-commands-in-cgi"><a class="header" href="#using-privileged-commands-in-cgi">Using privileged commands in CGI</a></h3>
+<p>The web server cgi scripts may need to run commands with root permission. This can be allowed by
+updating sudo permission for the server for specific commands. For instance, we can scan the wifi networks using <code>/sbin/iw</code> command
+running with root permission. You can edit the permission by running,</p>
+<pre><code class="language-bash">sudo visudo
+</code></pre>
+<p>This will bring up <code>nano</code> with the permission file. Add following line at the end of file,</p>
+<pre><code class="language-auto">%www-data  ALL=NOPASSWD: /sbin/iw
+</code></pre>
+<p>Now save the file. You can add more than one commands in comma separated paths if needed. Check documentation for <code>visudo</code>.</p>
+<h3 id="idea-1-configure-via-wifi"><a class="header" href="#idea-1-configure-via-wifi"><a name="idea1"></a>Idea 1: Configure via wifi</a></h3>
+<p>Set it up initially as a wifi access point on power up. 
+Then use it to setup up the configuration.</p>
+<p>Perhaps We can run both ap and client at the same time? Or a reset switch to select the mode. Or we can use some other algorithmic way turn on the access point. We can use captive portal to show the user interface.</p>
+<ul>
+<li><a href="https://www.raspberrypi.org/forums/viewtopic.php?t=211542">https://www.raspberrypi.org/forums/viewtopic.php?t=211542</a>.</li>
+<li><a href="https://serverfault.com/questions/869857/systemd-how-to-selectively-disable-wpa-supplicant-for-a-specific-wlan-interface">https://serverfault.com/questions/869857/systemd-how-to-selectively-disable-wpa-supplicant-for-a-specific-wlan-interface</a>.</li>
+<li><a href="https://pifi.imti.co/">https://pifi.imti.co/</a>.</li>
+<li><a href="https://en.wikipedia.org/wiki/Captive_portal">https://en.wikipedia.org/wiki/Captive_portal</a>.</li>
+</ul>
+<p>Check an <a href="#idea1-impl">implementation</a>. I haven't tested this yet. </p>
+<h3 id="idea-2-configure-via-bluetooth"><a class="header" href="#idea-2-configure-via-bluetooth">Idea 2: Configure via bluetooth</a></h3>
+<p>make pi a bluetooth device, connect your phone to it with an app the should display user interface and send the info to the device to get it configured.</p>
+<blockquote>
+<p>is it possible that device will send a html page while the bt connections act as network connection? probably not a whole lot different from idea 1 if we do that.</p>
+</blockquote>
+<p>I haven't tested this idea yet.</p>
+<ul>
+<li><a href="https://hacks.mozilla.org/2017/02/headless-raspberry-pi-configuration-over-bluetooth/">https://hacks.mozilla.org/2017/02/headless-raspberry-pi-configuration-over-bluetooth/</a></li>
+<li><a href="https://youtu.be/sEmjcgbmoRM">https://youtu.be/sEmjcgbmoRM</a></li>
+</ul>
+<h3 id="idea-3-configure-via-usb"><a class="header" href="#idea-3-configure-via-usb">Idea 3: Configure via USB</a></h3>
+<p>Connect the device with a usb cable to a computer of phone, again the same concept a user interface shows up to configure.</p>
+<ul>
+<li><a href="https://desertbot.io/blog/headless-pi-zero-ssh-access-over-usb-windows">HEADLESS PI ZERO SSH ACCESS OVER USB (WINDOWS)</a>.</li>
+<li><a href="https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README">Raspberry pi boot overlays</a>.</li>
+<li><a href="https://learn.adafruit.com/turning-your-raspberry-pi-zero-into-a-usb-gadget">Go Go Gadget Pi Zero</a>.</li>
+<li><a href="https://www.circuitbasics.com/raspberry-pi-zero-ethernet-gadget/#:%7E:text=The%20Raspberry%20Pi%20Zero&#x27;s%20small,is%20shared%20over%20USB%20too.">RASPBERRY PI ZERO USB/ETHERNET GADGET TUTORIAL</a>.</li>
+</ul>
+<p>Note that, phone has a usb otg connector, and so is pi zero. Both will be in gadget mode. To connect to a phone we will need a special cable which is not desired but possible.</p>
+<p>However, let's explore the idea of Pi as a device connected to PC or laptop host.
+Pi has usb otg, means that it can be either a host or it can be a device.
+We can connect them with a cable and setup Pi as a Ethernet gadget. Then the configuration webpage will be visible from PC browser. This seems to
+be most straight forward way since our Pi is already setup for
+USB networking.</p>
+<p>Make sure that the <strong>power cable is removed from the Pi</strong>. Simply plug in the Pi USB OTG port to a PC or laptop. PC will power and recognize the
+Pi device. At this point you can open a browser and browse to 
+<code>http://raspberrypi.local</code> and the web page will be displayed.</p>
+<p>However there is one problem in this case,</p>
+<ul>
+<li><a href="https://learn.adafruit.com/turning-your-raspberry-pi-zero-into-a-usb-gadget/ethernet-gadget">https://learn.adafruit.com/turning-your-raspberry-pi-zero-into-a-usb-gadget/ethernet-gadget</a></li>
+</ul>
+<p>My desktop works fine but my laptop is treating pi as a com port as this article mentioned.
+I am manually trying to install ndis driver on my windows 10, but microsoft site was no help.
+Appearently a certificate is needed for the inf file they suggested. Gota research more to find
+where that certificate for their inf file is located.</p>
+<p>Meanwhile this post, <a href="https://forum.moddevices.com/t/rndis-driver-for-windows-10/299/7">https://forum.moddevices.com/t/rndis-driver-for-windows-10/299/7</a>
+suggested a way to install a rndis driver from moddevice. </p>
+<p>The full documentation is here, read carefully before you install the driver,</p>
+<ul>
+<li><a href="https://wiki.moddevices.com/wiki/Troubleshooting_Windows_Connection">https://wiki.moddevices.com/wiki/Troubleshooting_Windows_Connection</a></li>
+</ul>
+<p>I downloaded the zip file from <a href="https://modclouddownloadprod.blob.core.windows.net/shared/mod-duo-rndis.zip">microsof.net</a> site,
+installed it and it worked. zip file is saved in the github repo, <code>files\mod-duo-rndis.zip</code>.</p>
+<h2 id="raspberry-pi-as-access-point-and-wifi-client"><a class="header" href="#raspberry-pi-as-access-point-and-wifi-client"><a name="idea1-impl"></a>Raspberry pi as Access Point and Wifi client</a></h2>
+<p>This is an example of how the <a href="#idea1"><em>idea 1</em></a> can be implemented. This was collected from the tutorials found on internet <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=211542">https://www.raspberrypi.org/forums/viewtopic.php?t=211542</a>. </p>
+<blockquote>
+<p>It is based on IOT wifi's <a href="https://pifi.imti.co/">solution</a>, but I wanted to use a language other than Go to manage my wifi connections, so all changes are within the standard Raspbian Stretch OS.</p>
+</blockquote>
+<p>These steps are (as best as I can remember) in the order that I did them in:</p>
+<h3 id="1-update-system"><a class="header" href="#1-update-system">1. Update system</a></h3>
+<p>Run apt-get update and upgrade to make sure you have the latest and greatest.</p>
+<pre><code>sudo apt-get update
+sudo apt-get upgrade
+</code></pre>
+<p>This may take a while depending on connection speed.</p>
+<h3 id="2-install-hostapd-and-dnsmasq"><a class="header" href="#2-install-hostapd-and-dnsmasq">2. Install hostapd and dnsmasq</a></h3>
+<p>Install the hostapd access point daemon and the dnsmasq dhcp service.</p>
+<pre><code class="language-bash">sudo apt-get install hostapd dnsmasq
+</code></pre>
+<h3 id="3-edit-configuration-files"><a class="header" href="#3-edit-configuration-files">3. Edit configuration files</a></h3>
+<p>Here we need to edit the config files for dhcpcd, hostapd, and dnsmasq so that they all play nice together. We <strong>do NOT</strong>, as in past implementations, make any edits to the <code>/etc/network/interfaces</code> file. If you do it can cause problems, check tutorial notes <a href="https://raspberrypi.stackexchange.com/questions/37920/how-do-i-set-up-networking-wifi-static-ip-address/37921#37921">here</a>.</p>
+<p>Edit <code>/etc/dhcpcd.conf</code></p>
+<pre><code>interface uap0
+	static ip_address=192.168.50.1/24
+    nohook wpa_supplicant
+</code></pre>
+<p>This sets up a static IP address on the uap0 interface that we will set up in the startup script. The nohook line prevents the 10-wpa-supplicant hook from running wpa-supplicant on this interface.</p>
+<p>Replace <code>/etc/dnsmasq.conf</code>
+Move the dnsmasq original file to save a copy of the quite useful example, you may even want to use some of the RPi-specific lines at the end. I did not test my solution with those.</p>
+<pre><code>sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
+</code></pre>
+<p>Create a new <code>/etc/dnsmasq.conf</code> and add the following to it:</p>
+<pre><code>interface=lo,uap0    # Use interfaces lo and uap0
+bind-interfaces      # Bind to the interfaces
+server=8.8.8.8       # Forward DNS requests to Google DNS
+domain-needed        # Don't forward short names
+bogus-priv           # Never forward addresses in the non-routed address spaces
+
+# Assign IP addresses between 192.168.70.50 and 192.168.70.150
+# with a 12-hour lease time
+dhcp-range=192.168.70.50,192.168.70.150,12h
+
+# The above address range is totally arbitrary; use your own.
+</code></pre>
+<p>Create file <code>/etc/hostapd/hostapd.conf</code> and add the following:
+(Feel free to delete the commented out lines)</p>
+<pre><code># Set the channel (frequency) of the host access point
+channel=1
+
+# Set the SSID broadcast by your access point (replace with your own, of course)
+ssid=IOT-Config
+
+# This sets the passphrase for your access point (again, use your own)
+wpa_passphrase=passwordBetween8and64charactersLong
+
+# This is the name of the WiFi interface we configured above
+interface=uap0
+
+# Use the 2.4GHz band
+# (untested: ag mode to get 5GHz band)
+hw_mode=g
+
+# Accept all MAC addresses
+macaddr_acl=0
+
+# Use WPA authentication
+auth_algs=1
+
+# Require clients to know the network name
+ignore_broadcast_ssid=0
+
+# Use WPA2
+wpa=2
+
+# Use a pre-shared key
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+driver=nl80211
+
+# I commented out the lines below in my implementation, but I kept them here for reference.
+
+# Enable WMM
+#wmm_enabled=1
+
+# Enable 40MHz channels with 20ns guard interval
+#ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40]
+</code></pre>
+<blockquote>
+<p>Note: The channel written here MUST match the channel of the wifi that you connect to in client mode (via wpa-supplicant). If the channels for your AP and STA mode services do not match, then one or both of them will not run. This is because there is only one physical antenna. It cannot cover two channels at once.</p>
+</blockquote>
+<p>Edit file <code>/etc/default/hostapd</code> and uncomment <code>DAEMON_CONF</code> line. Add the following,</p>
+<pre><code>DAEMON_CONF=&quot;/etc/hostapd/hostapd.conf&quot;
+</code></pre>
+<h3 id="4-create-startup-script"><a class="header" href="#4-create-startup-script">4. Create startup script</a></h3>
+<p>Add a new file <code>/usr/local/bin/wifistart</code> (or whatever name you like best), and add the following to it:</p>
+<pre><code>#!/bin/bash
+
+# Redundant stops to make sure services are not running
+echo &quot;Stopping network services (if running)...&quot;
+systemctl stop hostapd.service
+systemctl stop dnsmasq.service
+systemctl stop dhcpcd.service
+
+# Make sure no uap0 interface exists (this generates an error; we could probably use an if statement to check if it exists first)
+echo &quot;Removing uap0 interface...&quot;
+iw dev uap0 del
+
+# Add uap0 interface (this is dependent on the wireless interface being called wlan0, which it may not be in Stretch)
+echo &quot;Adding uap0 interface...&quot;
+iw dev wlan0 interface add uap0 type __ap
+
+# Modify iptables (these can probably be saved using iptables-persistent if desired)
+echo &quot;IPV4 forwarding: setting...&quot;
+sysctl net.ipv4.ip_forward=1
+echo &quot;Editing IP tables...&quot;
+iptables -t nat -A POSTROUTING -s 192.168.70.0/24 ! -d 192.168.70.0/24 -j MASQUERADE
+
+# Bring up uap0 interface. Commented out line may be a possible alternative to using dhcpcd.conf to set up the IP address.
+#ifconfig uap0 192.168.70.1 netmask 255.255.255.0 broadcast 192.168.70.255
+ifconfig uap0 up
+
+# Start hostapd. 10-second sleep avoids some race condition, apparently. It may not need to be that long. (?) 
+echo &quot;Starting hostapd service...&quot;
+systemctl start hostapd.service
+sleep 10
+
+# Start dhcpcd. Again, a 5-second sleep
+echo &quot;Starting dhcpcd service...&quot;
+systemctl start dhcpcd.service
+sleep 5
+
+echo &quot;Starting dnsmasq service...&quot;
+systemctl start dnsmasq.service
+echo &quot;wifistart DONE&quot;
+</code></pre>
+<p>There are other and better ways of automating this startup process, which I adapted from IOT wifi's code <a href="https://github.com/cjimti/iotwifi">here</a>. This demonstrates the basic functionality in a simple script.</p>
+<h3 id="5-edit-rclocal-system-script"><a class="header" href="#5-edit-rclocal-system-script">5. Edit rc.local system script</a></h3>
+<p>There are other ways of doing this, including creating a daemon that can be used by systemctl, which I would recommend doing if you want something that will restart if it fails. Adafruit has a simple write-up on that <a href="https://learn.adafruit.com/running-programs-automatically-on-your-tiny-computer/systemd-writing-and-enabling-a-service">here</a>. I used <code>rc.local</code> for simplicity here.</p>
+<p>Add the following to your <code>/etc/rc.local</code> script above the exit 0 line. Note the spacing between <code>/bin/bash</code> and <code>/usr/local/bin/wifistart</code>.</p>
+<pre><code>/bin/bash /usr/local/bin/wifistart
+</code></pre>
+<h3 id="6-disable-regular-network-services"><a class="header" href="#6-disable-regular-network-services">6. Disable regular network services</a></h3>
+<p>The wifistart script handles starting up network services in a certain order and time frame. Disabling them here makes sure things are not run at system startup.</p>
+<pre><code>sudo systemctl stop hostapd
+sudo systemctl stop dnsmasq
+sudo systemctl stop dhcpcd
+sudo systemctl disable hostapd
+sudo systemctl disable dnsmasq
+sudo systemctl disable dhcpcd
+</code></pre>
+<h3 id="7-reboot"><a class="header" href="#7-reboot">7. Reboot</a></h3>
+<pre><code>sudo reboot
+</code></pre>
+<p>If you want to test the code directly and view the output, just run</p>
+<pre><code>sudo /usr/local/bin/wifistart
+</code></pre>
+<p>from the terminal after commenting out the <code>wifistart</code> script line in <code>rc.local</code>.</p>
+<h2 id="preparing-for-distribution"><a class="header" href="#preparing-for-distribution">Preparing for distribution.</a></h2>
+<p>Back up the sdio image from dev SD card first.</p>
+<p>Now we have to make sure the image has disabled ssh, and samba and any other services not needed on the deployed device by running some kind of shell script.
+Now the SD contains the production image and ready for distribution.</p>
+<pre><code class="language-bash"># list installed services
+ls -la /etc/rc2.d/
+# disable
+sudo update-rc.d ssh disable
+# enable
+sudo update-rc.d ssh enable
+</code></pre>
+<p>Save the sdio image from dev SD card. This will be the boot image to be downloaded.</p>
+<p>Alternatively, we can use a <a href="embedded#raspberry-pi">image build</a> strategy to an optimized image with only necessary components, which will reduce image size.</p>
+<p>If the image is too large, we can put minimal code on the SD, something similar to <code>noobs</code> (New Out of Box Software), the boot image should be downloaded and prepared after initial boot by the user during configuration.
+For application where production SD image is small, there will be no benefit using <strong>NOOBS</strong> strategy. </p>
+<ul>
+<li>Imaging sdio source code <a href="https://github.com/raspberrypi/rpi-imager">https://github.com/raspberrypi/rpi-imager</a></li>
+<li><a href="https://github.com/raspberrypi/noobs">https://github.com/raspberrypi/noobs</a></li>
+</ul>
+<blockquote>
+<p>todo: check how to use docker container in pi</p>
+</blockquote>
+<h2 id="wifi-related-links"><a class="header" href="#wifi-related-links">Wifi related links</a></h2>
+<ul>
+<li><a href="http://w1.fi/wpa_supplicant/devel/">wpa_supplicant developers doc</a></li>
+<li><a href="https://www.raspberrypi.org/forums/viewtopic.php?t=179387">Changing Wifi networks</a></li>
+<li><a href="https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md">Setting up a wifi</a></li>
+<li><a href="https://www.raspberrypi.org/forums/viewtopic.php?t=160620">Switching between known Wifi networks</a></li>
+<li><a href="https://raspberrypi.stackexchange.com/questions/41020/how-do-i-use-the-command-line-to-check-which-wifi-network-i-am-connected-to">Which WiFi network I am connected to?</a></li>
+<li><a href="https://www.tecmint.com/set-system-locales-in-linux/">https://www.tecmint.com/set-system-locales-in-linux/</a></li>
+<li><a href="https://www.debian.org/doc/manuals/debian-reference/ch08.en.html">https://www.debian.org/doc/manuals/debian-reference/ch08.en.html</a></li>
+</ul>
+<h2 id="some-random-setup-stuff"><a class="header" href="#some-random-setup-stuff">Some random setup stuff</a></h2>
+<ul>
+<li><code>timedatectl list-timezones</code> provides list of all timezones</li>
+<li><a href="https://github.com/eggert/tz">https://github.com/eggert/tz</a> all timezones</li>
+<li>raspi-config <a href="https://github.com/RPi-Distro/raspi-config">https://github.com/RPi-Distro/raspi-config</a></li>
+<li>list of 2 letter country codes <a href="https://www.iso.org/obp/ui/#search">https://www.iso.org/obp/ui/#search</a></li>
+<li>list of flags <a href="https://github.com/lipis/flag-icon-css">https://github.com/lipis/flag-icon-css</a></li>
+<li>language codes <a href="https://www.loc.gov/standards/iso639-2/php/code_list.php">https://www.loc.gov/standards/iso639-2/php/code_list.php</a></li>
+<li>select from a list <a href="https://svelte.dev/tutorial/select-bindings">https://svelte.dev/tutorial/select-bindings</a></li>
+</ul>
+<h2 id="samba-wins-doesnt-make-is-discoverable-in-windows-10"><a class="header" href="#samba-wins-doesnt-make-is-discoverable-in-windows-10">Samba WINS doesnt make is discoverable in windows 10</a></h2>
+<p>WSD is missing from samba. samba only supports netbios. This WSD server written in python will, make the device discoverable.</p>
+<ul>
+<li><a href="https://github.com/christgau/wsdd">https://github.com/christgau/wsdd</a></li>
+</ul>
+<h2 id="daemon-with-shell-script"><a class="header" href="#daemon-with-shell-script">Daemon with shell script</a></h2>
+<ul>
+<li>Making service daemon with shell script <a href="http://manpages.ubuntu.com/manpages/focal/en/man8/start-stop-daemon.8.html">http://manpages.ubuntu.com/manpages/focal/en/man8/start-stop-daemon.8.html</a></li>
+<li>A shell Daemon <a href="https://gist.github.com/shawnrice/11076762">template</a>. This seems to have recusrion, we need to fix it if want to use it.</li>
+<li><a href="https://bash.cyberciti.biz/guide/Daemons">Daemons</a>.</li>
+<li><a href="https://gist.github.com/alobato/1968852">Using start-stop-daemon</a></li>
+</ul>
+<h2 id="debugging-python-cgi-scripts"><a class="header" href="#debugging-python-cgi-scripts">Debugging python cgi scripts</a></h2>
+<p>Following will send the error message and traceback to the browser for debugging</p>
+<pre><code class="language-auto">import sys
+import traceback
+print (&quot;Content-Type: text/html&quot;)
+print
+sys.stderr = sys.stdout
+try:
+    ...your code here...
+except:
+    print (&quot;\n\n&lt;PRE&gt;&quot;)
+    traceback.print_exc()
+</code></pre>
+<blockquote>
+<p>Remove the code after debugging is complete. Otherwise it may expose information
+leading into security risk for your application. <code>post</code> requests can not be redirected,
+broweser turns it into a <code>get</code> request and then the request fails.</p>
+</blockquote>
+<h2 id="using-cython"><a class="header" href="#using-cython">Using cython</a></h2>
+<p>install cython first.</p>
+<pre><code class="language-bash">sudo apt-get update
+
+# for python2
+sudo apt-get install python-dev --fix-missing 
+sudo apt-get install python-pip
+sudo apt-get install python-distutils
+sudo pip install cython
+
+# for python3
+sudo apt-get install python3-dev --fix-missing 
+sudo apt-get install python3-pip
+sudo apt-get install python3-distutils
+sudo pip3 install cython
+</code></pre>
+<p>cython is really designed building modules to be used within python for speed up,
+packaging as standalone executable
+is tedious because of the dependency chain as all the dependencies
+have to be manually compiled.</p>
+<h3 id="simple-way-lets-say-our-python-version-is-37m"><a class="header" href="#simple-way-lets-say-our-python-version-is-37m">Simple way, lets say our python version is 3.7m</a></h3>
+<p>compile <code>test.pyx</code> to executable</p>
+<pre><code class="language-bash">cython --embed -3 test.pyx
+gcc -c test.c `python3-config --cflags`
+gcc -o test test.o `python3-config -ldflags`
+</code></pre>
+<p>check <a href="https://github.com/cython/cython/tree/master/Demos/embed">https://github.com/cython/cython/tree/master/Demos/embed</a></p>
+<p>gcc to create binary python module that can be imported</p>
+<pre><code class="language-bash">cython -3 test.pyx
+gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong \
+    -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC \
+    -I/usr/include/python3.7m -c test.c -o test.o
+gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,relro -g \
+    -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 \
+	test.o -o test.so
+</code></pre>
+<p>gcc options to create executable in one step picking up include options from <code>pkg-config</code></p>
+<pre><code class="language-bash">cython --embed -3 test.pyx
+gcc -v -Os -lpthread -lm -lutil -ldl -lpython3.7m \
+	`pkg-config --cflags python-3.7m` \
+	-o test test.c  
+</code></pre>
+<h3 id="using-distutils-buld-system"><a class="header" href="#using-distutils-buld-system">Using distutils buld system</a></h3>
+<p>This creates a <code>.so</code> library, a binaty python module</p>
+<pre><code>import distutils.core
+import Cython.Build
+distutils.core.setup(
+    ext_modules = Cython.Build.cythonize(&quot;test.pyx&quot;))
+</code></pre>
+<blockquote>
+<p>todo: I have yet to figure out how I can generate executablie using cython build api.</p>
+</blockquote>
+<ul>
+<li><a href="https://blog.paperspace.com/boosting-python-scripts-cython/">Boosting Python Scripts With Cython</a></li>
+<li><a href="http://masnun.rocks/2016/10/01/creating-an-executable-file-using-cython/">Creating an executable file using Cython</a></li>
+<li><a href="https://stackoverflow.com/questions/22507592/making-an-executable-in-cython">Making an executable in Cython</a></li>
+<li><a href="https://medium.com/@xpl/protecting-python-sources-using-cython-dcd940bb188e">Protecting Python Sources With Cython</a></li>
+<li><a href="http://okigiveup.net/an-introduction-to-cython/">http://okigiveup.net/an-introduction-to-cython/</a></li>
+<li><a href="https://tryexceptpass.org/article/package-python-as-executable/">https://tryexceptpass.org/article/package-python-as-executable/</a></li>
+</ul>
+<h2 id="setting-time-zone-from-terminal"><a class="header" href="#setting-time-zone-from-terminal">setting time zone from terminal</a></h2>
+<pre><code class="language-auto">sudo timedatectl set-timezone Europe/Brussels
+</code></pre>
+<h2 id="setup-ssl-using-lets-encrypt"><a class="header" href="#setup-ssl-using-lets-encrypt">setup SSL using lets encrypt</a></h2>
+<ul>
+<li><a href="https://pimylifeup.com/raspberry-pi-ssl-lets-encrypt/">https://pimylifeup.com/raspberry-pi-ssl-lets-encrypt/</a></li>
+</ul>
+<h2 id="using-rust"><a class="header" href="#using-rust">Using Rust</a></h2>
+<p>See <a href="rust#using-rust-in-raspberry-pi">Using rust in Raspberry pi</a>.</p>
+<h2 id="fastcgi"><a class="header" href="#fastcgi">fastcgi</a></h2>
+<p>todo</p>
+<h2 id="wpa_cli-in-daemon-mode"><a class="header" href="#wpa_cli-in-daemon-mode">wpa_cli in daemon mode</a></h2>
+<ul>
+<li><a href="https://unix.stackexchange.com/questions/511444/wpa-action-script-how-to-run-wpa-cli-in-daemon-mode">https://unix.stackexchange.com/questions/511444/wpa-action-script-how-to-run-wpa-cli-in-daemon-mode</a></li>
+</ul>
+<h2 id="setup-raspberry-pi-with-live-reload"><a class="header" href="#setup-raspberry-pi-with-live-reload">setup raspberry pi with live reload</a></h2>
+<ul>
+<li><a href="https://github.com/kkibria/pi-live-reload">pi-live-reload</a></li>
+</ul>
+<h2 id="back-up-pi"><a class="header" href="#back-up-pi">back up pi</a></h2>
+<ul>
+<li><a href="https://www.raspberrypi.org/forums/viewtopic.php?t=230618">Backup and recovery solution I use (recovery image)</a></li>
+<li><a href="https://github.com/lzkelley/bkup_rpimage">Script to backup a Raspberry Pi disk image</a></li>
+<li><a href="https://github.com/ephestione/bazidrop">Encrypted backup of linux (Raspbian) configuration data and Dropbox upload</a></li>
+</ul>
+<h2 id="c-library-for-controlling-gpio"><a class="header" href="#c-library-for-controlling-gpio">C library for controlling GPIO</a></h2>
+<ul>
+<li><a href="http://wiringpi.com/download-and-install/">Wiring Pi</a></li>
+</ul>
+<p>To update or install on a Raspbian-Lite system:</p>
+<pre><code class="language-bash">sudo apt-get install wiringpi
+</code></pre>
+<p>the author has stopped developing. the code is available in github,</p>
+<ul>
+<li><a href="https://github.com/WiringPi/WiringPi">https://github.com/WiringPi/WiringPi</a></li>
+</ul>
+<p>an example of how to use the library</p>
+<ul>
+<li><a href="https://medium.com/@simon_prickett/gpio-access-in-c-with-raspberry-pi-traffic-lights-6b982e197d45">https://medium.com/@simon_prickett/gpio-access-in-c-with-raspberry-pi-traffic-lights-6b982e197d45</a></li>
+</ul>
+<p>A great resource</p>
+<ul>
+<li><a href="https://elinux.org/RPi_GPIO_Code_Samples">https://elinux.org/RPi_GPIO_Code_Samples</a></li>
+</ul>
+<h2 id="rust-gpio-for-pi"><a class="header" href="#rust-gpio-for-pi">rust GPIO for pi</a></h2>
+<ul>
+<li>??? </li>
+<li>May be a kernel module with rust?? Some <a href="rust#Linux-kernel-module-with-rust">work</a> is ongoing.</li>
+<li><a href="https://github.com/golemparts/rppal">RPPAL</a>.</li>
+<li><a href="https://github.com/rust-embedded/rust-sysfs-gpio">https://github.com/rust-embedded/rust-sysfs-gpio</a>.</li>
+</ul>
+<p>Most promising seems to be <a href="https://github.com/golemparts/rppal">RPPAL</a> option.</p>
+<blockquote>
+<p>I will try this option and do the write up on this.</p>
+</blockquote>
+<h2 id="python-gpio"><a class="header" href="#python-gpio">python GPIO</a></h2>
+<ul>
+<li><a href="https://gpiozero.readthedocs.io/en/stable/index.html">https://gpiozero.readthedocs.io/en/stable/index.html</a></li>
+</ul>
+<h2 id="rpikernelhack"><a class="header" href="#rpikernelhack">rpikernelhack</a></h2>
+<ul>
+<li><a href="https://www.thegeekpub.com/235652/what-is-rpikernelhack/">https://www.thegeekpub.com/235652/what-is-rpikernelhack/</a></li>
+</ul>
+<h2 id="apt-get"><a class="header" href="#apt-get">apt-get</a></h2>
+<ul>
+<li><a href="https://raspberrypi.stackexchange.com/questions/93604/raspberry-pi-sudo-apt-get-update-not-working">Raspberry Pi sudo apt-get update not working</a></li>
+</ul>
+<h2 id="armv6-toolchain"><a class="header" href="#armv6-toolchain">armv6 toolchain</a></h2>
+<ul>
+<li><a href="https://github.com/Pro/raspi-toolchain">https://github.com/Pro/raspi-toolchain</a></li>
+</ul>
+<h2 id="booting-raspbian"><a class="header" href="#booting-raspbian">Booting Raspbian</a></h2>
+<ol>
+<li>GPU ROM firmware boots reads first FAT partition.</li>
+<li><code>start.elf</code> from FAT partition is the bootlader which is loaded and executed by GPU.</li>
+<li>Bootlader loads <code>config.txt</code> from the FAT partition to memory.</li>
+<li>In <code>config.txt</code> file, <code>kernel</code> setting provides the kernel and
+<code>command line</code> provides command line script.</li>
+<li>Bootloader loads kernel and command line to arm memory.</li>
+<li>Bootloader passes control to kernel. </li>
+<li>kernle mounts ext4 partition from Command line setting <code>root=PARTUUID=6c586e13-02</code> using the UUID.</li>
+<li>Finally, the kernel looks for a file called <code>/init</code> specified
+in command line and executes it.</li>
+</ol>
+<blockquote>
+<p>todo: got this from an <a href="https://pixelspark.nl/2019/making-your-own-linux-distribution-for-the-raspberry-pi-for-fun-and-profit-part-2">article</a>, need to verify.</p>
+</blockquote>
+<h1 id="go-lang-for-pi-0"><a class="header" href="#go-lang-for-pi-0">go lang for pi 0</a></h1>
+<ul>
+<li><a href="https://www.thepolyglotdeveloper.com/2017/04/cross-compiling-golang-applications-raspberry-pi/">Cross Compiling Golang Applications For Use On A Raspberry Pi</a>.
+You tube <a href="https://youtu.be/lDvlysiMbCs">video</a>.</li>
+<li><a href="https://github.com/mark2b/wpa-connect">WPA supplicant over D-Bus using go for raspberry pi</a>.</li>
+<li><a href="https://golang.org/doc/tutorial/getting-started">https://golang.org/doc/tutorial/getting-started</a></li>
+</ul>
+<p>use go build with following to compile for pi</p>
+<pre><code>env GOOS=linux GOARCH=arm GOARM=5 go build
+</code></pre>
+<p>I tried with GOARM=6 and it worked too.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../topics/pirust.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../topics/embedded.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../topics/pirust.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../topics/embedded.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
