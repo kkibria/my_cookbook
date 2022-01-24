@@ -18,11 +18,10 @@ jobs:
           cargo install --git https://github.com/kkibria/mdbook-frntmtr.git
           mdbook build
 
-      - name: Upload Release
-        uses: ncipollo/release-action@v1
+      - uses: actions/upload-artifact@v2
         with:
-          artifacts: "release.zip"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          name: book-html
+          path: docs/
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.2
