@@ -1,5 +1,5 @@
 ---
-title: Build book with mdbook
+title: Mdbook
 ---
 
 # {{ page.title }}

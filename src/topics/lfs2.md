@@ -1,5 +1,5 @@
 ---
-title: Linux from scratch (Part 2)
+title: LFS (Part 2)
 ---
 
 # {{ page.title }}

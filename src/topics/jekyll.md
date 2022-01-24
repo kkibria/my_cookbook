@@ -1,5 +1,5 @@
 ---
-title: Jekyll stuff
+title: Jekyll
 ---
 
 # {{ page.title }}

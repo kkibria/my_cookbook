@@ -1,8 +1,9 @@
 ---
-title: Markdown renderer and editor in browser
+title: Markdown editor
 ---
 
 # {{ page.title }}
+Markdown renderer and editor in browser in frontend development could be useful for many applications.
 
 ## ``markdown-it`` package 
 ```bash

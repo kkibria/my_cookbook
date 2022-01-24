@@ -4,10 +4,11 @@ title: Cross Compilation
 # {{ page.title }}
 
 ## cross compile
-[Anatomy of Cross-Compilation Toolchains](https://youtu.be/Pbt330zuNPc). The [slides](https://elinux.org/images/1/15/Anatomy_of_Cross-Compilation_Toolchains.pdf).
+* [Anatomy of Cross-Compilation Toolchains](https://youtu.be/Pbt330zuNPc). The [slides](https://elinux.org/images/1/15/Anatomy_of_Cross-Compilation_Toolchains.pdf).
 
 ## Using rust in Raspberry pi
-* [Cross Compiling Rust for the Raspberry Pi](https://chacin.dev/blog/cross-compiling-rust-for-the-raspberry-pi/)
+* [Cross Compile with WSL2 for the Raspberry Pi](pirust.md#setup-wsl2-for-cross-compile).
+* [Cross Compiling Rust for the Raspberry Pi](https://chacin.dev/blog/cross-compiling-rust-for-the-raspberry-pi/).
 * [Prebuilt Windows Toolchain for Raspberry Pi](https://gnutoolchains.com/raspberry/). Question: who are these people? where are the sources fro these tools?
 * [Cross compiling Rust for ARM (e.g. Raspberry Pi) using any OS!](https://medium.com/@wizofe/cross-compiling-rust-for-arm-e-g-raspberry-pi-using-any-os-11711ebfc52b)
 * [“Zero setup” cross compilation and “cross testing” of Rust crates](https://github.com/rust-embedded/cross)

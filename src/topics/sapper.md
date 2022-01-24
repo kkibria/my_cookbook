@@ -3,6 +3,10 @@ title: Sapper, a server side framework with Svelte
 ---
 # {{ page.title }}
 
+> Sapper is officially dead. It has been replaced by [sveltekit](sveltekit.md).
+
+> TODO: The firebase related material here, needs to be moved elsewhere.
+> We will eventully remove this section.
 ## Sapper
 * [sapper](https://sapper.svelte.dev/)
 * [Building a project with Sapper, a JavaScript app framework](https://www.merixstudio.com/blog/project-sapper-javascript-framework/)

@@ -1,5 +1,5 @@
 ---
-title: Hugo stuff
+title: Hugo
 ---
 
 # {{ page.title }}

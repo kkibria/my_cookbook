@@ -286,7 +286,7 @@ EOF
 rcp $RPI:temp-wsl/*.rs src
 ```
 
+## Python example for dbus
 
-
-<https://android.googlesource.com/platform/external/wpa_supplicant_8/+/master/wpa_supplicant/examples/wpas-dbus-new.py>
+* [wpas-dbus-new.py](https://android.googlesource.com/platform/external/wpa_supplicant_8/+/master/wpa_supplicant/examples/wpas-dbus-new.py)
 
