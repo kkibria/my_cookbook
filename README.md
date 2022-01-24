@@ -13,7 +13,7 @@ following will build and deploy
 ```
 mdbook build
 git add docs -f
-git commit -m "gh-pages commit!"
-git subtree split --prefix docs -b gh-pages
-git push origin gh-pages
+git add .
+git commit -m "deploy commit!"
+git push origin master
 ```
