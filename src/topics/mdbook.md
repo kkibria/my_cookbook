@@ -18,7 +18,9 @@ mdbook init my_book
 cd my_book
 git init
 
-## setup `book.toml`
+## Hosting the content at github pages
+For static sites github pages is a great choice. It is free and easy to use.
+### setup `book.toml`
 add following,
 ```
 [book]
@@ -31,7 +33,7 @@ build-dir = "gh-pages/docs"
 command = "mdbook-frntmtr"
 ```
 
-## Setup the Project branches
+### Setup the Project branches
 `setup.ps1`
 ```
 git push origin -d gh-pages
@@ -47,11 +49,11 @@ git branch -D master
 Set-Location ..
 ```
 
-## Publish to github
+### Setup github to pick up the branch and folder
 Publish your folder in github. In github repo settings go to `github pages` and
 branch to `gh-pages` and change folder to `docs` and note the public url for the site.
 
-## Add content
+### Add content
 Start the local server for development,
 ```
 mdbook serve -o
@@ -59,7 +61,7 @@ mdbook serve -o
 Now modify or add contents in `src` folder. It will live update. Once you are happy with the
 content you can deploy.
 
-## Deploy to github pages
+### Deploy to github pages
 `deploy.ps1`
 ```
 mdbook build
@@ -69,3 +71,5 @@ git commit -m "deploy"
 git push origin gh-pages
 Set-Location ..
 ```
+
+Now the site will be served by github pages.
