@@ -25,19 +25,47 @@ add following,
 src = "src"
 
 [build]
-build-dir = "docs"
+build-dir = "gh-pages/docs"
 
 [preprocessor.frntmtr]
 command = "mdbook-frntmtr"
 ```
 
-## publish to github
-publish your folder in github. in github rep settings go to github pages and
-change folder to `docs` and note the public url.
+## Setup the Project branches
+`setup.ps1`
+```
+git push origin -d gh-pages
+mkdir gh-pages
+Set-Location gh-pages
+$url = git remote get-url origin
+git clone $url .
+git checkout -b gh-pages
+git rm -r .
+git commit -m "clearing master contents"
+git push origin gh-pages
+git branch -D master
+Set-Location ..
+```
 
-## add content
-start the server,
+## Publish to github
+Publish your folder in github. In github repo settings go to `github pages` and
+branch to `gh-pages` and change folder to `docs` and note the public url for the site.
+
+## Add content
+Start the local server for development,
 ```
 mdbook serve -o
 ```
-Now modify or add contents in `src` folder. It will live update.
+Now modify or add contents in `src` folder. It will live update. Once you are happy with the
+content you can deploy.
+
+## Deploy to github pages
+`deploy.ps1`
+```
+mdbook build
+Set-Location gh-pages
+git add .
+git commit -m "deploy"
+git push origin gh-pages
+Set-Location ..
+```
