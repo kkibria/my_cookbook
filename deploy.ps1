@@ -1,8 +1,6 @@
-# git push origin -d gh-pages
-# git branch -D gh-pages 
 mdbook build
-git add docs -f
-git commit -m "gh-pages commit!"
-git push origin master
-# git subtree split --prefix docs -b gh-pages
-# git push origin gh-pages
+Set-Location gh-pages
+git add .
+git commit -m "deploy"
+git push origin gh-pages
+Set-Location ..
