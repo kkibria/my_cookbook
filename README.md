@@ -6,3 +6,6 @@
 
 Later, I converted them to rust based mdbook format.
 
+I used this gist to push generated html,
+<https://gist.github.com/belohlavek/61dd16c08cd9c57a168408b9ac4121c2>
+
