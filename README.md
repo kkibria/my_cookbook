@@ -20,3 +20,8 @@ git subtree push --prefix docs origin gh-pages
 git subtree split --prefix docs -b gh-pages
 git push origin gh-pages
 ```
+
+```
+git push origin -d gh-pages
+git branch -D gh-pages 
+```
