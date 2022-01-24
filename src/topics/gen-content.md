@@ -1,5 +1,5 @@
 ---
-title: Beyond Textual Content
+title: Beyond Textual Contents
 ---
 
 # {{ page.title }}
