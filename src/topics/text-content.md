@@ -105,7 +105,7 @@ If you are in windows, you can create equivalent powershell or command line scri
 
 ### Setup github to pick up the branch and folder
 In github repo settings go to `github pages` and
-branch to `gh-pages` and change folder to `docs` and note the public url 
+setup branch to `gh-pages` and change folder to `docs` and note the public url 
 they provide for the site.
 
 
