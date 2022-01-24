@@ -1767,19 +1767,43 @@ git init</p>
 src = &quot;src&quot;
 
 [build]
-build-dir = &quot;docs&quot;
+build-dir = &quot;gh-pages/docs&quot;
 
 [preprocessor.frntmtr]
 command = &quot;mdbook-frntmtr&quot;
 </code></pre>
-<h2 id="publish-to-github"><a class="header" href="#publish-to-github">publish to github</a></h2>
-<p>publish your folder in github. in github rep settings go to github pages and
-change folder to <code>docs</code> and note the public url.</p>
-<h2 id="add-content"><a class="header" href="#add-content">add content</a></h2>
-<p>start the server,</p>
+<h2 id="setup-the-project-branches"><a class="header" href="#setup-the-project-branches">Setup the Project branches</a></h2>
+<p><code>setup.ps1</code></p>
+<pre><code>git push origin -d gh-pages
+mkdir gh-pages
+Set-Location gh-pages
+$url = git remote get-url origin
+git clone $url .
+git checkout -b gh-pages
+git rm -r .
+git commit -m &quot;clearing master contents&quot;
+git push origin gh-pages
+git branch -D master
+Set-Location ..
+</code></pre>
+<h2 id="publish-to-github"><a class="header" href="#publish-to-github">Publish to github</a></h2>
+<p>Publish your folder in github. In github repo settings go to <code>github pages</code> and
+branch to <code>gh-pages</code> and change folder to <code>docs</code> and note the public url for the site.</p>
+<h2 id="add-content"><a class="header" href="#add-content">Add content</a></h2>
+<p>Start the local server for development,</p>
 <pre><code>mdbook serve -o
 </code></pre>
-<p>Now modify or add contents in <code>src</code> folder. It will live update.</p>
+<p>Now modify or add contents in <code>src</code> folder. It will live update. Once you are happy with the
+content you can deploy.</p>
+<h2 id="deploy-to-github-pages"><a class="header" href="#deploy-to-github-pages">Deploy to github pages</a></h2>
+<p><code>deploy.ps1</code></p>
+<pre><code>mdbook build
+Set-Location gh-pages
+git add .
+git commit -m &quot;deploy&quot;
+git push origin gh-pages
+Set-Location ..
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hugo"><a class="header" href="#hugo">Hugo</a></h1>
 <h2 id="tutorial"><a class="header" href="#tutorial">tutorial</a></h2>
 <ul>
