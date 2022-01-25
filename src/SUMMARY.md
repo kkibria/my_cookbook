@@ -56,6 +56,7 @@
 # Raspberry Pi
 - [Using Raspberry Pi](.\topics\raspberrypi.md)
 - [Rust in Raspberry Pi](.\topics\pirust.md)
+    - [Native library for Rust](rust-native.md)
 - [Building Embedded System](.\topics\embedded.md)
 
 # Distro setup
