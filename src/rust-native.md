@@ -6,9 +6,11 @@ title: Native library for Rust in Raspberry Pi
 
 We will look into problems that we face in getting native library for cross compiling
 rust for pi here. This will clear your understanding of how the wsl cross compile tool
-helps us dealing with those.
+helps us dealing with those. As we mentioned before dbus based project will be a good
+case study to shed light
+into rust cross compiling issues related to using native library in raspberry pi. 
 
-## A simple test project for testing 
+## A simple dbus project for testing 
 
 To see how to set up the DBus crate for cross compilation,
 we will create a new project for it. Create an empty directory somewhere
