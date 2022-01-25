@@ -201,9 +201,10 @@ fn main() {
 }
 ```
 
-Anyways, installing dbus crate libraries in a fixed location is what we need
+Anyways, accessing dbus crate needed native libraries from a fixed location is what we need
 in this case to keep thing simple and reusable.
-This way we can simply use an absolute path in `~/.cargo/config`.
+This way we can simply use an absolute path in `~/.cargo/config` without depending
+on the build script to provide search path. 
 
 **Solution: See [Add the library search path for dbus libraries](pirust.md#add-the-library-search-path-for-dbus-libraries)**.
 
