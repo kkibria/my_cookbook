@@ -752,8 +752,6 @@ in command line and executes it.
 > todo: got this from an [article](https://pixelspark.nl/2019/making-your-own-linux-distribution-for-the-raspberry-pi-for-fun-and-profit-part-2), need to verify.
 
 # go lang for pi 0
-* [Cross Compiling Golang Applications For Use On A Raspberry Pi](https://www.thepolyglotdeveloper.com/2017/04/cross-compiling-golang-applications-raspberry-pi/).
-You tube [video](https://youtu.be/lDvlysiMbCs).
 * [WPA supplicant over D-Bus using go for raspberry pi](https://github.com/mark2b/wpa-connect).
 * <https://golang.org/doc/tutorial/getting-started>
 
