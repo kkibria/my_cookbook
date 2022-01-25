@@ -33,12 +33,36 @@ rustflags = ["-L", "/lib/arm-linux-gnueabihf"]
 
 [target.arm-unknown-linux-gnueabihf]
 linker = "arm-linux-gnueabihf-gcc"
+```
+Now you have a working Rust cross-compilation toolchain set up.
 
+## Pi Dbus tooling for rust
+We need to configure the DBus crate for cross compilation.
+The DBus crate uses a build script that uses pkg_config to locate
+the native dbus libraries.
+
+layout
+```
+.
+├── Cargo.toml
+├── build.rs
+└── src
+    └── main.rs
+```
+
+The crate's build script is specified in Cargo.toml and is normally executed at every build.
+There are two Cargo keys that have to be returned by us:
+
+`cargo:rustc-link-search`, which is the library search path.
+`cargo:rust-link-lib`, which is the name of a library to link.
+
+For, this we need to add Dbus libraries to ``~/.cargo/config``.
+```
 [target.arm-unknown-linux-gnueabihf.dbus]
-# Specifies the library search paths. Since they cannot be relative paths,
-# we use a build script to provide them.
+# Specifies the library search paths.
 rustc-link-search = [
-    # Provided by the build script.
+    # we will have to add the path
+    # when we know where the libraries are installed.
 ]
 
 # Specifies the names of the native libraries that are required to build DBus.
@@ -54,38 +78,18 @@ rustc-link-lib = [
 ]
 ```
 
-Now you have a working Rust cross-compilation toolchain set up. Next, we need to configure the DBus crate for cross compilation.
-
-Configuring the DBus crate for cross compilation
-The DBus crate uses a build script that uses pkg_config to locate the native dbus libraries. This works well when compiling for the host system, but not when cross compiling. In this case, we have to do what the Cargo book tells us and generate the output of the build script ourselves.
-
-The crate's build script is specified in Cargo.toml and is normally executed at every build. There are two Cargo keys that have to be returned by us:
-
-layout
-```
-.
-├── Cargo.toml
-├── build.rs
-└── src
-    └── main.rs
-```
-
-`cargo:rustc-link-search`, which is the library search path.
-`cargo:rust-link-lib`, which is the name of a library to link.
-There are two ways we can provide these keys to Cargo:
-
-* In a Cargo config file.
-* In our own build script.
-Usually a Cargo config file should be enough, just specify the names of the libraries and the paths to them and we should be good to go, right? Not so fast. Currently, there is an issue with how Cargo handles relative paths in rustc-link-search: They are resolved relative to the location of the extracted crate, not relative to our project! So we would have to specify the library search paths absolute for the config file to work. Since it is a bit ridiculous to require the repository to be at the same location for each user, we can additionally use another build script to provide the library search paths.
-
-Enough talk, to action! To see how to set up the DBus crate for cross compilation, we create a new project for it. Create an empty directory somewhere and start a terminal in it. Then execute the following commands.
+## A simple test project for testing 
+Enough talk, to action! To see how to set up the DBus crate for cross compilation,
+we create a new project for it. Create an empty directory somewhere and start a terminal in it.
+Then execute the following commands.
 
 Bash
 ```
 # Initialize a new Rust project in the current folder.
 cargo init
 ```
-Change the contents of main.rs to the following. This is just so that we actually use something from the DBus crate, otherwise there would be no reference to it in the final executable and nothing for the linker to do.
+Change the contents of main.rs to the following. This is just so that we actually use something
+from the DBus crate, otherwise there would be no reference to it in the final executable and nothing for the linker to do.
 
 `main.rs`
 ```
@@ -114,30 +118,27 @@ Cargo.toml
 [dependencies]
 dbus = "0.6"
 ```
-Create a Cargo configuration file, which has to be in a `.cargo` folder at the root of the repository, that specifies that the default target is ARMv7 and lists all the native ARMv7 libraries that are required to build DBus.
+Create a Cargo configuration file, which has to be in a `.cargo` folder at the root of
+the repository, that specifies that the default target is ARMv7 and lists all the
+native ARMv7 libraries that are required to build DBus.
 
-Create the build script that will provide the library search paths. The build script will be named `build.rs` (which is the default) and lives at the root of the project, next to `Cargo.toml`.
+Create the build script that will provide the library search paths. The build script
+will be named `build.rs` (which is the default) and lives at the root of the project,
+next to `Cargo.toml`.
 
-`build.rs` (we don't really need this but this one shows if we needed additional search paths)
-```
-use std::env::var;
+For our simple test project we won't be needing anything like this for now.
 
-fn main() {
-    // The manifest dir points to the root of the project containing this file.
-    let manifest_dir = var("CARGO_MANIFEST_DIR").unwrap();
-    // We tell Cargo that our native ARMv7 libraries are inside a "libraries" folder.
-    println!("cargo:rustc-link-search={}/libraries/lib/arm-linux-gnueabihf", manifest_dir);
-    println!("cargo:rustc-link-search={}/libraries/usr/lib/arm-linux-gnueabihf", manifest_dir);
-}
-```
+If you tried building the project at this point, you should get a rather long error
+message with this at the top: linking with arm-linux-gnueabihf-gcc failed. The final
+(and most tedious) step is finding and downloading the native ARMv7 libraries required by DBus.
 
-If you tried building the project at this point, you should get a rather long error message with this at the top: linking with arm-linux-gnueabihf-gcc failed. The final (and most tedious) step is finding and downloading the native ARMv7 libraries required by DBus.
+## Problem statement 1: Details on getting missing libraries 
+How do you even find out which of the native packages are required?
+If you take a look at this line in the DBus build script, you see that 
+it is looking for "dbus-1", which means libdbus-1.
 
-
-## Details on getting libraries
-How do you even find out which of the native packages are required? If you take a look at this line in the DBus build script, you see that it is looking for "dbus-1", which means libdbus-1.
-
-OK, now which version of libdbus-1 is required? If you have your target system at hand, you can connect to it and run apt show libdbus-1* on it, which should show something like this.
+OK, now which version of libdbus-1 is required? If you have your target system at hand,
+you can connect to it and run apt show libdbus-1* on it, which should show something like this.
 
 libdbus-1 Information
 ```
@@ -147,11 +148,20 @@ Version: 1.12.16-1
 Depends: libc6 (>= 2.28), libsystemd0
 ...
 ```
-If you do not have the target system at hand, there is still a way: If you are using the Raspbian release based on Debian buster, head to this link (this is a huge file!) and search for Package: libdbus-1 inside there. You should see the same information.
+If you do not have the target system at hand, there is still a way:
+If you are using the Raspbian release based on Debian buster, head to
+this link (this is a huge file!) and search for Package: libdbus-1 inside there.
+You should see the same information.
 
-Now we know that we have to download libdbus1-3 version 1.12.16-1 and it depends on libc6 (which is provided by the cross compilation toolchain) and libsystemd0 (which is not and which we also have to download).
+Now we know that we have to download libdbus1-3 version 1.12.16-1 and it
+depends on libc6 (which is provided by the cross compilation toolchain)
+and libsystemd0 (which is not and which we also have to download).
 
-In total, you have to download the following packages (the .deb files). This list contains the versions for the Raspbian release based on Debian buster. They may have changed since, check the versions installed on your target system. Click each of the package names below and download the correct file.
+In total, you have to download the following packages (the .deb files).
+This list contains the versions for the Raspbian release based on Debian buster.
+They may have changed since, check the versions installed on your target system.
+Click each of the package names below and download the correct file.
+
 ```
 libdbus-1-3 is at version 1.12.16-1
 libgcrypt20 is at version 1.8.4-5
@@ -179,11 +189,18 @@ rsync -vR --progress -rl --delete-after --safe-links {etc,lib,sbin,usr,var} $HOM
 popd
 ```
 
-## Details on links to library for rust
-Enter the folder you have extracted the package into and take a look at the files. The folder structure can be ./lib/arm-linux-gnueabihf or even ./usr/lib/arm-linux-gnueabihf inside this folder. The relevant files are the .so files. Some libraries however have another number after the .so, for example library.so.3. In this case, you have to add a symlink to library.so because that's where the GCC linker will look for it. The symlink must be in the same directory as the file it points to. To create a symlink called library.so that points to library.so.3, you would use the following command.
+## Problem statement 2: Links to library for rust
+Enter the folder you have extracted the package into and take a look at the files.
+The folder structure can be ./lib/arm-linux-gnueabihf or even 
+./usr/lib/arm-linux-gnueabihf inside this folder. 
+The relevant files are the .so files. Some libraries however have another 
+number after the .so, for example library.so.3. In this case, you have to add 
+a symlink to library.so because that's where the GCC linker will look for it. 
+The symlink must be in the same directory as the file it points to. 
+To create a symlink called library.so that points to library.so.3, 
+you would use the following command.
 
-Bash
-```
+```bash
 ln -s library.so.3 library.so
 ```
 
@@ -225,21 +242,65 @@ Finally, after all this is done, your libraries folder should look something lik
 When you installed the toolchain in wsl2, it also installed ``liblink``. This automates everything
 we discussed in above section. This will install the links in ``~/liblink`` folder. 
 
-
 ```
 liblink dbus-1 gcrypt gpg-error lz4 pcre lzma pthread dl selinux systemd
 ```
 
-> ``~/liblink`` is
-not inside the rust project folder. As a result, we can simply choose to make
-rust use this folder directly for linking. In such case, we will specify 
+## Problem statement 3: Specifying library search path
+We have to provide the `cargo:rustc-link-search` key as we mentioned before to
+make sure all the needed libraries are found. 
+
+There are two ways we can provide any key to Cargo:
+* In a Cargo config file.
+* In our own build script.
+
+We need to know how Cargo handles relative paths
+in rustc-link-search:
+They are resolved relative to the location of the extracted crate,
+not relative to a project.
+
+So the takeaway is, we would have to specify the absolute library search paths if we
+don't want a crate relative path. How do we provide project relative search path
+if thats what we need? 
+In such case, we can use build script
+to convert project relative paths to absolute library search paths.
+
+Following is an example when we have native libraries 
+inside a "libraries" folder within the project,
+`build.rs`
+```
+use std::env::var;
+
+fn main() {
+    // The manifest dir points to the root of the project containing this file.
+    let manifest_dir = var("CARGO_MANIFEST_DIR").unwrap();
+    // We tell Cargo that our native libraries are inside a "libraries" folder.
+    println!("cargo:rustc-link-search={}/libraries/lib/arm-linux-gnueabihf", manifest_dir);
+    println!("cargo:rustc-link-search={}/libraries/usr/lib/arm-linux-gnueabihf", manifest_dir);
+}
+```
+Anyways, installing dbus crate libraries in a fixed location is what we need
+to keep thing simple and reusable. This way we can simple use an absolute path in
+`~/.cargo/config`.
+
+## Add the library search path for dbus libraries
+``~/liblink`` we created is
+not inside the rust project folder. Therefore, we can simply make
+rust use this folder for linking. In such case, we will specify 
 the absolute path of ``~/liblink``
-in `~/.cargo/config` search link section, `rustc-link-search` without 
-using `build.rs`.
+in `~/.cargo/config` search link section, `rustc-link-search`.
 
-
+``~/.cargo/config``.
+```
+[target.arm-unknown-linux-gnueabihf.dbus]
+# Specifies the library search paths.
+rustc-link-search = [
+    # absolute path of ~/liblink
+    /home/username/liblink
+]
+```
 ## Cross compile
-Finally, you will be able to cross compile the project without error messages.
+Finally, you will be able to cross compile the test project without error messages.
 
 Bash
 ```
