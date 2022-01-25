@@ -54,8 +54,8 @@
 - [Custom O/S](.\topics\os.md)
 
 # Raspberry Pi
-- [Rust in Raspberry Pi](.\topics\pirust.md)
 - [Using Raspberry Pi](.\topics\raspberrypi.md)
+- [Rust in Raspberry Pi](.\topics\pirust.md)
 - [Building Embedded System](.\topics\embedded.md)
 
 # Distro setup

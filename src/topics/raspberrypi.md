@@ -202,7 +202,7 @@ a wifi connection and provide password.
 
 We will be using instructions from [Installing Lighttpd with Python CGI support](https://mike632t.wordpress.com/2013/09/21/installing-lighttpd-with-python-cgi-support/#:~:text=Lighttpd%20is%20a%20lightweight%20web,such%20as%20the%20Raspberry%20Pi.).
 
-Install ``lighthttpd`` web server
+Install ``lighttpd`` web server
 
 ```bash
 sudo apt-get install lighttpd
@@ -324,17 +324,20 @@ However there is one problem in this case,
 
 My desktop works fine but my laptop is treating pi as a com port as this article mentioned.
 I am manually trying to install ndis driver on my windows 10, but microsoft site was no help.
-Appearently a certificate is needed for the inf file they suggested. Gota research more to find
+Apparently a certificate is needed for the inf file they suggested. Gota research more to find
 where that certificate for their inf file is located.
 
 Meanwhile this post, <https://forum.moddevices.com/t/rndis-driver-for-windows-10/299/7>
-suggested a way to install a rndis driver from moddevice. 
+suggested a way to install a `rndis` driver from moddevice. 
 
 The full documentation is here, read carefully before you install the driver,
 * <https://wiki.moddevices.com/wiki/Troubleshooting_Windows_Connection>
 
-I downloaded the zip file from [microsof.net](https://modclouddownloadprod.blob.core.windows.net/shared/mod-duo-rndis.zip) site,
-installed it and it worked. zip file is saved in the github repo, ``files\mod-duo-rndis.zip``.
+I downloaded the zip file, 
+[`mod-duo-rndis.zip`](https://modclouddownloadprod.blob.core.windows.net/shared/mod-duo-rndis.zip),
+from microsoft.net site, installed it and it worked. 
+
+> I backed up the zip file [here](/files/mod-duo-rndis.zip), just in case the above link ever stops working.
 ## <a name="idea1-impl"></a>Raspberry pi as Access Point and Wifi client
 
 This is an example of how the [*idea 1*](#idea1) can be implemented. This was collected from the tutorials found on internet <https://www.raspberrypi.org/forums/viewtopic.php?t=211542>. 
@@ -593,7 +596,7 @@ except:
 
 > Remove the code after debugging is complete. Otherwise it may expose information
 leading into security risk for your application. ``post`` requests can not be redirected,
-broweser turns it into a ``get`` request and then the request fails.
+browser turns it into a ``get`` request and then the request fails.
 
 ## Using cython
 install cython first.
