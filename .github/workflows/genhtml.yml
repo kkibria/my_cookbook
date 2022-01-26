@@ -1,6 +1,8 @@
-name: Build using tool Binary
-on: 
-  workflow_dispatch:
+name: Build and deploy
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build-binary:
@@ -14,9 +16,6 @@ jobs:
         run: |
           unzip .github/ubuntu/tools-binary.zip -d bin
           chmod +x bin/mdbook*
-          PWD=`pwd`
-          echo $PWD
-          echo $HOME
           export PATH="$PWD/bin:$PATH"
           mkdir gh-pages
           mdbook build

@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Install rust, mdbook tools, Build book and Deploy 
 on:
   push:
     branches:

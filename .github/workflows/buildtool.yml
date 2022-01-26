@@ -1,4 +1,4 @@
-name: Build tools and release
+name: Build tools binary and save
 on: 
   workflow_dispatch:
 
@@ -13,6 +13,7 @@ jobs:
           cargo install mdbook
           cargo install --git https://github.com/kkibria/mdbook-frntmtr.git
 
+      - name: zip for .github/ubuntu # we have to manually copy the zip file
       - uses: actions/upload-artifact@v2
         with:
           name: tools-binary
