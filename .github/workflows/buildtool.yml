@@ -1,4 +1,4 @@
-name: Build tools binary and save
+name: Build tools
 on: 
   workflow_dispatch:
 
