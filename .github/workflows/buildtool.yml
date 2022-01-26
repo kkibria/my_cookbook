@@ -1,6 +1,5 @@
-name: Build tools and release
-on: 
-  workflow_dispatch:
+name: Build tools and zip file
+on: workflow_dispatch
 
 jobs:
   build-binary:
