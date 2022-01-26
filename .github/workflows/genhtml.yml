@@ -17,9 +17,9 @@ jobs:
           PWD=`pwd`
           echo $PWD
           echo $HOME
-          export PATH="$HOME/bin:$PATH"
+          export PATH="$PWD/bin:$PATH"
           mkdir gh-pages
-          # mdbook build
+          mdbook build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.2
