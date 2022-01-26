@@ -1,23 +1,9 @@
 ---
-title: Project in gitlab or github
+title: Project in github or gitlab
 ---
 
 # {{ page.title }}
 
-## gitlab
-Create a local project directory. In this example we will use ``prj_dir` as the directory name. Now populate the ``prj_dir`` with all the files and folders that will be used for initial commit.
-
-```bash
-cd prj_dir
-git init
-git add .
-git commit -m "initial commit"
-git push --set-upstream https://gitlab.com/USERNAME/REPOSITORY.git master
-git remote add origin https://gitlab.com/USERNAME/REPOSITORY.git
-git pull
-```
-
-I created a convenience npm module that will execute the above commands without typing them individually. You can clone from [https://gitlab.com/kkibria/gitlab.git](https://gitlab.com/kkibria/gitlab.git), build the npm module and install.
 
 ## github
 Create a new repository.
@@ -37,6 +23,24 @@ Push an existing folder maintained with git,
 git remote add origin https://github.com/USERNAME/REPOSITORY.git
 git push -u origin master
 ```
+
+> Note: vscode now provides gui interface to create a repository in github directly
+> from a local repo with push of a button.
+
+## gitlab
+Create a local project directory. In this example we will use ``prj_dir` as the directory name. Now populate the ``prj_dir`` with all the files and folders that will be used for initial commit.
+
+```bash
+cd prj_dir
+git init
+git add .
+git commit -m "initial commit"
+git push --set-upstream https://gitlab.com/USERNAME/REPOSITORY.git master
+git remote add origin https://gitlab.com/USERNAME/REPOSITORY.git
+git pull
+```
+
+I created a convenience npm module that will execute the above commands without typing them individually. You can clone from [https://gitlab.com/kkibria/gitlab.git](https://gitlab.com/kkibria/gitlab.git), build the npm module and install.
 
 ## Changing a remote's URL
 The ``git remote set-url`` command changes an existing remote repository URL.

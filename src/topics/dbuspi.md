@@ -1,4 +1,4 @@
-# using dbus in pi
+# Using dbus in pi
 
 ## Note on getting dbus interfaces
 
