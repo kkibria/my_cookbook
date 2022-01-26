@@ -14,7 +14,8 @@ jobs:
         run: |
           unzip .github/ubuntu/tools-binary.zip -d bin
           chmod +x bin/mdbook*
-          pwd
+          PWD=`pwd`
+          echo $PWD
           echo $HOME
           export PATH="$HOME/bin:$PATH"
           mkdir gh-pages
