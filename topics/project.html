@@ -143,19 +143,8 @@
                 <div id="content" class="content">
                     <main>
                         <hr />
-<h2 id="title-project-in-gitlab-or-github"><a class="header" href="#title-project-in-gitlab-or-github">title: Project in gitlab or github</a></h2>
+<h2 id="title-project-in-github-or-gitlab"><a class="header" href="#title-project-in-github-or-gitlab">title: Project in github or gitlab</a></h2>
 <h1 id="-pagetitle-"><a class="header" href="#-pagetitle-">{{ page.title }}</a></h1>
-<h2 id="gitlab"><a class="header" href="#gitlab">gitlab</a></h2>
-<p>Create a local project directory. In this example we will use <code>prj_dir` as the directory name. Now populate the </code>prj_dir`` with all the files and folders that will be used for initial commit.</p>
-<pre><code class="language-bash">cd prj_dir
-git init
-git add .
-git commit -m &quot;initial commit&quot;
-git push --set-upstream https://gitlab.com/USERNAME/REPOSITORY.git master
-git remote add origin https://gitlab.com/USERNAME/REPOSITORY.git
-git pull
-</code></pre>
-<p>I created a convenience npm module that will execute the above commands without typing them individually. You can clone from <a href="https://gitlab.com/kkibria/gitlab.git">https://gitlab.com/kkibria/gitlab.git</a>, build the npm module and install.</p>
 <h2 id="github"><a class="header" href="#github">github</a></h2>
 <p>Create a new repository.</p>
 <p>Create a new folder <code>prj_dir</code> and <code>README.md</code> file,</p>
@@ -170,6 +159,21 @@ git push -u origin master
 <pre><code class="language-bash">git remote add origin https://github.com/USERNAME/REPOSITORY.git
 git push -u origin master
 </code></pre>
+<blockquote>
+<p>Note: vscode now provides gui interface to create a repository in github directly
+from a local repo with push of a button.</p>
+</blockquote>
+<h2 id="gitlab"><a class="header" href="#gitlab">gitlab</a></h2>
+<p>Create a local project directory. In this example we will use <code>prj_dir` as the directory name. Now populate the </code>prj_dir`` with all the files and folders that will be used for initial commit.</p>
+<pre><code class="language-bash">cd prj_dir
+git init
+git add .
+git commit -m &quot;initial commit&quot;
+git push --set-upstream https://gitlab.com/USERNAME/REPOSITORY.git master
+git remote add origin https://gitlab.com/USERNAME/REPOSITORY.git
+git pull
+</code></pre>
+<p>I created a convenience npm module that will execute the above commands without typing them individually. You can clone from <a href="https://gitlab.com/kkibria/gitlab.git">https://gitlab.com/kkibria/gitlab.git</a>, build the npm module and install.</p>
 <h2 id="changing-a-remotes-url"><a class="header" href="#changing-a-remotes-url">Changing a remote's URL</a></h2>
 <p>The <code>git remote set-url</code> command changes an existing remote repository URL.</p>
 <pre><code class="language-bash">$ git remote -v
