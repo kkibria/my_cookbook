@@ -14,9 +14,11 @@ jobs:
         run: |
           unzip .github/ubuntu/tools-binary.zip -d bin
           chmod +x bin/mdbook*
+          pwd
+          echo $HOME
           export PATH="$HOME/bin:$PATH"
           mkdir gh-pages
-          mdbook build
+          # mdbook build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.2
