@@ -1,4 +1,5 @@
-name: build mdbook binary
+name: Build mdbook binary
+
 on: workflow_dispatch
 
 jobs:
