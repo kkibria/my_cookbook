@@ -1,4 +1,4 @@
-name: Build tools
+name: build mdbook binary
 on: 
   workflow_dispatch:
 
