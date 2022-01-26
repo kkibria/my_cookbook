@@ -12,7 +12,7 @@ jobs:
           cargo install mdbook
           cargo install --git https://github.com/kkibria/mdbook-frntmtr.git
 
-      - name: zip for .github/ubuntu # we have to manually copy the zip file
+      - name: zip for .github/ubuntu
       - uses: actions/upload-artifact@v2
         with:
           name: tools-binary
