@@ -125,6 +125,11 @@ deactivate
 pip freeze > requirements.txt
 ```
 
+To load all the libraries in virtual environment
+```bash
+pip install -r requirements.txt
+```
+
 ## some python request module issues with SSL 
 
 * <https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests-in-python>
