@@ -267,3 +267,6 @@ abc().then(val => console.log(val));
 
 ```
 
+# clipboard API
+modern web browsers provide api for clipboard access
+* <https://www.sitepoint.com/clipboard-api/>
