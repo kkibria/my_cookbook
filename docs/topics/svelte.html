@@ -402,6 +402,27 @@ the code from <code>support/demo_template</code> with svelte,
 <li>Instantiate web component in a svelte component. Check this as a starting point, <a href="https://youtu.be/-6Hy3MHfPhA">https://youtu.be/-6Hy3MHfPhA</a>.</li>
 <li>instantiate a svelte component in a web component or a existing web page like a web component.</li>
 </ul>
+<p>To convert your existing Svelte app into a web component, you need to,</p>
+<ul>
+<li>Add &lt;svelte:options tag=&quot;component-name&quot;&gt; somewhere in your .svelte file to assign a html tag name.</li>
+<li>Tell the svelte compiler to create web component by adding <code>customElement: true</code> option.
+However using this way would turn every svelte file it compiles to a web component. In a typical
+project however you might one only the top svelte file compiled to be a web component and all other files to integrated in the top level file. This can be done using <code>customElement</code> option with a filter.</li>
+</ul>
+<p>Following is a filter example that only makes web component when the file has <code>.wc.svelte</code> extension.</p>
+<pre><code>// rollup.config.js
+svelte({ customElement: true, include: /\.wc\.svelte$/ }),
+svelte({ customElement: false, exclude: /\.wc\.svelte$/ }),
+</code></pre>
+<p>Using global CSS should be done carefully since if they are not scoped properly.
+Using class name to scope CSS is the right approach since svelte adds a hash to the css names.
+So the same css can be used in many places with duplicating.</p>
+<p>The property names should be restricted to lower case, camel case and hyphenation should not be used
+as they have complications.</p>
+<ul>
+<li><a href="https://javascript.plainenglish.io/can-you-build-web-components-with-svelte-3c8bc3c1cfd8#:%7E:text=In%20theory%2C%20all%20you%20need,That&#x27;s%20it!">Can You Build Web Components With Svelte?</a>, slightly old, some of the issues have been fixed since then. A must read
+to understand related issues. </li>
+</ul>
 <blockquote>
 <p>Todo: We will explore this in more details in future.</p>
 </blockquote>
