@@ -280,3 +280,12 @@ const { these, are, stores } = getContext(...);
 ## Login data passing with context API
 
 Firebase can have has it own login subscription via rxfire. However following articles are good read to understand svelte support data sharing across the app.
+
+
+## Web components
+There should be two ways we can interact with web component technology,
+* Instantiate web component in a svelte component. Check this as a starting point, <https://youtu.be/-6Hy3MHfPhA>.
+* instantiate a svelte component in a web component or a existing web page like a web component.
+
+> Todo: We will explore this in more details in future.
+
