@@ -1216,6 +1216,9 @@ the code from <code>support/demo_template</code> with svelte,
 <h2 id="login-data-passing-with-context-api"><a class="header" href="#login-data-passing-with-context-api">Login data passing with context API</a></h2>
 <p>Firebase can have has it own login subscription via rxfire. However following articles are good read to understand svelte support data sharing across the app.</p>
 <h2 id="web-components"><a class="header" href="#web-components">Web components</a></h2>
+<ul>
+<li><a href="https://svelte.dev/docs#run-time-custom-element-api">Custom element API</a>, read this carefully.</li>
+</ul>
 <p>There should be two ways we can interact with web component technology,</p>
 <ul>
 <li>Instantiate web component in a svelte component. Check this as a starting point, <a href="https://youtu.be/-6Hy3MHfPhA">https://youtu.be/-6Hy3MHfPhA</a>.</li>
@@ -1245,6 +1248,24 @@ to understand related issues. </li>
 <blockquote>
 <p>Todo: We will explore this in more details in future.</p>
 </blockquote>
+<h3 id="events-1"><a class="header" href="#events-1">events</a></h3>
+<ul>
+<li><a href="https://github.com/sveltejs/svelte/issues/3119">https://github.com/sveltejs/svelte/issues/3119</a> </li>
+</ul>
+<p>Read <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event/Event">MDN events article</a>.
+The read-only <code>composed</code> property of the Event interface returns a Boolean which indicates
+whether or not the event will propagate across the shadow DOM boundary into the standard DOM.</p>
+<pre><code>// App.svelte
+&lt;svelte:options tag=&quot;my-component&quot; /&gt;
+&lt;script&gt;
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+&lt;/script&gt;
+
+&lt;button on:click=&quot;{() =&gt; dispatch('foo', {detail: 'bar', composed: true})}&quot;&gt;
+    click me 
+&lt;/button&gt;
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="svelte-desktop-and-mobile-app"><a class="header" href="#svelte-desktop-and-mobile-app">Svelte Desktop and mobile app</a></h1>
 <h2 id="svelte-for-desktop-app"><a class="header" href="#svelte-for-desktop-app">svelte for desktop app</a></h2>
 <ul>
