@@ -283,9 +283,53 @@ Firebase can have has it own login subscription via rxfire. However following ar
 
 
 ## Web components
+* [Custom element API](https://svelte.dev/docs#run-time-custom-element-api), read this carefully.
+
 There should be two ways we can interact with web component technology,
 * Instantiate web component in a svelte component. Check this as a starting point, <https://youtu.be/-6Hy3MHfPhA>.
 * instantiate a svelte component in a web component or a existing web page like a web component.
 
+To convert your existing Svelte app into a web component, you need to,
+* Add <svelte:options tag="component-name"> somewhere in your .svelte file to assign a html tag name.
+* Tell the svelte compiler to create web component by adding `customElement: true` option.
+However using this way would turn every svelte file it compiles to a web component. In a typical
+project however you might one only the top svelte file compiled to be a web component and all other files to integrated in the top level file. This can be done using `customElement` option with a filter.
+
+Following is a filter example that only makes web component when the file has `.wc.svelte` extension.
+```
+// rollup.config.js
+svelte({ customElement: true, include: /\.wc\.svelte$/ }),
+svelte({ customElement: false, exclude: /\.wc\.svelte$/ }),
+```
+
+Using global CSS should be done carefully since if they are not scoped properly.
+Using class name to scope CSS is the right approach since svelte adds a hash to the css names.
+So the same css can be used in many places with duplicating.
+
+The property names should be restricted to lower case, camel case and hyphenation should not be used
+as they have complications.
+
+* [Can You Build Web Components With Svelte?](https://javascript.plainenglish.io/can-you-build-web-components-with-svelte-3c8bc3c1cfd8#:~:text=In%20theory%2C%20all%20you%20need,That's%20it!), slightly old, some of the issues have been fixed since then. A must read
+to understand related issues. 
+
 > Todo: We will explore this in more details in future.
 
+### events
+* <https://github.com/sveltejs/svelte/issues/3119> 
+
+Read [MDN events article](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event).
+The read-only `composed` property of the Event interface returns a Boolean which indicates
+whether or not the event will propagate across the shadow DOM boundary into the standard DOM.
+
+```
+// App.svelte
+<svelte:options tag="my-component" />
+<script>
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+</script>
+
+<button on:click="{() => dispatch('foo', {detail: 'bar', composed: true})}">
+    click me 
+</button>
+```
