@@ -33,8 +33,9 @@ git config --global credential.helper store
 ```
 
 ## cpp setup
-https://github.com/Microsoft/vscode-cpptools/blob/master/Documentation/LanguageServer/MinGW.md
 
+* <https://github.com/Microsoft/vscode-cpptools/blob/master/Documentation/LanguageServer/MinGW.md>
+* <https://youtu.be/dSGW-DLMnUc>
 
 To get include path
 gcc -v -E -x c++ -

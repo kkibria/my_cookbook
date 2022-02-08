@@ -306,8 +306,128 @@ Using global CSS should be done carefully since if they are not scoped properly.
 Using class name to scope CSS is the right approach since svelte adds a hash to the css names.
 So the same css can be used in many places with duplicating.
 
-The property names should be restricted to lower case, camel case and hyphenation should not be used
+The property names should be restricted to lower case, camel case and kebab case should not be used
 as they have complications.
+Check <https://github.com/sveltejs/svelte/issues/3852>.
+One solution proposed is to create a wrapper,
+```
+import MyCustomComponent from './MyCustomComponent.svelte';
+
+class MyCustomComponentWrapper extends MyCustomComponent {
+  static get observedAttributes() {
+    return (super.observedAttributes || []).map(attr => attr.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase());
+  }
+
+  attributeChangedCallback(attrName, oldValue, newValue) {
+    attrName = attrName.replace(/-([a-z])/g, (_, up) => up.toUpperCase());
+    super.attributeChangedCallback(attrName, oldValue, newValue);
+  }
+}
+
+customElements.define('my-custom-component', MyCustomComponentWrapper);
+```
+
+MyCustomComponent.svelte
+```
+<script>
+  export let someDashProperty;
+</script>
+
+<svelte:options tag={null} />
+
+{someDashProperty}
+```
+
+Then you can use it in this way:
+```
+<my-custom-component some-dash-property="hello"></my-custom-component>
+```
+There were variants of this can be used in the bundler to have a automated wrapper injection
+done at the build time.
+
+If you use esbuild bundler instead of rollup, following would work.
+
+Original Svelte component like this:
+```
+<!-- src/components/navbar/navbar.wc.svelte -->
+
+<svelte:options tag="elect-navbar" />
+
+<!-- Svelte Component ... -->
+```
+
+Create a customElements.define
+```
+/* src/utils/custom-element.js */
+
+export const customElements = {
+  define: (tagName, CustomElement) => {
+    class CustomElementWrapper extends CustomElement {
+      static get observedAttributes() {
+        return (super.observedAttributes || []).map((attr) =>
+          attr.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase(),
+        );
+      }
+
+      attributeChangedCallback(attrName, oldValue, newValue) {
+        super.attributeChangedCallback(
+          attrName.replace(/-([a-z])/g, (_, up) => up.toUpperCase()),
+          oldValue,
+          newValue === '' ? true : newValue, // [Tweaked] Value of omitted value attribute will be true
+        );
+      }
+    }
+
+    window.customElements.define(tagName, CustomElementWrapper); // <--- Call the actual customElements.define with our wrapper
+  },
+};
+
+```
+Then use esbuild inject option to inject the above code to the top of the built file
+```
+/* esbuild.js */
+
+import { build } from 'esbuild';
+import esbuildSvelte from 'esbuild-svelte';
+import sveltePreprocess from 'svelte-preprocess';
+
+// ...
+    build({
+      entryPoints,
+      ourdir,
+      bundle: true,
+      inject: ['src/utils/custom-element.js'], // <--- Inject our custom elements mock
+      plugins: [
+        esbuildSvelte({
+          preprocess: [sveltePreprocess()],
+          compileOptions: { customElement: true },
+        }),
+      ],
+    })
+// ...
+```
+
+Will produce web component like this:
+```
+// components/navbar.js
+
+(() => {
+  // src/utils/custom-element.js
+  var customElements = {
+    define: (tagName, CustomElement) => {
+      // Our mocked customElements.define logic ...
+    }
+  };
+
+  // Svelte compiled code ...
+
+  customElements.define("elect-navbar", Navbar_wc); // <--- This code compiled by Svelte will called our mocked function instead of actual customElements.define
+  var navbar_wc_default = Navbar_wc;
+})();
+
+
+
+```
 
 * [Can You Build Web Components With Svelte?](https://javascript.plainenglish.io/can-you-build-web-components-with-svelte-3c8bc3c1cfd8#:~:text=In%20theory%2C%20all%20you%20need,That's%20it!), slightly old, some of the issues have been fixed since then. A must read
 to understand related issues. 
@@ -333,3 +453,17 @@ whether or not the event will propagate across the shadow DOM boundary into the 
     click me 
 </button>
 ```
+
+## Develop with Vite
+
+* <https://vitejs.dev/>
+
+Vite provides very nice response time during development cycle, compile is really fast with vite
+as it doesn't bundle at development time. For production build it uses rollup as usual with
+svelte and bundles everything together. It also has a nice 
+[plugin for kebab casing](https://github.com/roonie007/vite-plugin-svelte-kebab-props)
+support for svelte component property names.
+
+> I am not sure if we make a web component with this plugin, the web component will support
+> kebab casing. But using web component with kebab casing in Svelte can be done with this. 
+
