@@ -420,8 +420,39 @@ svelte({ customElement: false, exclude: /\.wc\.svelte$/ }),
 <p>Using global CSS should be done carefully since if they are not scoped properly.
 Using class name to scope CSS is the right approach since svelte adds a hash to the css names.
 So the same css can be used in many places with duplicating.</p>
-<p>The property names should be restricted to lower case, camel case and hyphenation should not be used
-as they have complications.</p>
+<p>The property names should be restricted to lower case, camel case and kebab case should not be used
+as they have complications.
+Check <a href="https://github.com/sveltejs/svelte/issues/3852">https://github.com/sveltejs/svelte/issues/3852</a>.
+One solution proposed is to create a wrapper,</p>
+<pre><code>import MyCustomComponent from './MyCustomComponent.svelte';
+
+class MyCustomComponentWrapper extends MyCustomComponent {
+  static get observedAttributes() {
+    return (super.observedAttributes || []).map(attr =&gt; attr.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase());
+  }
+
+  attributeChangedCallback(attrName, oldValue, newValue) {
+    attrName = attrName.replace(/-([a-z])/g, (_, up) =&gt; up.toUpperCase());
+    super.attributeChangedCallback(attrName, oldValue, newValue);
+  }
+}
+
+customElements.define('my-custom-component', MyCustomComponentWrapper);
+</code></pre>
+<p>MyCustomComponent.svelte</p>
+<pre><code>&lt;script&gt;
+  export let someDashProperty;
+&lt;/script&gt;
+
+&lt;svelte:options tag={null} /&gt;
+
+{someDashProperty}
+</code></pre>
+<p>Then you can use it in this way:</p>
+<pre><code>&lt;my-custom-component some-dash-property=&quot;hello&quot;&gt;&lt;/my-custom-component&gt;
+</code></pre>
+<p>There were variants of this can be used in the bundler to have a automated wrapper injection
+done at the build time.</p>
 <ul>
 <li><a href="https://javascript.plainenglish.io/can-you-build-web-components-with-svelte-3c8bc3c1cfd8#:%7E:text=In%20theory%2C%20all%20you%20need,That&#x27;s%20it!">Can You Build Web Components With Svelte?</a>, slightly old, some of the issues have been fixed since then. A must read
 to understand related issues. </li>
@@ -447,6 +478,15 @@ whether or not the event will propagate across the shadow DOM boundary into the 
     click me 
 &lt;/button&gt;
 </code></pre>
+<h2 id="develop-with-vite"><a class="header" href="#develop-with-vite">Develop with Vite</a></h2>
+<ul>
+<li><a href="https://vitejs.dev/">https://vitejs.dev/</a></li>
+</ul>
+<p>Vite provides very nice response time during development cycle, compile is really fast with vite
+as it doesn't bundle at development time. For production build it uses rollup as usual with
+svelte and bundles everything together. It also has a nice 
+<a href="https://github.com/roonie007/vite-plugin-svelte-kebab-props">plugin for kebab casing</a>
+support for component property names.</p>
 
                     </main>
 
