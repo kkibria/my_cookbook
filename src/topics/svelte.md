@@ -283,12 +283,17 @@ Firebase can have has it own login subscription via rxfire. However following ar
 
 
 ## Web components
-* [Custom element API](https://svelte.dev/docs#run-time-custom-element-api), read this carefully.
+
+A Svelte component can be compiled into a web component as documented in 
+[Custom element API](https://svelte.dev/docs#run-time-custom-element-api), read this carefully.
+> At the moment this is an incomplete feature. There are many issues as described in the following parts
+> of this section. If you are not dependent on them (kebab casing and global: css) you can make web components. 
 
 There should be two ways we can interact with web component technology,
 * Instantiate web component in a svelte component. Check this as a starting point, <https://youtu.be/-6Hy3MHfPhA>.
 * instantiate a svelte component in a web component or a existing web page like a web component.
 
+### Compile
 To convert your existing Svelte app into a web component, you need to,
 * Add <svelte:options tag="component-name"> somewhere in your .svelte file to assign a html tag name.
 * Tell the svelte compiler to create web component by adding `customElement: true` option.
@@ -302,14 +307,32 @@ svelte({ customElement: true, include: /\.wc\.svelte$/ }),
 svelte({ customElement: false, exclude: /\.wc\.svelte$/ }),
 ```
 
-Using global CSS should be done carefully since if they are not scoped properly.
-Using class name to scope CSS is the right approach since svelte adds a hash to the css names.
-So the same css can be used in many places with duplicating.
+### Global CSS file
+Using global CSS from a file should be done carefully if they are not scoped properly. They should
+be avoided inside a component, all styles should be defined inside the Svelte components
+so that svelte compiler scope them properly. Using class name to scope CSS is the right approach
+if needed.
+For web components svelte will inline the CSS.
+Note that, CSS with global: specifier for generated content is needed since svelte will remove
+any unused CSS otherwise. But this [does not work](https://github.com/sveltejs/svelte/issues/2969) in Custom element right now.
 
+A workaround proposed is to use webpack `ContentReplacePlugin`, 
+```
+plugins: [
+	new ContentReplacePlugin({
+        	rules: {
+		      '**/*.js': content => content.replace(/:global\(([\[\]\(\)\-\.\:\*\w]+)\)/g, '$1')
+	          }
+	})
+]
+```
+
+A side note, CSS doesn't leak thru shadow DOM which is used for web components.
+
+### Property name
 The property names should be restricted to lower case, camel case and kebab case should not be used
-as they have complications.
-Check <https://github.com/sveltejs/svelte/issues/3852>.
-One solution proposed is to create a wrapper,
+as they have complications. However if you must, check <https://github.com/sveltejs/svelte/issues/3852>.
+The solution proposed is to create a wrapper,
 ```
 import MyCustomComponent from './MyCustomComponent.svelte';
 
@@ -434,7 +457,7 @@ to understand related issues.
 
 > Todo: We will explore this in more details in future.
 
-### events
+### Events
 * <https://github.com/sveltejs/svelte/issues/3119> 
 
 Read [MDN events article](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event).
