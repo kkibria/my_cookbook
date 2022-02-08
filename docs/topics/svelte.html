@@ -453,6 +453,82 @@ customElements.define('my-custom-component', MyCustomComponentWrapper);
 </code></pre>
 <p>There were variants of this can be used in the bundler to have a automated wrapper injection
 done at the build time.</p>
+<p>If you use esbuild bundler instead of rollup, following would work.</p>
+<p>Original Svelte component like this:</p>
+<pre><code>&lt;!-- src/components/navbar/navbar.wc.svelte --&gt;
+
+&lt;svelte:options tag=&quot;elect-navbar&quot; /&gt;
+
+&lt;!-- Svelte Component ... --&gt;
+</code></pre>
+<p>Create a customElements.define</p>
+<pre><code>/* src/utils/custom-element.js */
+
+export const customElements = {
+  define: (tagName, CustomElement) =&gt; {
+    class CustomElementWrapper extends CustomElement {
+      static get observedAttributes() {
+        return (super.observedAttributes || []).map((attr) =&gt;
+          attr.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase(),
+        );
+      }
+
+      attributeChangedCallback(attrName, oldValue, newValue) {
+        super.attributeChangedCallback(
+          attrName.replace(/-([a-z])/g, (_, up) =&gt; up.toUpperCase()),
+          oldValue,
+          newValue === '' ? true : newValue, // [Tweaked] Value of omitted value attribute will be true
+        );
+      }
+    }
+
+    window.customElements.define(tagName, CustomElementWrapper); // &lt;--- Call the actual customElements.define with our wrapper
+  },
+};
+
+</code></pre>
+<p>Then use esbuild inject option to inject the above code to the top of the built file</p>
+<pre><code>/* esbuild.js */
+
+import { build } from 'esbuild';
+import esbuildSvelte from 'esbuild-svelte';
+import sveltePreprocess from 'svelte-preprocess';
+
+// ...
+    build({
+      entryPoints,
+      ourdir,
+      bundle: true,
+      inject: ['src/utils/custom-element.js'], // &lt;--- Inject our custom elements mock
+      plugins: [
+        esbuildSvelte({
+          preprocess: [sveltePreprocess()],
+          compileOptions: { customElement: true },
+        }),
+      ],
+    })
+// ...
+</code></pre>
+<p>Will produce web component like this:</p>
+<pre><code>// components/navbar.js
+
+(() =&gt; {
+  // src/utils/custom-element.js
+  var customElements = {
+    define: (tagName, CustomElement) =&gt; {
+      // Our mocked customElements.define logic ...
+    }
+  };
+
+  // Svelte compiled code ...
+
+  customElements.define(&quot;elect-navbar&quot;, Navbar_wc); // &lt;--- This code compiled by Svelte will called our mocked function instead of actual customElements.define
+  var navbar_wc_default = Navbar_wc;
+})();
+
+
+
+</code></pre>
 <ul>
 <li><a href="https://javascript.plainenglish.io/can-you-build-web-components-with-svelte-3c8bc3c1cfd8#:%7E:text=In%20theory%2C%20all%20you%20need,That&#x27;s%20it!">Can You Build Web Components With Svelte?</a>, slightly old, some of the issues have been fixed since then. A must read
 to understand related issues. </li>
@@ -486,7 +562,11 @@ whether or not the event will propagate across the shadow DOM boundary into the 
 as it doesn't bundle at development time. For production build it uses rollup as usual with
 svelte and bundles everything together. It also has a nice 
 <a href="https://github.com/roonie007/vite-plugin-svelte-kebab-props">plugin for kebab casing</a>
-support for component property names.</p>
+support for svelte component property names.</p>
+<blockquote>
+<p>I am not sure if we make a web component with this plugin, the web component will support
+kebab casing. But using web component with kebab casing in Svelte can be done with this. </p>
+</blockquote>
 
                     </main>
 
