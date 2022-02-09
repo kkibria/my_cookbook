@@ -182,8 +182,183 @@ Check <a href="https://pkg.go.dev/github.com/mna/pigeon?tab=doc">Documentation</
 <p>I prefer this option. This seems to be the path of lease resistance for now.</p>
 <ul>
 <li><a href="https://blog.gopheracademy.com/advent-2017/parsing-with-antlr4-and-go/">Parsing with ANTLR 4 and Go</a>.
-The author has already created golang parsers for all available grammars in (Github)[https://github.com/bramp/antlr4-grammars.git]. </li>
+The author has already created golang parsers for all available grammars in (Github)[https://github.com/bramp/antlr4-grammars.git].</li>
 </ul>
+<h2 id="manual-porting"><a class="header" href="#manual-porting">Manual porting</a></h2>
+<ul>
+<li><a href="https://blog.kowalczyk.info/article/19f2fe97f06a47c3b1f118fd06851fad/lessons-learned-porting-50k-loc-from-java-to-go.html">Lessons learned porting 50k loc from Java to Go</a></li>
+</ul>
+<p>Edited excerpts from the article,</p>
+<h3 id="string-vs-string"><a class="header" href="#string-vs-string">String vs. string</a></h3>
+<p>In Java, <code>String</code> is an object
+that really is a reference (a pointer). As a result, a string can be <code>null</code>.
+In Go <code>string</code> is a value type.
+It can't be <code>nil</code>, only empty.</p>
+<blockquote>
+<p>Idea: mechanically replace <code>null</code> with <code>&quot;&quot;</code>.</p>
+</blockquote>
+<h3 id="errors-vs-exceptions"><a class="header" href="#errors-vs-exceptions">Errors vs. exceptions</a></h3>
+<p>Java uses exceptions to communicate errors.
+Go returns values of <code>error</code>
+interface.</p>
+<blockquote>
+<p>Idea: Change function signatures to return error values and propagate them up the call
+stack.</p>
+</blockquote>
+<h3 id="generics"><a class="header" href="#generics">Generics</a></h3>
+<p>Go doesn't have Generics.
+Porting generic APIs was the biggest
+challenge.</p>
+<p>Here's an example of a generic method in
+Java:</p>
+<pre><code>public &lt;T&gt; T load(Class&lt;T&gt; clazz, String id) {
+</code></pre>
+<p>And the caller:</p>
+<pre><code>Foo foo = load(Foo.class, &quot;id&quot;)
+</code></pre>
+<p>Two strategies can be useful.</p>
+<p>One is to use <code>interface{}</code>,
+which combines value and its type, similar to <code>object</code> in Java. This is not preferred
+approach. While it works, operating on <code>interface{}</code> is clumsy for the user of the
+library.</p>
+<p>The other is to use reflection
+and the above code was ported as:</p>
+<pre><code>func Load(result interface{}, id string) error
+</code></pre>
+<p>Reflection to query type of
+<code>result</code> can be used to create values of that type from JSON document.</p>
+<p>And the caller side:</p>
+<pre><code>var result *Foo
+err := Load(&amp;result, &quot;id&quot;)
+</code></pre>
+<h3 id="function-overloading"><a class="header" href="#function-overloading">Function overloading</a></h3>
+<p>Go doesn't have overloading.</p>
+<p>Java:</p>
+<pre><code>void foo(int a, String b) {}
+void foo(int a) { foo(a, null); }
+</code></pre>
+<p>In go write 2 functions instead:</p>
+<pre><code>func foo(a int) {}
+func fooWithB(a int, b string) {}
+</code></pre>
+<p>When number of potential arguments was large
+use a struct:</p>
+<pre><code>type FooArgs struct {
+	A int
+	B string
+}
+func foo(args *FooArgs) { }
+</code></pre>
+<h3 id="inheritance"><a class="header" href="#inheritance">Inheritance</a></h3>
+<p>Go is not especially object-oriented and
+doesn't have inheritance.
+Simple cases of inheritance can be ported
+with embedding.</p>
+<pre><code>class B : A { }
+</code></pre>
+<p>Can sometimes be ported as:</p>
+<pre><code>type A struct { }
+type B struct {
+	A
+}
+</code></pre>
+<p>We've embedded <code>A</code> inside
+<code>B</code>, so <code>B</code> inherit all the methods and fields of <code>A</code>.</p>
+<p>It doesn't work for virtual functions.
+There is no good way to directly port code
+that uses virtual functions.
+One option to emulate virtual function is to
+use embedding of structs and function pointers. This essentially re-implements virtual table
+that Java gives you for free as part of <code>object</code> implementation.</p>
+<p>Another option is to write a stand-alone
+function that dispatches the right function for a given type by using type switch.</p>
+<h3 id="interfaces"><a class="header" href="#interfaces">Interfaces</a></h3>
+<p>Both Java and Go have interfaces but they
+are different things. You can create a Go interface type
+that replicated Java interface.</p>
+<p>Or just dont use interfaces, instead use exposed concrete structs in the API.</p>
+<h3 id="circular-imports-between-packages"><a class="header" href="#circular-imports-between-packages">Circular imports between packages</a></h3>
+<p>Java allows circular imports between
+packages.
+Go does not.
+As a result you will not able to replicate the
+package structure of Java code. Restructuring will be needed.</p>
+<h3 id="private-public-protected"><a class="header" href="#private-public-protected">Private, public, protected</a></h3>
+<p>Go simplified access by only having public vs.
+private and scoping access to package level.</p>
+<h3 id="concurrency"><a class="header" href="#concurrency">Concurrency</a></h3>
+<p>Go's concurrency is simply the best and a
+built-in race detector is of great help in repelling concurrency bugs.</p>
+<p>Mechanical translation will require 
+restructuring it to be more Go idiomatic.</p>
+<h3 id="fluent-function-chaining"><a class="header" href="#fluent-function-chaining">Fluent function chaining</a></h3>
+<p>Java has function chaining like this,</p>
+<pre><code>List&lt;ReduceResult&gt; results = session.query(User.class)
+                        .groupBy(&quot;name&quot;)
+                        .selectKey()
+                        .selectCount()
+                        .orderByDescending(&quot;count&quot;)
+                        .ofType(ReduceResult.class)
+                        .toList();
+</code></pre>
+<p>This only works in languages that
+communicate errors via exceptions. When a function additionally returns an error, it's no longer
+possible to chain it like that.</p>
+<p>To replicate chaining in Go, 
+&quot;stateful error&quot; approach would be useful:</p>
+<pre><code>type Query struct {
+	err error
+}
+
+func (q *Query) WhereEquals(field string, val interface{}) *Query {
+	if q.err != nil {
+		return q
+	}
+	// logic that might set q.err
+	return q
+}
+
+func (q *Query) GroupBy(field string) *Query {
+if q.err != nil {
+		return q
+	}
+	// logic that might set q.err
+	return q
+}
+
+func (q *Query) Execute(result interface{}) error {
+	if q.err != nil {
+		return q.err
+	}
+	// do logic
+}
+</code></pre>
+<p>This can be chained:</p>
+<pre><code>var result *Foo
+err := NewQuery().WhereEquals(&quot;Name&quot;, &quot;Frank&quot;).GroupBy(&quot;Age&quot;).Execute(&amp;result)
+</code></pre>
+<h3 id="go-code-is-shorter"><a class="header" href="#go-code-is-shorter">Go code is shorter</a></h3>
+<p>This is not so much a property of Java but
+the culture which dictates what is considered an idiomatic code.</p>
+<p>In Java setter and getter methods are
+common. As a result, Java code:</p>
+<pre><code>class Foo {
+	private int bar;
+
+	public void setBar(int bar) {
+		this.bar = bar;
+	}
+
+	public int getBar() {
+		return this.bar;
+	}
+}
+</code></pre>
+<p>ends up in Go as:</p>
+<pre><code>type Foo struct {
+	Bar int
+}
+</code></pre>
 
                     </main>
 
