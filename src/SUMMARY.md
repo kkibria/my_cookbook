@@ -36,10 +36,15 @@
 # Programming Languages
 - [Go language](./topics/go.md)
 - [Java development](./topics/java.md)
-- [Translating Java to Go language](./topics/java2go.md)
 - [Javascript library](./topics/jslib.md)
-- [Translating Python to Javascript language](./topics/py2js.md)
 - [Rust language](./topics/rust.md)
+
+# Transpiling
+- [Java to Go language](./topics/java2go.md)
+- [Java to Javascript language](./topics/java2js.md)
+- [Python to Go language](./topics/py2go.md)
+- [Python to Javascript language](./topics/py2js.md)
+
 
 # Crafting Compilers
 - [Compilers/Parsers](./topics/parse.md)

@@ -1,5 +1,5 @@
 ---
-title: Translating Python to Javascript language
+title: Python to Javascript language
 ---
 
 # {{ page.title }}

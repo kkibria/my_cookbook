@@ -1,5 +1,5 @@
 ---
-title: Translating Java to Go language
+title: Java to Go language
 ---
 
 # {{ page.title }}

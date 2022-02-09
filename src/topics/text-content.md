@@ -15,7 +15,7 @@ a collection of markdown files. Content Management allows them to be organized a
 in a useful way. They are transformed to html before they are rendered in a browser.
 
 However, wherever you will host the content, their flow is something important to
-understand clearly before you start. For instance, we can talk about github pages.
+understand clearly before you start. For instance, we can talk about github pages later.
 
 
 ## html to markdown conversion
