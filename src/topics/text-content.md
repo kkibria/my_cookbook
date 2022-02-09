@@ -132,3 +132,7 @@ git add .
 git commit -m "deploy"
 git push origin gh-pages
 Set-Location ..
+```
+
+## html to markdown conversion
+* <github.com/suntong/html2md>. Its a tool written in golang. Works nice!
