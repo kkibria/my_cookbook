@@ -17,6 +17,10 @@ in a useful way. They are transformed to html before they are rendered in a brow
 However, wherever you will host the content, their flow is something important to
 understand clearly before you start. For instance, we can talk about github pages.
 
+
+## html to markdown conversion
+We may need to convert existing html to markdown. [`html2md`](github.com/suntong/html2md).
+Its a tool written in golang. Works nice!
 ## Hosting Content in github pages
 Github pages is quite popular for hosting as it is free and git
 controlled. Although there are several options available for github pages,
@@ -134,5 +138,3 @@ git push origin gh-pages
 Set-Location ..
 ```
 
-## html to markdown conversion
-* <github.com/suntong/html2md>. Its a tool written in golang. Works nice!
