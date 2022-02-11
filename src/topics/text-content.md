@@ -76,15 +76,14 @@ Following bash script will do this,
 ```bash
 URL=`git remote get-url origin`
 pushd gh-pages
-git clone $URL .
+echo "gh-pages site" > index.html
+git init
+git remote add origin $URL
 
 # create gh-pages branch
 git checkout -b gh-pages
-
-# clear everything came from master 
-git branch -D master
-git rm -r .
-git commit -m "clearing master contents"
+git add .
+git commit -m "initial commit"
 
 # push the branch to github
 git push origin gh-pages
@@ -118,12 +117,15 @@ they provide for the site.
 $url = git remote get-url origin
 mkdir gh-pages
 Set-Location gh-pages
-git clone $url .
+echo "gh-pages site" > index.html
+git init
+git remote add origin $url
+
 git checkout -b gh-pages
-git rm -r .
-git commit -m "clearing master contents"
+git add .
+git commit -m "initial commit"
+
 git push origin gh-pages
-git branch -D master
 Set-Location ..
 ```
 
