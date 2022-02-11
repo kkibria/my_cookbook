@@ -2000,15 +2000,14 @@ and push the <code>master</code> branch.</p>
 Following bash script will do this,</p>
 <pre><code class="language-bash">URL=`git remote get-url origin`
 pushd gh-pages
-git clone $URL .
+echo &quot;gh-pages site&quot; &gt; index.html
+git init
+git remote add origin $URL
 
 # create gh-pages branch
 git checkout -b gh-pages
-
-# clear everything came from master 
-git branch -D master
-git rm -r .
-git commit -m &quot;clearing master contents&quot;
+git add .
+git commit -m &quot;initial commit&quot;
 
 # push the branch to github
 git push origin gh-pages
@@ -2034,12 +2033,15 @@ they provide for the site.</p>
 <pre><code>$url = git remote get-url origin
 mkdir gh-pages
 Set-Location gh-pages
-git clone $url .
+echo &quot;gh-pages site&quot; &gt; index.html
+git init
+git remote add origin $url
+
 git checkout -b gh-pages
-git rm -r .
-git commit -m &quot;clearing master contents&quot;
+git add .
+git commit -m &quot;initial commit&quot;
+
 git push origin gh-pages
-git branch -D master
 Set-Location ..
 </code></pre>
 <h3 id="setup-a-deploy-script-powershell-version"><a class="header" href="#setup-a-deploy-script-powershell-version">Setup a deploy script (powershell version)</a></h3>
@@ -2963,7 +2965,7 @@ common. As a result, Java code:</p>
 <h2 id="j2cl"><a class="header" href="#j2cl">j2cl</a></h2>
 <p>Google transpiler <a href="https://github.com/google/j2cl">j2cl</a> transpile and uses closure to clean the produced javascript. It is written in java.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="python-to-go-language"><a class="header" href="#python-to-go-language">Python to Go language</a></h1>
-<h2 id="grympy"><a class="header" href="#grympy">grympy</a></h2>
+<h2 id="grumpy"><a class="header" href="#grumpy">grumpy</a></h2>
 <p><a href="https://github.com/google/grumpy">grumpy</a> is by google, but it supports python 2.7 only.
 I am exploring my own python 3.x transpiler solution. Work in progress.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="python-to-javascript-language"><a class="header" href="#python-to-javascript-language">Python to Javascript language</a></h1>
