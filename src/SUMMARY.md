@@ -49,6 +49,7 @@
 # Crafting Compilers
 - [Compilers/Parsers](./topics/parse.md)
 - [Peg Parsers](./topics/peg.md)
+- [Earley parsers](./topics/earley.md)
 
 # System Development
 - [LFS](./topics/lfs.md)

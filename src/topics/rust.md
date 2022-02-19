@@ -253,3 +253,11 @@ If you installed rust to a custom path, use that path instead.
 
 ## debugging rust with vscode in windows
 * <https://www.brycevandyk.com/debug-rust-on-windows-with-visual-studio-code-and-the-msvc-debugger/>
+
+
+## Server
+* <https://crates.io/crates/rust-embed> embeds static file in the server binary.
+* <https://crates.io/crates/live-server> live reload enabled server. Embeds livereload websocket code
+into html files on the fly when serving.
+* <https://crates.io/crates/tide> a web server with support for middleware.
+
