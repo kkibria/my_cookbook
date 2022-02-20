@@ -270,3 +270,27 @@ abc().then(val => console.log(val));
 ## clipboard API
 modern web browsers provide api for clipboard access
 * <https://www.sitepoint.com/clipboard-api/>
+
+
+## tree implementation in node
+
+```
+const dirTree = require("directory-tree");
+
+function printtree(indent, tree, last) {
+    let myindent = last ? "'": "|";
+    console.log(`${indent}${myindent}-- ${tree.name}`);
+    if ("children" in tree) {
+        for (let i=0; i < tree.children.length; i++) {
+            let chindent = last ? " ": "|";
+            let chlast = i == (tree.children.length-1);
+            printtree(indent+chindent+"   ", tree.children[i], chlast);            
+        }
+    }
+}
+
+function tree(path) {
+  let dt = dirTree(path);
+  printtree("", dt, false);
+}
+```
