@@ -254,3 +254,30 @@ jobs:
         asset_name: ubuntu-exe.zip
         asset_content_type: application/zip
 ```
+
+## Remove all local and remote tags
+```
+# Clear All local tags
+git tag -d $(git tag -l)
+
+# Fetch remote All tags
+git fetch
+
+# Delete All remote tags
+git push origin --delete $(git tag -l)
+
+# Clear All local tags again
+git tag -d $(git tag -l)
+```
+
+## create and push a specific tag
+```
+# create a tag
+git tag test123
+
+# list all local tags
+git tag -l     
+
+# push a specific tag to remote named 'origin'
+git push origin tag test123
+```
