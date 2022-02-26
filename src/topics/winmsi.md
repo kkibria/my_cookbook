@@ -14,3 +14,4 @@ The wix tutorial explains lot of core concepts about msi. A good reading materia
 
 * <https://www.firegiant.com/wix/tutorial/>
 * <https://weblogs.sqlteam.com/mladenp/tags/wix-windows-installer-xml-toolset/>
+* <https://youtu.be/usOh3NQO9Ms>
