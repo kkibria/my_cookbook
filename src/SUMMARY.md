@@ -5,7 +5,6 @@
 - [How to create a new project in gitlab or github](./topics/project.md)
 - [Using vscode](./topics/vscode.md)
 - [Windows MSI installer](./topics/winmsi.md)
-
 # Frontend Development
 - [Frontend code development](./topics/fronend.md)
     - [Markdown renderer and editor in browser](./topics/markdown.md)
@@ -38,7 +37,7 @@
 - [Java development](./topics/java.md)
 - [Javascript library](./topics/jslib.md)
 - [Rust language](./topics/rust.md)
-
+- [Powershell](./topics/powershell.md)
 # Transpiling
 - [Java to Go language](./topics/java2go.md)
 - [Java to Javascript language](./topics/java2js.md)
