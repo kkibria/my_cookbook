@@ -21,3 +21,8 @@ in browser processing.
 
 The plan is to convert the midi structure to json and send to browser and then convert back to midi
 before saving.
+
+## rust based DAW
+This is an interesting possibility, may be a tauri based user interface and backend in rust.
+We can probably utilize a pure rust cross platform audio library,
+* <https://github.com/RustAudio/cpal>
