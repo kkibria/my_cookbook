@@ -37,3 +37,6 @@ how do we incorporate,
 ## 3d modelling
 * [dust3d](https://dust3d.org/)
 * <https://youtu.be/MytN8t4guuM>
+
+## color grading
+* <https://youtu.be/Bo3BvhGdaUo>

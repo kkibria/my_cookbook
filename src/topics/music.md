@@ -26,3 +26,4 @@ before saving.
 This is an interesting possibility, may be a tauri based user interface and backend in rust.
 We can probably utilize a pure rust cross platform audio library,
 * <https://github.com/RustAudio/cpal>
+* <https://youtu.be/Z4P5f6ZJ_nE>
