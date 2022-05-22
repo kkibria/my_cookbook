@@ -23,6 +23,7 @@ I like this video series, watch along with the rust book.
 Most practical application pattern is what they call lockdown pattern (event api) added with rust command api.
 * <https://tauri.studio/en/docs/guides/command>
 * <https://tauri.studio/en/docs/guides/events>
+* GUI <https://github.com/vizia/vizia>
 
 ## creating books
 * <https://github.com/rust-lang/mdBook>
