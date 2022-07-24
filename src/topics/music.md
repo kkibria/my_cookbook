@@ -31,3 +31,4 @@ We can probably utilize a pure rust cross platform audio library,
 * <https://youtu.be/Yom9E-67bdI>
 * <https://github.com/SolarLiner/nih-reverb>
 * <https://github.com/vizia/vizia> for gui
+* <https://github.com/Auritia/Auritia>
