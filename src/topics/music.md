@@ -32,6 +32,7 @@ We can probably utilize a pure rust cross platform audio library,
 * <https://github.com/SolarLiner/nih-reverb>
 * <https://github.com/vizia/vizia> for gui
 * <https://github.com/Auritia/Auritia>
+* <https://npm.io/package/svelte-tauri-filedrop> This will allow file drop in on DAW
 
 ## audio and vst3 with rust
 * <https://github.com/RustAudio/vst3-sys>
