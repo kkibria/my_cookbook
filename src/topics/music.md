@@ -34,8 +34,8 @@ We can probably utilize a pure rust cross platform audio library,
 * <https://github.com/Auritia/Auritia>
 
 ## audio and vst3 with rust
-* https://github.com/RustAudio/vst3-sys
-* https://github.com/t-sin/rust-vst3-example
+* <https://github.com/RustAudio/vst3-sys>
+* <https://github.com/t-sin/rust-vst3-example>
 
 
 
