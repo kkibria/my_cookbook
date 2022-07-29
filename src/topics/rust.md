@@ -20,7 +20,7 @@ I like this video series, watch along with the rust book.
 
 ## desktop app with rust
 * <https://tauri.studio>
-Most practical application pattern is what they call lockdown pattern (event api) added with rust command api.
+Most practical application pattern is what they call lockdown pattern (event api) added with rust command api. Uses webview2 for windows.
 * <https://tauri.studio/en/docs/guides/command>
 * <https://tauri.studio/en/docs/guides/events>
 * GUI <https://github.com/vizia/vizia>
