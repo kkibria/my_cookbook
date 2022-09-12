@@ -39,8 +39,15 @@ We can probably utilize a pure rust cross platform audio library,
 * <https://github.com/RustAudio/vst3-sys>
 * <https://github.com/t-sin/rust-vst3-example>
 
-## open source synths
+## open source plugins
 * <https://github.com/TheWaveWarden/odin2>
 * <https://github.com/surge-synthesizer/surge>
 * <https://github.com/zynaddsubfx/zynaddsubfx>
+* <https://github.com/surge-synthesizer/stochas>
 
+
+## karaoke
+* <https://github.com/gyunaev/spivak>
+* <https://github.com/magic-akari/lrc-maker> it also is a player react app.
+* <https://github.com/outloudvi/lrcedit.js> a simple example using 
+web audio api for lrc edit 
