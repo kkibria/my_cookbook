@@ -16,10 +16,6 @@ will run mdbook server locally and live update with changes.
 
 ## adding a new document
 Add the new file in `SUMMARY.md` while mdbook server is running.
-run
-```
-mdbook init
-```
 mdbook will create the file. Now go edit the file to add the frontmatter and title.
 
 following will build and deploy
