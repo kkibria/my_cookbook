@@ -81,8 +81,4 @@ node bundle.js
 ```
 We get the same result.
 
-deactivate python local environment
-```bash
-deactivate
-```
 

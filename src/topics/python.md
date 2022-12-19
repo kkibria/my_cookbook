@@ -20,6 +20,7 @@ C:/Python39/python.exe -m venv .venv
 ./.venv/scripts/Activate
 ```
 
+
 if you are developing a module then you need to have a separate staging area for the module so that we can develop and test,
 ```bash
 mkdir lib_staging
@@ -36,6 +37,11 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../lib_
 
 You can place your modules in lib_staging area as a git sub-project or however the way you want to
 manage development. 
+
+To deactivate python local environment
+```bash
+deactivate
+```
 
 
 ## venv to generate requirements.txt
