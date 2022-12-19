@@ -2899,6 +2899,68 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), &quot;..
 </code></pre>
 <p>You can place your modules in lib_staging area as a git sub-project or however the way you want to
 manage development. </p>
+<h2 id="venv-to-generate-requirementstxt"><a class="header" href="#venv-to-generate-requirementstxt">venv to generate requirements.txt</a></h2>
+<pre><code class="language-bash">pip freeze &gt; requirements.txt
+</code></pre>
+<p>To load all the libraries in virtual environment</p>
+<pre><code class="language-bash">pip install -r requirements.txt
+</code></pre>
+<h2 id="some-python-request-module-issues-with-ssl"><a class="header" href="#some-python-request-module-issues-with-ssl">some python request module issues with SSL</a></h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests-in-python">https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests-in-python</a></li>
+</ul>
+<p>Sometimes, when you are behind a company proxy, it replaces the certificate chain with the ones of Proxy. Adding the certificates in cacert.pem used by certifi should solve the issue.</p>
+<ol>
+<li>Find the path where cacert.pem is located -</li>
+</ol>
+<blockquote>
+<p>Install certifi, if you don't have. Command: <code>pip install certifi</code></p>
+</blockquote>
+<pre><code>import certifi
+certifi.where()
+C:\\Users\\[UserID]\\AppData\\Local\\Programs\\Python\\Python37-32\\lib\\site-packages\\certifi\\cacert.pem
+</code></pre>
+<ol start="2">
+<li>Open the URL (or base URL) on a browser. Browser will download the certificates of chain of trust from the URL.
+The chain looks like,</li>
+</ol>
+<pre><code>Root Authority (you probably already have this) 
++-- Local Authority (might be missing)
+    +-- Site certificate (you don't need this)
+</code></pre>
+<ol start="3">
+<li>
+<p>You can save the whole chain as <code>.p7b</code> file, which can be opened in windows explorer. Or you can just save the Local Authority as Base64 encoded <code>.cer</code> files.</p>
+</li>
+<li>
+<p>Now open the cacert.pem in a notepad and just add every downloaded certificate contents (<code>---Begin Certificate--- *** ---End Certificate---</code>) at the end.</p>
+</li>
+</ol>
+<h2 id="python-image-manipulation-as-they-are-downloaded"><a class="header" href="#python-image-manipulation-as-they-are-downloaded">python image manipulation as they are downloaded</a></h2>
+<pre><code class="language-python">import os
+import io
+import requests
+from PIL import Image
+import tempfile
+
+buffer = tempfile.SpooledTemporaryFile(max_size=1e9)
+r = requests.get(img_url, stream=True)
+if r.status_code == 200:
+    downloaded = 0
+    filesize = int(r.headers['content-length'])
+    for chunk in r.iter_content(chunk_size=1024):
+        downloaded += len(chunk)
+        buffer.write(chunk)
+        print(downloaded/filesize)
+    buffer.seek(0)
+    i = Image.open(io.BytesIO(buffer.read()))
+    i.save(os.path.join(out_dir, 'image.jpg'), quality=85)
+buffer.close()
+</code></pre>
+<ul>
+<li><a href="https://stackoverflow.com/questions/37751877/downloading-image-with-pil-and-requests">https://stackoverflow.com/questions/37751877/downloading-image-with-pil-and-requests</a></li>
+<li><a href="https://www.kite.com/python/answers/how-to-read-an-image-data-from-a-url-in-python">https://www.kite.com/python/answers/how-to-read-an-image-data-from-a-url-in-python</a></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="java-to-go-language"><a class="header" href="#java-to-go-language">Java to Go language</a></h1>
 <p>I have written large Java projects in the past, I have used proprietary
 tools to turn them into native executable. The Go language provides a nice 
@@ -3184,68 +3246,6 @@ npm i rollup
 <p>deactivate python local environment</p>
 <pre><code class="language-bash">deactivate
 </code></pre>
-<h2 id="venv-to-generate-requirementstxt"><a class="header" href="#venv-to-generate-requirementstxt">venv to generate requirements.txt</a></h2>
-<pre><code class="language-bash">pip freeze &gt; requirements.txt
-</code></pre>
-<p>To load all the libraries in virtual environment</p>
-<pre><code class="language-bash">pip install -r requirements.txt
-</code></pre>
-<h2 id="some-python-request-module-issues-with-ssl"><a class="header" href="#some-python-request-module-issues-with-ssl">some python request module issues with SSL</a></h2>
-<ul>
-<li><a href="https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests-in-python">https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests-in-python</a></li>
-</ul>
-<p>Sometimes, when you are behind a company proxy, it replaces the certificate chain with the ones of Proxy. Adding the certificates in cacert.pem used by certifi should solve the issue.</p>
-<ol>
-<li>Find the path where cacert.pem is located -</li>
-</ol>
-<blockquote>
-<p>Install certifi, if you don't have. Command: <code>pip install certifi</code></p>
-</blockquote>
-<pre><code>import certifi
-certifi.where()
-C:\\Users\\[UserID]\\AppData\\Local\\Programs\\Python\\Python37-32\\lib\\site-packages\\certifi\\cacert.pem
-</code></pre>
-<ol start="2">
-<li>Open the URL (or base URL) on a browser. Browser will download the certificates of chain of trust from the URL.
-The chain looks like,</li>
-</ol>
-<pre><code>Root Authority (you probably already have this) 
-+-- Local Authority (might be missing)
-    +-- Site certificate (you don't need this)
-</code></pre>
-<ol start="3">
-<li>
-<p>You can save the whole chain as <code>.p7b</code> file, which can be opened in windows explorer. Or you can just save the Local Authority as Base64 encoded <code>.cer</code> files.</p>
-</li>
-<li>
-<p>Now open the cacert.pem in a notepad and just add every downloaded certificate contents (<code>---Begin Certificate--- *** ---End Certificate---</code>) at the end.</p>
-</li>
-</ol>
-<h2 id="python-image-manipulation-as-they-are-downloaded"><a class="header" href="#python-image-manipulation-as-they-are-downloaded">python image manipulation as they are downloaded</a></h2>
-<pre><code class="language-python">import os
-import io
-import requests
-from PIL import Image
-import tempfile
-
-buffer = tempfile.SpooledTemporaryFile(max_size=1e9)
-r = requests.get(img_url, stream=True)
-if r.status_code == 200:
-    downloaded = 0
-    filesize = int(r.headers['content-length'])
-    for chunk in r.iter_content(chunk_size=1024):
-        downloaded += len(chunk)
-        buffer.write(chunk)
-        print(downloaded/filesize)
-    buffer.seek(0)
-    i = Image.open(io.BytesIO(buffer.read()))
-    i.save(os.path.join(out_dir, 'image.jpg'), quality=85)
-buffer.close()
-</code></pre>
-<ul>
-<li><a href="https://stackoverflow.com/questions/37751877/downloading-image-with-pil-and-requests">https://stackoverflow.com/questions/37751877/downloading-image-with-pil-and-requests</a></li>
-<li><a href="https://www.kite.com/python/answers/how-to-read-an-image-data-from-a-url-in-python">https://www.kite.com/python/answers/how-to-read-an-image-data-from-a-url-in-python</a></li>
-</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="compilersparsers"><a class="header" href="#compilersparsers">Compilers/Parsers</a></h1>
 <ul>
 <li><a href="https://loup-vaillant.fr/tutorials/earley-parsing/">Earley Parser</a></li>
