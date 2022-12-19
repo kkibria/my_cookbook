@@ -40,6 +40,7 @@
 - [Javascript library](./topics/jslib.md)
 - [Rust language](./topics/rust.md)
 - [Powershell](./topics/powershell.md)
+- [Python](topics/python.md)
 
 # Transpiling
 - [Java to Go language](./topics/java2go.md)
