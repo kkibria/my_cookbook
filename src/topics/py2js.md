@@ -11,9 +11,9 @@ I have written large Python projects in the past, looking into converting some t
 
 ## setup transcrypt
 
-We have to use virtual environment for ``transcrypt`` to function correctly.
+We have to use python [virtual](python.md#virtual-environment-for-python) environment for ``transcrypt`` to function correctly.
 
-4. Now install ``transcrypt``
+Now install ``transcrypt``
 ```bash
 pip install transcrypt
 ```
