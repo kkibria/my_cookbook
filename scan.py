@@ -1,6 +1,6 @@
 import os
-from pp import (parse_meta, subst_meta)
-
+# pip install python-frontmatter
+import frontmatter
 
 os.chdir("src")
 doclist = {}
@@ -11,10 +11,11 @@ for top, dirs, files in os.walk("."):
 
 for doc in doclist:
     with open(doc, "r", encoding="utf8") as f:
-        body = f.read()
-        meta, _ = parse_meta(body)
+        meta = frontmatter.load(f)
         if 'title' in meta:
             doclist[doc] = meta['title']
+        else:
+            doclist[doc] = doc
 
 with open("doclist.md", "w") as f:
     for doc in doclist:

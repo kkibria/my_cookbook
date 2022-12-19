@@ -23,3 +23,11 @@ git add .
 git commit -m "deploy commit!"
 git push origin master
 ```
+
+## adding a new document
+Add the new file in `SUMMARY.md`.
+run
+```
+mdbook init
+```
+mdbook will create the file. Then go edit the file.

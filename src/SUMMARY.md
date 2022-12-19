@@ -5,6 +5,8 @@
 - [How to create a new project in gitlab or github](./topics/project.md)
 - [Using vscode](./topics/vscode.md)
 - [Windows MSI installer](./topics/winmsi.md)
+- [Jupyter Notebook](.\topics\jupyter.md)
+
 # Frontend Development
 - [Frontend code development](./topics/fronend.md)
     - [Markdown renderer and editor in browser](./topics/markdown.md)
@@ -45,7 +47,6 @@
 - [Python to Go language](./topics/py2go.md)
 - [Python to Javascript language](./topics/py2js.md)
 
-
 # Crafting Compilers
 - [Compilers/Parsers](./topics/parse.md)
 - [Peg Parsers](./topics/peg.md)
@@ -83,4 +84,3 @@
 - [Movie production tools](./topics/movie.md)
 - [Music](./topics/music.md)
 - [Converting old DVDs/cd into mp4/mp3](./topics/dvd2mp4.md)
-
