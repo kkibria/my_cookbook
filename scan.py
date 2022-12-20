@@ -1,7 +1,6 @@
-# This checks for inconsistencies
-
-import os
+# scan.py checks for inconsistencies
 # pip install python-frontmatter
+import os
 import frontmatter
 import regex as re
 import pathlib
@@ -9,9 +8,11 @@ import pathlib
 ignore = ["doclist.md", "SUMMARY.md"]
 pattern = re.compile(r'\[([^][]+)\](\(((?:[^()]+|(?2))+)\))')
 
+
 def normalize(fpn):
     p = pathlib.Path(fpn)
     return str(pathlib.PurePosixPath(p))
+
 
 def make_doclist():
     doclist = {}
@@ -24,6 +25,7 @@ def make_doclist():
                 doclist[fn] = fn
     return doclist
 
+
 def get_titles(doclist):
     for doc in doclist:
         with open(doc, "r", encoding="utf8") as f:
@@ -32,6 +34,7 @@ def get_titles(doclist):
                 doclist[doc] = meta['title']
             else:
                 doclist[doc] = doc
+
 
 def make_sumlist():
     sumlist = {}
@@ -46,6 +49,7 @@ def make_sumlist():
             sumlist[doc] = description
     return sumlist
 
+
 def report(doclist, sumlist):
     with open("doclist.md", "w") as f:
         for doc in doclist:
@@ -55,6 +59,7 @@ def report(doclist, sumlist):
             else:
                 if doclist[doc] != sumlist[doc]:
                     print(f"Title mismatch for {doc} in SUMMARY.md")
+
 
 if __name__ == "__main__":
     os.chdir("src")
