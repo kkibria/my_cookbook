@@ -18,6 +18,8 @@ will run mdbook server locally and live update with changes.
 Add the new file in `SUMMARY.md` while mdbook server is running.
 mdbook will create the file. Now go edit the file to add the frontmatter and title.
 
+
+## deploying
 following will build and deploy
 ```
 mdbook build

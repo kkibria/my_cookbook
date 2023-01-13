@@ -85,3 +85,6 @@
 - [Movie production tools](./topics/movie.md)
 - [Music](./topics/music.md)
 - [Converting old DVDs/cd into mp4/mp3](./topics/dvd2mp4.md)
+
+# AI Topics
+- [Text to speech](./topics/tts.md)

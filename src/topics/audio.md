@@ -48,3 +48,10 @@ title: Audio Processing
 
 ## DAW golang in audio
 * <https://github.com/dskinner/snd>
+
+
+## HLS audio streaming
+
+```
+ffmpeg -i song1.mp3 -map 0 -map 0 -c:a aac -b:a:0 320k -b:a:1 128k -var_stream_map "a:0,name:320k a:1,name:128k" -master_pl_name song1_manifest.m3u8 -f hls -hls_flags single_file -hls_playlist_type vod -hls_segment_filename "song1_%v/classroom.ts" song1_%v/index.m3u8
+```
