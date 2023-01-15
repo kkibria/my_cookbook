@@ -337,7 +337,7 @@ I downloaded the zip file,
 [`mod-duo-rndis.zip`](https://modclouddownloadprod.blob.core.windows.net/shared/mod-duo-rndis.zip),
 from microsoft.net site, installed it and it worked. 
 
-> I backed up the zip file [here](/files/mod-duo-rndis.zip), just in case the above link ever stops working.
+> I backed up the zip file [here](../files/mod-duo-rndis.zip), just in case the above link ever stops working.
 ## <a name="idea1-impl"></a>Raspberry pi as Access Point and Wifi client
 
 This is an example of how the [*idea 1*](#idea1) can be implemented. This was collected from the tutorials found on internet <https://www.raspberrypi.org/forums/viewtopic.php?t=211542>. 

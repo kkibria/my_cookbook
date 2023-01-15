@@ -14,4 +14,4 @@ Theses are all based on common models and forked from each other.
 
 I used coqui tts in colab and tried different models and vocoder combinations they have and produced
 a zip file consisting of all the audio clips it produced. You can obtain the zip file
-[here](/files/tts_gen.zip), if you are interested to take a listen to the audio clips.
+[here](../files/tts_gen.zip), if you are interested to take a listen to the audio clips.
