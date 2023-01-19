@@ -17,6 +17,7 @@
     - [Firestore matters](./topics/firestore.md)
 
 # App with html
+- [Cross Platform Apps](./topics/crspltapp.md)
 - [Svelte Apps](./topics/svelte.md)
     - [Desktop and mobile app](./topics/svelte-app.md)
     - [Sveltekit](./topics/sveltekit.md)
