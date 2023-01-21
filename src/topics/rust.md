@@ -13,7 +13,7 @@ I like this video series, watch along with the rust book.
 * [Traits and You: A Deep Dive — Nell Shamrell-Harrington](https://youtu.be/grU-4u0Okto).
 * [Let's Learn Rust: Structs and Traits](https://youtu.be/LKYSl7kM5q8)
 * <https://tourofrust.com>
-
+* An excellent article <https://fasterthanli.me/articles/a-half-hour-to-learn-rust>
 
 ## rust libraries
 * <https://crates.io/>
