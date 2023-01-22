@@ -51,3 +51,10 @@ We can probably utilize a pure rust cross platform audio library,
 * <https://github.com/magic-akari/lrc-maker> it also is a player react app.
 * <https://github.com/outloudvi/lrcedit.js> a simple example using 
 web audio api for lrc edit 
+
+
+## rust soundfont and synthesis
+* <https://github.com/sinshu/rustysynth>
+* <https://github.com/PolyMeilex/OxiSynth> fluidsynth in rust
+* <https://github.com/ameobea/web-synth> fm synthesis
+* <https://www.youtube.com/watch?v=v0Qp7eWVyes> wavetable synthesis
