@@ -58,3 +58,10 @@ web audio api for lrc edit
 * <https://github.com/PolyMeilex/OxiSynth> fluidsynth in rust
 * <https://github.com/ameobea/web-synth> fm synthesis
 * <https://www.youtube.com/watch?v=v0Qp7eWVyes> wavetable synthesis
+* <https://rustrepo.com/repo/geom3trik-tuix_audio_synth>
+* <https://github.com/geom3trik/vizia-audio-synth>
+
+
+## rust libraries
+* <https://github.com/RazrFalcon/resvg> svg rendering
+* <https://github.com/servo/servo> browser
