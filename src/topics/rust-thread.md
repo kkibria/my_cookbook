@@ -21,6 +21,10 @@ share by using,
 - Message passing.
 - Combination of both.
 
+Following cases are not exhaustive use cases but shows some common
+uses.
+
+
 ## Using Mutex
 Wrap your data structure in an `Arc<Mutex<T>>`. This will allow multiple threads to share the data structure and access it safely.
 ```
@@ -187,12 +191,14 @@ data.modify_something_else();
 Using a combination of message passing and shared mutable state can be a powerful way to balance the need for communication and performance. Keep in mind that this approach requires careful synchronization and error handling, especially when modifying the data structure from multiple threads.
 
 
-# Read only access
-If you're only reading the data structure from a single thread, then you generally don't need to acquire a lock. However, if you're accessing the data structure from multiple threads, even if only for reading, you should use a lock to synchronize access and prevent data races.
+## Read only access
+Read access has the possibilities of data races.
 
-If the GUI thread is the only thread that modifies the data structure, and the processing thread only reads from it, then you don't need to acquire a lock in the processing thread for read-only access. However, if the processing thread also modifies the data structure, or if you add additional threads that modify the data structure, then you'll need to use locks to ensure safe access.
+If you're only reading the data structure, and you don't care about data race, then you generally don't need to acquire a lock. Otherwise, if you're accessing the data structure, even if only for reading, you should use a lock to synchronize access and prevent data races.
 
-Here's an example of how you could modify the processing thread to use a lock for read-only access:
+
+## Locking for both read and write 
+Following shows both accesses,
 
 ```
 use std::sync::Arc;
