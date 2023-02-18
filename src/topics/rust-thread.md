@@ -27,7 +27,7 @@ uses.
 
 ## Using Mutex
 Wrap your data structure in an `Arc<Mutex<T>>`. This will allow multiple threads to share the data structure and access it safely.
-```
+```rust
 use std::sync::{Arc, Mutex};
 
 // Define your data structure.
@@ -40,13 +40,15 @@ let shared_data = Arc::new(Mutex::new(MyDataStructure { /* ... */ }));
 ```
 
 In the gui thread, when you need to modify the data structure, you can acquire a lock on the `Mutex` using the `lock()` method. This will give you a mutable reference to the data structure that you can modify.
-```
+
+```rust
 let mut data = shared_data.lock().unwrap();
 // Modify the data structure as needed.
 data.modify_something();
 ```
 In the processing thread, when you need to access the data structure, you can also acquire a lock on the `Mutex` using the `lock()` method. This will give you an immutable reference to the data structure that you can safely access.
-```
+
+```rust
 let data = shared_data.lock().unwrap();
 // Access the data structure as needed.
 let value = data.get_something();
@@ -62,7 +64,8 @@ Using message passing can be a good way to minimize the need for shared mutable 
 Here's an example of how you could use message passing to modify a large data structure between two threads:
 
 Define your data structure and a message type that can be used to modify it.
-```
+
+```rust
 // Define your data structure.
 struct MyDataStructure {
     // ...
@@ -75,13 +78,16 @@ enum Message {
 ```
 Create a channel for sending messages between the gui and processing threads.
 
-```use std::sync::mpsc::{channel, Sender, Receiver};
+```rust
+use std::sync::mpsc::{channel, Sender, Receiver};
 
 // Create a channel for sending messages between threads.
 let (sender, receiver): (Sender<Message>, Receiver<Message>) = channel();
 ```
+
 In the gui thread, when you need to modify the data structure, create a closure that modifies the data structure and send it as a message to the processing thread.
-```
+
+```rust
 // Create a closure that modifies the data structure.
 let modify_data = Box::new(|data: &mut MyDataStructure| {
     // Modify the data structure as needed.
@@ -92,8 +98,9 @@ let modify_data = Box::new(|data: &mut MyDataStructure| {
 let message = Message::ModifyDataStructure(modify_data);
 sender.send(message).unwrap();
 ```
+
 In the processing thread, receive messages from the channel and apply them to the data structure.
-```
+```rust 
 // Receive messages from the channel and apply them to the data structure.
 loop {
     match receiver.recv() {
@@ -120,7 +127,7 @@ This can be a good way to balance the need for communication and performance. Yo
 Here's an example of how you could use a combination of message passing and shared mutable state to modify a large data structure between two threads:
 
 Define your data structure and a message type that can be used to modify it.
-```
+```rust
 // Define your data structure.
 struct MyDataStructure {
     // ...
@@ -135,7 +142,7 @@ enum Message {
 
 Create a channel for sending messages between the gui and processing threads.
 
-```
+```rust
 use std::sync::mpsc::{channel, Sender, Receiver};
 
 // Create a channel for sending messages between threads.
@@ -143,14 +150,14 @@ let (sender, receiver): (Sender<Message>, Receiver<Message>) = channel();
 ```
 
 Wrap your data structure in an `Arc<Mutex<T>>`. This will allow multiple threads to share the data structure and access it safely.
-```
+```rust
 use std::sync::{Arc, Mutex};
 
 // Wrap your data structure in an Arc<Mutex<T>>.
 let shared_data = Arc::new(Mutex::new(MyDataStructure { /* ... */ }));
 ```
 In the gui thread, when you need to modify the data structure, create a closure that modifies the data structure and send it as a message to the processing thread.
-```
+```rust
 // Create a closure that modifies the data structure.
 let modify_data = Box::new(|data: &mut MyDataStructure| {
     // Modify the data structure as needed.
@@ -163,7 +170,7 @@ sender.send(message).unwrap();
 ```
 
 In the processing thread, receive messages from the channel and apply them to the data structure. In addition, you can acquire a lock on the Mutex to allow for low-level access and modification.
-```
+```rust
 // Receive messages from the channel and apply them to the data structure.
 loop {
     match receiver.recv() {
@@ -182,7 +189,7 @@ loop {
 ```
 Note that in the processing thread, you can also access the data structure outside of the messages by acquiring a lock on the Mutex. This will allow for low-level access and modification, without the overhead of message passing.
 
-```
+```rust
 // Acquire a lock on the data structure for low-level access.
 let mut data = shared_data.lock().unwrap();
 // Modify the data structure as needed.
@@ -200,7 +207,7 @@ If you're only reading the data structure, and you don't care about data race, t
 ## Locking for both read and write 
 Following shows both accesses,
 
-```
+```rust
 use std::sync::Arc;
 use std::sync::Mutex;
 
