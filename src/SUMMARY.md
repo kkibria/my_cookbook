@@ -85,6 +85,7 @@
 - [Audio Processing](./topics/audio.md)
 - [Broadcasting](./topics/broadcasting.md)
 - [Movie production tools](./topics/movie.md)
+    - [Animation](topics/animation.md)
 - [Music](./topics/music.md)
 - [Converting old DVDs/cd into mp4/mp3](./topics/dvd2mp4.md)
 
