@@ -12,10 +12,16 @@ text file that can be produced by any text editor.
 
 We will look into Content Management with markdown for web sites. These sites can contain
 a collection of markdown files. Content Management allows them to be organized and navigated
-in a useful way. They are transformed to html before they are rendered in a browser.
+n a useful way. They are transformed to html before they are rendered in a browser.
 
 However, wherever you will host the content, their flow is something important to
 understand clearly before you start. For instance, we can talk about github pages later.
+
+## VS code to edit markdown files
+Install rewrap plugin. <Alt+Q> will hard wrap and unwrap your content.
+Makes life lot easier when you are copy pasting excerpts from somewhere else
+that comes aa long line of text. Also helps writing comments in code by wrapping
+long comments.
 
 
 ## html to markdown conversion

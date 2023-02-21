@@ -3,8 +3,8 @@ title: Markdown editor
 ---
 
 # {{ page.title }}
-Markdown renderer and editor in browser in frontend development could be useful for
-many applications for [content authoring](text-content.md).
+Markdown renderer and editor in browser in frontend development could be useful
+for many applications for [content authoring](text-content.md).
 
 ## ``markdown-it`` package 
 ```bash
@@ -49,19 +49,40 @@ For instance in Svelte we can do the following,
 <div>{markdown}</div>
 ```
 ### Synchronized scrolling
-This is a rather interesting subject. This sample [project](https://github.com/kkibria/svelte-page-markdown) I did, implements it using the scheme used in [markdown-it](https://github.com/markdown-it/markdown-it/blob/master/support/demo_template/index.js) demo. VS code uses something probably similar, but they have more feature. VS code [source](https://github.com/microsoft/vscode) is worth exploring to learn more.
+This is a rather interesting subject. This sample
+[project](https://github.com/kkibria/svelte-page-markdown) I did, implements it
+using the scheme used in
+[markdown-it](https://github.com/markdown-it/markdown-it/blob/master/support/demo_template/index.js)
+demo. VS code uses something probably similar, but they have more feature. VS
+code [source](https://github.com/microsoft/vscode) is worth exploring to learn
+more.
 
-Every time the content is updated, the demo injects the line numbers in the generated content using ``injectLineNumbers``. Next, ``buildScrollMap`` builds a map of line number versus position using a hidden element, ``sourceLikeDiv``. This map is used by the following scroll handlers,
-* ``syncSrcScroll``: handler that monitors generated content scroll position and synchronizes the markdown source position.
-* ``syncResultScroll``: handler that monitors markdown source content scroll position and synchronizes the generated content position.
+Every time the content is updated, the demo injects the line numbers in the
+generated content using ``injectLineNumbers``. Next, ``buildScrollMap`` builds a
+map of line number versus position using a hidden element, ``sourceLikeDiv``.
+This map is used by the following scroll handlers,
+* ``syncSrcScroll``: handler that monitors generated content
+  scroll position and synchronizes the markdown source
+  position.
+* ``syncResultScroll``: handler that monitors markdown
+  source content scroll position and synchronizes the
+  generated content position.
 
 ## Showdown.js
 * Github Showdown.js [source](https://github.com/showdownjs/showdown).
-* Code highlighting (showdown highlight js extension)[https://stackoverflow.com/questions/21785658/showdown-highlightjs-extension]
-* Github Showdown highlighter [source](https://github.com/Bloggify/showdown-highlight),
-* Highlight.js, a general purpose highlighter, <https://highlightjs.org/>, Github [source](https://github.com/highlightjs/highlight.js).
-* Check showdown extensions, [Github](https://github.com/showdownjs/extension-boilerplate). To develop a new extension take a look at their  [template](https://github.com/showdownjs/extension-boilerplate) at github. There are other extensions, google it.
-* Showdown extension writeup, <https://github.com/showdownjs/ng-showdown/wiki/Creating-an-Extension>.
+* Code highlighting (showdown highlight js
+  extension)[https://stackoverflow.com/questions/21785658/showdown-highlightjs-extension]
+* Github Showdown highlighter
+  [source](https://github.com/Bloggify/showdown-highlight),
+* Highlight.js, a general purpose highlighter, <https://highlightjs.org/>,
+  Github [source](https://github.com/highlightjs/highlight.js).
+* Check showdown extensions,
+  [Github](https://github.com/showdownjs/extension-boilerplate). To develop a
+  new extension take a look at their
+  [template](https://github.com/showdownjs/extension-boilerplate) at github.
+  There are other extensions, google it.
+* Showdown extension writeup,
+  <https://github.com/showdownjs/ng-showdown/wiki/Creating-an-Extension>.
 
 ### Showdown use
 
@@ -96,6 +117,14 @@ Every time the content is updated, the demo injects the line numbers in the gene
 
 ## Using a code editor for entering text
 Instead of a text area to enter source, we an use a code editor. 
-* [Dillinger](https://dillinger.io/) is a good example, Github [source](https://github.com/joemccann/dillinger). It also integrated server side pdf generation of markdown render.
-* Dillinger uses [Ace](https://ace.c9.io/) code editor, Github [source](https://github.com/ajaxorg/ace). Ace allows highlighting code.
-* highlight.js has Markdown syntax highlighting, integrating markdown highlighting might be a good idea.
+* [Dillinger](https://dillinger.io/) is a good example, Github
+  [source](https://github.com/joemccann/dillinger). It also integrated server
+  side pdf generation of markdown render.
+* Dillinger uses [Ace](https://ace.c9.io/) code editor, Github
+  [source](https://github.com/ajaxorg/ace). Ace allows highlighting code.
+* highlight.js has Markdown syntax highlighting, integrating markdown
+  highlighting might be a good idea.
+
+
+
+

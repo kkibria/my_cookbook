@@ -72,3 +72,8 @@ $env:Path = "SomeRandomPath";             (replaces existing path)
 $env:Path += ";SomeRandomPath"            (appends to existing path)
 ```
 
+## Hard wrap for editing comments
+
+Check [VS code to edit markdown
+files](text-content.md#vs-code-to-edit-markdown-files) section to edit comments
+in your source files.
