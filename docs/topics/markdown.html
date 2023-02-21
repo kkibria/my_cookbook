@@ -143,8 +143,8 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="markdown-editor"><a class="header" href="#markdown-editor">Markdown editor</a></h1>
-<p>Markdown renderer and editor in browser in frontend development could be useful for
-many applications for <a href="text-content.html">content authoring</a>.</p>
+<p>Markdown renderer and editor in browser in frontend development could be useful
+for many applications for <a href="text-content.html">content authoring</a>.</p>
 <h2 id="markdown-it-package"><a class="header" href="#markdown-it-package"><code>markdown-it</code> package</a></h2>
 <pre><code class="language-bash">#install markdown-it
 npm install markdown-it
@@ -183,20 +183,41 @@ module.exports.mdHtml = new MarkdownIt()
 &lt;div&gt;{markdown}&lt;/div&gt;
 </code></pre>
 <h3 id="synchronized-scrolling"><a class="header" href="#synchronized-scrolling">Synchronized scrolling</a></h3>
-<p>This is a rather interesting subject. This sample <a href="https://github.com/kkibria/svelte-page-markdown">project</a> I did, implements it using the scheme used in <a href="https://github.com/markdown-it/markdown-it/blob/master/support/demo_template/index.js">markdown-it</a> demo. VS code uses something probably similar, but they have more feature. VS code <a href="https://github.com/microsoft/vscode">source</a> is worth exploring to learn more.</p>
-<p>Every time the content is updated, the demo injects the line numbers in the generated content using <code>injectLineNumbers</code>. Next, <code>buildScrollMap</code> builds a map of line number versus position using a hidden element, <code>sourceLikeDiv</code>. This map is used by the following scroll handlers,</p>
+<p>This is a rather interesting subject. This sample
+<a href="https://github.com/kkibria/svelte-page-markdown">project</a> I did, implements it
+using the scheme used in
+<a href="https://github.com/markdown-it/markdown-it/blob/master/support/demo_template/index.js">markdown-it</a>
+demo. VS code uses something probably similar, but they have more feature. VS
+code <a href="https://github.com/microsoft/vscode">source</a> is worth exploring to learn
+more.</p>
+<p>Every time the content is updated, the demo injects the line numbers in the
+generated content using <code>injectLineNumbers</code>. Next, <code>buildScrollMap</code> builds a
+map of line number versus position using a hidden element, <code>sourceLikeDiv</code>.
+This map is used by the following scroll handlers,</p>
 <ul>
-<li><code>syncSrcScroll</code>: handler that monitors generated content scroll position and synchronizes the markdown source position.</li>
-<li><code>syncResultScroll</code>: handler that monitors markdown source content scroll position and synchronizes the generated content position.</li>
+<li><code>syncSrcScroll</code>: handler that monitors generated content
+scroll position and synchronizes the markdown source
+position.</li>
+<li><code>syncResultScroll</code>: handler that monitors markdown
+source content scroll position and synchronizes the
+generated content position.</li>
 </ul>
 <h2 id="showdownjs"><a class="header" href="#showdownjs">Showdown.js</a></h2>
 <ul>
 <li>Github Showdown.js <a href="https://github.com/showdownjs/showdown">source</a>.</li>
-<li>Code highlighting (showdown highlight js extension)[https://stackoverflow.com/questions/21785658/showdown-highlightjs-extension]</li>
-<li>Github Showdown highlighter <a href="https://github.com/Bloggify/showdown-highlight">source</a>,</li>
-<li>Highlight.js, a general purpose highlighter, <a href="https://highlightjs.org/">https://highlightjs.org/</a>, Github <a href="https://github.com/highlightjs/highlight.js">source</a>.</li>
-<li>Check showdown extensions, <a href="https://github.com/showdownjs/extension-boilerplate">Github</a>. To develop a new extension take a look at their  <a href="https://github.com/showdownjs/extension-boilerplate">template</a> at github. There are other extensions, google it.</li>
-<li>Showdown extension writeup, <a href="https://github.com/showdownjs/ng-showdown/wiki/Creating-an-Extension">https://github.com/showdownjs/ng-showdown/wiki/Creating-an-Extension</a>.</li>
+<li>Code highlighting (showdown highlight js
+extension)[https://stackoverflow.com/questions/21785658/showdown-highlightjs-extension]</li>
+<li>Github Showdown highlighter
+<a href="https://github.com/Bloggify/showdown-highlight">source</a>,</li>
+<li>Highlight.js, a general purpose highlighter, <a href="https://highlightjs.org/">https://highlightjs.org/</a>,
+Github <a href="https://github.com/highlightjs/highlight.js">source</a>.</li>
+<li>Check showdown extensions,
+<a href="https://github.com/showdownjs/extension-boilerplate">Github</a>. To develop a
+new extension take a look at their
+<a href="https://github.com/showdownjs/extension-boilerplate">template</a> at github.
+There are other extensions, google it.</li>
+<li>Showdown extension writeup,
+<a href="https://github.com/showdownjs/ng-showdown/wiki/Creating-an-Extension">https://github.com/showdownjs/ng-showdown/wiki/Creating-an-Extension</a>.</li>
 </ul>
 <h3 id="showdown-use"><a class="header" href="#showdown-use">Showdown use</a></h3>
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
@@ -229,9 +250,13 @@ module.exports.mdHtml = new MarkdownIt()
 <h2 id="using-a-code-editor-for-entering-text"><a class="header" href="#using-a-code-editor-for-entering-text">Using a code editor for entering text</a></h2>
 <p>Instead of a text area to enter source, we an use a code editor. </p>
 <ul>
-<li><a href="https://dillinger.io/">Dillinger</a> is a good example, Github <a href="https://github.com/joemccann/dillinger">source</a>. It also integrated server side pdf generation of markdown render.</li>
-<li>Dillinger uses <a href="https://ace.c9.io/">Ace</a> code editor, Github <a href="https://github.com/ajaxorg/ace">source</a>. Ace allows highlighting code.</li>
-<li>highlight.js has Markdown syntax highlighting, integrating markdown highlighting might be a good idea.</li>
+<li><a href="https://dillinger.io/">Dillinger</a> is a good example, Github
+<a href="https://github.com/joemccann/dillinger">source</a>. It also integrated server
+side pdf generation of markdown render.</li>
+<li>Dillinger uses <a href="https://ace.c9.io/">Ace</a> code editor, Github
+<a href="https://github.com/ajaxorg/ace">source</a>. Ace allows highlighting code.</li>
+<li>highlight.js has Markdown syntax highlighting, integrating markdown
+highlighting might be a good idea.</li>
 </ul>
 
                     </main>
