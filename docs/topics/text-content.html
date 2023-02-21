@@ -143,38 +143,41 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="textual-contents"><a class="header" href="#textual-contents">Textual Contents</a></h1>
-<p>Textual content authoring in html is quite tedious and alternative authoring is 
-preferred for web sites.
-As such, <a href="https://www.markdownguide.org/getting-started/">markdown</a> format has 
-gathered popularity and is being used quite widely. This format is really just a simple
+<p>Textual content authoring in html is quite tedious and alternative authoring is
+preferred for web sites. As such,
+<a href="https://www.markdownguide.org/getting-started/">markdown</a> format has gathered
+popularity and is being used quite widely. This format is really just a simple
 text file that can be produced by any text editor.</p>
-<p>We will look into Content Management with markdown for web sites. These sites can contain
-a collection of markdown files. Content Management allows them to be organized and navigated
-n a useful way. They are transformed to html before they are rendered in a browser.</p>
-<p>However, wherever you will host the content, their flow is something important to
-understand clearly before you start. For instance, we can talk about github pages later.</p>
+<p>We will look into Content Management with markdown for web sites. These sites
+can contain a collection of markdown files. Content Management allows them to be
+organized and navigated n a useful way. They are transformed to html before they
+are rendered in a browser.</p>
+<p>However, wherever you will host the content, their flow is something important
+to understand clearly before you start. For instance, we can talk about github
+pages later.</p>
 <h2 id="vs-code-to-edit-markdown-files"><a class="header" href="#vs-code-to-edit-markdown-files">VS code to edit markdown files</a></h2>
-<p>Install rewrap plugin. &lt;Alt+Q&gt; will hard wrap and unwrap your content.
-Makes life lot easier when you are copy pasting excerpts from somewhere else
-that comes aa long line of text. Also helps writing comments in code by wrapping
-long comments.</p>
+<p>Install <a href="https://stkb.github.io/Rewrap/">Rewrap</a> vscode plugin. &lt;Alt+Q&gt; will
+hard wrap and unwrap your content. Makes life lot easier when you are copy
+pasting excerpts from somewhere else that comes aa long line of text. Also helps
+writing comments in code by wrapping long comments. Read it's documentation</p>
 <h2 id="html-to-markdown-conversion"><a class="header" href="#html-to-markdown-conversion">html to markdown conversion</a></h2>
-<p>We may need to convert existing html to markdown. <a href="github.com/suntong/html2md"><code>html2md</code></a>.
-Its a tool written in golang. Works nice!</p>
+<p>We may need to convert existing html to markdown.
+<a href="github.com/suntong/html2md"><code>html2md</code></a>. Its a tool written in golang. Works
+nice!</p>
 <h2 id="hosting-content-in-github-pages"><a class="header" href="#hosting-content-in-github-pages">Hosting Content in github pages</a></h2>
-<p>Github pages is quite popular for hosting as it is free and git
-controlled. Although there are several options available for github pages,
-there is a idea of separation of concern behind those options.
-They implemented the idea by using two different git branches. 
-One for textual content like markdown source files and the
-other for generated html. Usually, the markdown source file lives in the default branch
-<code>master</code> as we may edit those files more frequently. When we are ready to deploy our
-content, the generated html will live in another branch, lets call it <code>gh-pages</code>.
-github allows configuring the repository such that it's web server will check out html
-from <code>gh-pages</code> branch and use.</p>
+<p>Github pages is quite popular for hosting as it is free and git controlled.
+Although there are several options available for github pages, there is a idea
+of separation of concern behind those options. They implemented the idea by
+using two different git branches. One for textual content like markdown source
+files and the other for generated html. Usually, the markdown source file lives
+in the default branch <code>master</code> as we may edit those files more frequently. When
+we are ready to deploy our content, the generated html will live in another
+branch, lets call it <code>gh-pages</code>. github allows configuring the repository such
+that it's web server will check out html from <code>gh-pages</code> branch and use.</p>
 <h3 id="scaffolding-setup"><a class="header" href="#scaffolding-setup">Scaffolding setup</a></h3>
-<p>Knowing this, we will need to scaffold our project in way so that it is convenient
-to manage. As such, I will suggest one way that felt most convenient for me.</p>
+<p>Knowing this, we will need to scaffold our project in way so that it is
+convenient to manage. As such, I will suggest one way that felt most convenient
+for me.</p>
 <pre><code class="language-text">my_project (folder)
    +-- .git (points to master branch)
    +-- .gitignore (set to ignore gh-pages folder)
@@ -198,10 +201,10 @@ git commit -m &quot;first commit&quot;
 code .
 </code></pre>
 <h3 id="create-repository-in-github-and-publish-the-default-branch"><a class="header" href="#create-repository-in-github-and-publish-the-default-branch">Create repository in github and publish the default branch</a></h3>
-<p>With vscode, in source control panel, create a github repository and 
-push everything we have so far to github. </p>
-<p>If you are not using vscode, then you can manually create github repository
-and push the <code>master</code> branch.</p>
+<p>With vscode, in source control panel, create a github repository and push
+everything we have so far to github. </p>
+<p>If you are not using vscode, then you can manually create github repository and
+push the <code>master</code> branch.</p>
 <h3 id="create-and-publish-the-html-branch"><a class="header" href="#create-and-publish-the-html-branch">Create and publish the html branch</a></h3>
 <p>Now we create the <code>gh-pages</code> branch.
 Following bash script will do this,</p>
@@ -231,11 +234,11 @@ git commit -m &quot;deploy&quot;
 git push origin gh-pages
 popd
 </code></pre>
-<p>If you are in windows, you can create equivalent powershell or command line scripts.</p>
+<p>If you are in windows, you can create equivalent powershell or command line
+scripts.</p>
 <h3 id="setup-github-to-pick-up-the-branch-and-folder"><a class="header" href="#setup-github-to-pick-up-the-branch-and-folder">Setup github to pick up the branch and folder</a></h3>
-<p>In github repo settings go to <code>github pages</code> and
-setup branch to <code>gh-pages</code> and change folder to <code>docs</code> and note the public url 
-they provide for the site.</p>
+<p>In github repo settings go to <code>github pages</code> and setup branch to <code>gh-pages</code> and
+change folder to <code>docs</code> and note the public url they provide for the site.</p>
 <h3 id="create-and-publish-the-html-branch-powershell-version"><a class="header" href="#create-and-publish-the-html-branch-powershell-version">Create and publish the html branch (powershell version)</a></h3>
 <pre><code>$url = git remote get-url origin
 mkdir gh-pages
