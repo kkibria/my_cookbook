@@ -17,7 +17,7 @@ title: Audio Processing
 * <http://www.martin-finke.de/blog/tags/making_audio_plugins.html>
 * [Generating a VST Plugin via Faust](https://ccrma.stanford.edu/~jos/fp/Generating_VST_Plugin_Faust.html).
 * [MAX](https://cycling74.com/).
-* <juce.com>
+* <https://juce.com/>
 
 
 ## open source synths

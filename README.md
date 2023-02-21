@@ -21,7 +21,9 @@ mdbook will create the file. Now go edit the file to add the frontmatter and tit
 
 ## deploying
 following will build and deploy
-```
+
+`deploy.ps1`
+```powershell
 mdbook build
 git add docs -f
 git add .
