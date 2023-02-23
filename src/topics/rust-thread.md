@@ -15,9 +15,48 @@ accessed in the processing thread which could perform lengthy processing. How do
 we achieve this?
 
 Accessing shared data between threads can be tricky, especially when the data is
-large and frequently modified. In Rust we can share by using, 
+large and frequently modified. In such Read-copy-update can be considered.
+
+## Read copy update
+
+Sharing data with read copy update (RCU) is a technique used in concurrent
+programming to allow multiple threads or processes to access a shared data
+structure simultaneously without the need for explicit locking. The RCU
+technique is commonly used in high-performance computing environments where lock
+contention can be a significant bottleneck.
+
+The basic idea behind RCU is to maintain multiple versions of the shared data
+structure simultaneously, with each version accessible by a different thread or
+process. When a thread wants to read the shared data, it simply accesses the
+current version. When a thread wants to modify the shared data, it creates a new
+version of the data structure, modifies it, and then updates a global pointer to
+indicate that the new version is now the current version.
+
+The RCU technique provides fast read access because readers do not need to
+acquire locks or wait for other threads to release locks. Instead, they simply
+access the current version of the shared data. The write operations are
+serialized using some other synchronization mechanism such as atomic operations
+or locks, but the read operations are not blocked by these write operations.
+
+In the read-copy-update technique, a process or thread requesting to modify the
+shared data structure can create a copy of the data structure and work on it in
+isolation. Other threads that are still using the old version of the data
+structure can continue to use it without locking or blocking. The updated data
+structure is made available only when the current users are no longer using the
+old data structure. This process of sharing old data and allowing read-only
+access to it while a copy is modified is called copy-on-write.
+
+RCU is particularly useful for shared data structures that are read frequently
+but updated infrequently, or where lock contention is a bottleneck. However, it
+requires careful design and implementation to ensure that the different versions
+of the shared data are correctly managed and that updates to the data structure
+do not result in inconsistencies or race conditions.
+
+## Rust data sharing 
+
+In Rust we can share by using, 
 - `Arc` (atomic reference counting) and `Mutex` (mutual exclusion) types.
-- Message passing.
+- Message passing. 
 - Combination of both.
 
 Following cases are not exhaustive use cases but shows some common uses.
