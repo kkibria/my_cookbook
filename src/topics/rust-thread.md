@@ -180,10 +180,11 @@ shared mutable state, depending on your specific requirements and constraints.
 
 
 ## Combination of message passing and shared mutable state
+
 This can be a good way to balance the need for communication and performance.
-You can use message passing to communicate high-level changes to the data
-structure, and shared mutable state to allow for low-level access and
-modification.
+You can use message passing to communicate high-level changes (small updates) to
+the data structure, and shared mutable state to allow for low-level access
+(large updates or initial state) and modification.
 
 Here's an example of how you could use a combination of message passing and
 shared mutable state to modify a large data structure between two threads:
