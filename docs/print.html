@@ -3207,6 +3207,7 @@ ensures safe access to the data structure from multiple threads.</p>
 <ul>
 <li><a href="https://youtu.be/a10JpqI-CvU">https://youtu.be/a10JpqI-CvU</a></li>
 <li><a href="https://forum.juce.com/t/timur-doumler-talks-on-c-audio-sharing-data-across-threads/26311/1">https://forum.juce.com/t/timur-doumler-talks-on-c-audio-sharing-data-across-threads/26311/1</a></li>
+<li><a href="https://github.com/hogliux/farbot">https://github.com/hogliux/farbot</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="powershell-scripts"><a class="header" href="#powershell-scripts">Powershell Scripts</a></h1>
 <h2 id="addremove-path-in-path-variable"><a class="header" href="#addremove-path-in-path-variable">Add/Remove path in path variable</a></h2>
@@ -3665,6 +3666,10 @@ npm i rollup
 <blockquote>
 <p>todo: vscode setup for antlr.</p>
 </blockquote>
+<h2 id="using-rust"><a class="header" href="#using-rust">Using rust</a></h2>
+<ul>
+<li><a href="https://rust-hosted-langs.github.io/book/">Writing Interpreters in Rust: a Guide</a></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="peg-parsers"><a class="header" href="#peg-parsers">Peg Parsers</a></h1>
 <h2 id="articles-1"><a class="header" href="#articles-1">Articles</a></h2>
 <ul>
@@ -4963,7 +4968,7 @@ distutils.core.setup(
 <ul>
 <li><a href="https://pimylifeup.com/raspberry-pi-ssl-lets-encrypt/">https://pimylifeup.com/raspberry-pi-ssl-lets-encrypt/</a></li>
 </ul>
-<h2 id="using-rust"><a class="header" href="#using-rust">Using Rust</a></h2>
+<h2 id="using-rust-1"><a class="header" href="#using-rust-1">Using Rust</a></h2>
 <p>See <a href="topics/rust#using-rust-in-raspberry-pi">Using rust in Raspberry pi</a>.</p>
 <h2 id="fastcgi"><a class="header" href="#fastcgi">fastcgi</a></h2>
 <p>todo</p>
@@ -6142,6 +6147,10 @@ float distance(float x1, float y1, float x2, float y2)
 <h2 id="daw-golang-in-audio"><a class="header" href="#daw-golang-in-audio">DAW golang in audio</a></h2>
 <ul>
 <li><a href="https://github.com/dskinner/snd">https://github.com/dskinner/snd</a></li>
+</ul>
+<h2 id="headless-daw"><a class="header" href="#headless-daw">headless DAW</a></h2>
+<ul>
+<li><a href="https://github.com/hq9000/py_headless_daw">https://github.com/hq9000/py_headless_daw</a></li>
 </ul>
 <h2 id="hls-audio-streaming"><a class="header" href="#hls-audio-streaming">HLS audio streaming</a></h2>
 <pre><code>ffmpeg -i song1.mp3 -map 0 -map 0 -c:a aac -b:a:0 320k -b:a:1 128k -var_stream_map &quot;a:0,name:320k a:1,name:128k&quot; -master_pl_name song1_manifest.m3u8 -f hls -hls_flags single_file -hls_playlist_type vod -hls_segment_filename &quot;song1_%v/classroom.ts&quot; song1_%v/index.m3u8
