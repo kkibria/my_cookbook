@@ -12,3 +12,7 @@ title: Compilers/Parsers
 * <https://www.antlr.org/>
 
 > todo: vscode setup for antlr.
+
+
+## Using rust
+* [Writing Interpreters in Rust: a Guide](https://rust-hosted-langs.github.io/book/)

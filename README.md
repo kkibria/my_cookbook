@@ -9,12 +9,15 @@ Later, I converted them to rust based mdbook format.
 I used this gist to push generated html,
 <https://gist.github.com/belohlavek/61dd16c08cd9c57a168408b9ac4121c2>
 
+
+## Developing content
+
 ```
-mdbook serve
+mdbook serve --out
 ```
 will run mdbook server locally and live update with changes.
 
-## adding a new document
+### adding a new document
 Add the new file in `SUMMARY.md` while mdbook server is running.
 mdbook will create the file. Now go edit the file to add the frontmatter and title.
 
