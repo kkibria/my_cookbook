@@ -320,7 +320,12 @@ read-only access when it receives a message to get a sample, but acquires a lock
 for write access when it receives a message to modify the data structure. This
 ensures safe access to the data structure from multiple threads.
 
-## Links to talks related to data sharing
+## Links to materials related to data sharing
 * <https://youtu.be/a10JpqI-CvU>
 * <https://forum.juce.com/t/timur-doumler-talks-on-c-audio-sharing-data-across-threads/26311/1>
 * <https://github.com/hogliux/farbot>
+* <https://youtu.be/7fKxIZOyBCE>
+* <https://cfsamsonbooks.gitbook.io/explaining-atomics-in-rust/>
+* <https://github.com/preshing/junction>
+* <https://preshing.com/20160726/using-quiescent-states-to-reclaim-memory/>
+* <http://www.cs.toronto.edu/~tomhart/papers/tomhart_thesis.pdf>
