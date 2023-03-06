@@ -331,3 +331,5 @@ ensures safe access to the data structure from multiple threads.
 * <http://www.cs.toronto.edu/~tomhart/papers/tomhart_thesis.pdf>
 * <https://codeandbitters.com/learning-rust-crossbeam-epoch/>
 * <https://github.com/ericseppanen/epoch_playground>
+* <https://aturon.github.io/blog/2015/08/27/epoch/> most comprehensive explanation
+* <https://marabos.nl/atomics/> most comprehensive explanation
