@@ -329,3 +329,5 @@ ensures safe access to the data structure from multiple threads.
 * <https://github.com/preshing/junction>
 * <https://preshing.com/20160726/using-quiescent-states-to-reclaim-memory/>
 * <http://www.cs.toronto.edu/~tomhart/papers/tomhart_thesis.pdf>
+* <https://codeandbitters.com/learning-rust-crossbeam-epoch/>
+* <https://github.com/ericseppanen/epoch_playground>
