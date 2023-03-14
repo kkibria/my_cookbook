@@ -65,3 +65,10 @@ web audio api for lrc edit
 ## rust libraries
 * <https://github.com/RazrFalcon/resvg> svg rendering
 * <https://github.com/servo/servo> browser
+
+
+## yamaha style file
+
+* <https://github.com/bures/sff2-tools>
+* <https://wierzba.homepage.t-online.de/StyleFileDescription_v21.pdf>
+* <https://www.jjazzlab.com/en/>

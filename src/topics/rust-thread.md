@@ -333,3 +333,4 @@ ensures safe access to the data structure from multiple threads.
 * <https://github.com/ericseppanen/epoch_playground>
 * <https://aturon.github.io/blog/2015/08/27/epoch/> most comprehensive explanation
 * <https://marabos.nl/atomics/> most comprehensive explanation
+* <https://youtu.be/9XAx279s7gs>
