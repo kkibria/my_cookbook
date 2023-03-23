@@ -44,7 +44,7 @@ We can probably utilize a pure rust cross platform audio library,
 * <https://github.com/surge-synthesizer/surge>
 * <https://github.com/zynaddsubfx/zynaddsubfx>
 * <https://github.com/surge-synthesizer/stochas>
-
+* <https://github.com/trummerschlunk/master_me> for mastering
 
 ## karaoke
 * <https://github.com/gyunaev/spivak>

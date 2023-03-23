@@ -40,6 +40,7 @@
 - [Java development](./topics/java.md)
 - [Javascript library](./topics/jslib.md)
 - [Rust language](./topics/rust.md)
+    - [Plugins](./topics/rust-plugin.md)
     - [Multithreading](./topics/rust-thread.md)
 - [Powershell](./topics/powershell.md)
 - [Python](topics/python.md)

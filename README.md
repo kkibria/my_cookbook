@@ -15,7 +15,7 @@ I used this gist to push generated html,
 ## Developing content
 
 ```
-mdbook serve --out
+mdbook serve --open
 ```
 will run mdbook server locally and live update with changes.
 

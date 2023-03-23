@@ -19,6 +19,8 @@ title: Audio Processing
 * [MAX](https://cycling74.com/).
 * <https://juce.com/>
 
+## VST framework
+* <https://github.com/DISTRHO/DPF>
 
 ## open source synths
 * <https://github.com/TheWaveWarden/odin2>
