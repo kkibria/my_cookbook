@@ -121,3 +121,15 @@ for path in Path('.').rglob('*.wav'):
 
 
 
+## concat ts files
+
+```
+C:\ffmpeg\bin\ffmpeg.exe -f concat -safe 0 -i mylist.txt -c copy xyz.mp4
+```
+
+mylist.txt file (UTF-8),
+```
+file 'abc.ts'
+file 'def.ts'
+...
+```
