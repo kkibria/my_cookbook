@@ -264,3 +264,9 @@ into html files on the fly when serving.
 
 ## creative content framework
 * <https://nannou.cc/>
+
+## Ide design 
+* <https://github.com/makepad/makepad>
+
+## rust drawing app
+* <https://github.com/GraphiteEditor/Graphite>
