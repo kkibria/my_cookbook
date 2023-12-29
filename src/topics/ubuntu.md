@@ -231,3 +231,8 @@ Then, next (this is a destructive command and wipes the entire USB drive with th
 
 where my_system.iso is the input file, and /dev/sd<?> is the USB device you're writing to (run lsblk to see all drives to find out what <?> is for your USB).
 
+## Reset password
+* <https://askubuntu.com/questions/24006/how-do-i-reset-a-lost-administrative-password>
+
+## SSH keys
+* <https://www.freecodecamp.org/news/how-to-manage-multiple-ssh-keys/>

@@ -4,7 +4,12 @@ title: Cross Platform Apps
 
 # {{page.title}}
 
-One of the most convenient way to build cross platform apps is to web technology
+The traditional way is using a multi-platform UI library. GTK4 is an example
+for such library from gnome project. However it requires lot of coding to provide
+plumbing between different components. 
+
+However, another most convenient way to build cross platform apps is to use
+web technology
 for the frontend user interface. This a well understood technology and as such
 the gui can be built with standard web page design tooling.
 
@@ -22,14 +27,14 @@ to Electron.
 One such environment is Tauri, which rust based. Here, I will record my notes as
 I try to build a Tauri app, with svelte frontend. 
 
+## Tauri
 
-# Installing
+### Installing
 
 * Install rust. Run the installer from 
 [rust](https://www.rust-lang.org/tools/install) site.
 * Install tauri. Follow instructions from [tauri] (https://tauri.app/v1/guides/getting-started/setup/sveltekit/) site. 
 
-## Tauri
 
 ```
 cargo install create-tauri-app
@@ -41,7 +46,7 @@ Install tauri cli
 cargo install tauri-cli
 ```
 
-## create the project
+### Create the project
 
 ```
 npm create svelte@latest tauri-svelte
@@ -54,24 +59,24 @@ cargo tauri init
 npm install @tauri-apps/api
 ```
 
-## run in dev mode
+### Run in dev mode
 ```
 cargo tauri dev
 ```
 
-## build the production version
+### Build the production version
 ```
 cargo tauri build
 ```
 
-
-# Use web rendering engine
-WebRender is a GPU-based 2D rendering engine written in Rust. <https://github.com/servo/webrender>
+## Use web rendering engine
+WebRender is a GPU-based 2D HTML rendering engine written in Rust. 
+See <https://github.com/servo/webrender>
 
 * <https://docs.rs/webrender/latest/webrender/>
 
-Either we can use a javascript engine, or build the ui functionality in pure rust.
+Either we can use a javascript engine similar to a web browser,
+or build the UI functionality in pure rust.
 
-
-# gtk
+## GTK4
 * <https://gtk-rs.org/gtk4-rs/git/book/>
