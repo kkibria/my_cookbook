@@ -143,7 +143,11 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="cross-platform-apps"><a class="header" href="#cross-platform-apps">Cross Platform Apps</a></h1>
-<p>One of the most convenient way to build cross platform apps is to web technology
+<p>The traditional way is using a multi-platform UI library. GTK4 is an example
+for such library from gnome project. However it requires lot of coding to provide
+plumbing between different components. </p>
+<p>However, another most convenient way to build cross platform apps is to use
+web technology
 for the frontend user interface. This a well understood technology and as such
 the gui can be built with standard web page design tooling.</p>
 <p>Most popular such app design environment is electron, which is chromium based.
@@ -159,20 +163,20 @@ In order to reduce bundle size, new similar environments are using</p>
 to Electron.</p>
 <p>One such environment is Tauri, which rust based. Here, I will record my notes as
 I try to build a Tauri app, with svelte frontend. </p>
-<h1 id="installing"><a class="header" href="#installing">Installing</a></h1>
+<h2 id="tauri"><a class="header" href="#tauri">Tauri</a></h2>
+<h3 id="installing"><a class="header" href="#installing">Installing</a></h3>
 <ul>
 <li>Install rust. Run the installer from 
 <a href="https://www.rust-lang.org/tools/install">rust</a> site.</li>
 <li>Install tauri. Follow instructions from [tauri] (https://tauri.app/v1/guides/getting-started/setup/sveltekit/) site. </li>
 </ul>
-<h2 id="tauri"><a class="header" href="#tauri">Tauri</a></h2>
 <pre><code>cargo install create-tauri-app
 # cargo create-tauri-app
 </code></pre>
 <p>Install tauri cli</p>
 <pre><code>cargo install tauri-cli
 </code></pre>
-<h2 id="create-the-project"><a class="header" href="#create-the-project">create the project</a></h2>
+<h3 id="create-the-project"><a class="header" href="#create-the-project">Create the project</a></h3>
 <pre><code>npm create svelte@latest tauri-svelte
 cd tauri-svelte
 git init
@@ -182,19 +186,21 @@ cargo tauri init
 
 npm install @tauri-apps/api
 </code></pre>
-<h2 id="run-in-dev-mode"><a class="header" href="#run-in-dev-mode">run in dev mode</a></h2>
+<h3 id="run-in-dev-mode"><a class="header" href="#run-in-dev-mode">Run in dev mode</a></h3>
 <pre><code>cargo tauri dev
 </code></pre>
-<h2 id="build-the-production-version"><a class="header" href="#build-the-production-version">build the production version</a></h2>
+<h3 id="build-the-production-version"><a class="header" href="#build-the-production-version">Build the production version</a></h3>
 <pre><code>cargo tauri build
 </code></pre>
-<h1 id="use-web-rendering-engine"><a class="header" href="#use-web-rendering-engine">Use web rendering engine</a></h1>
-<p>WebRender is a GPU-based 2D rendering engine written in Rust. <a href="https://github.com/servo/webrender">https://github.com/servo/webrender</a></p>
+<h2 id="use-web-rendering-engine"><a class="header" href="#use-web-rendering-engine">Use web rendering engine</a></h2>
+<p>WebRender is a GPU-based 2D HTML rendering engine written in Rust. 
+See <a href="https://github.com/servo/webrender">https://github.com/servo/webrender</a></p>
 <ul>
 <li><a href="https://docs.rs/webrender/latest/webrender/">https://docs.rs/webrender/latest/webrender/</a></li>
 </ul>
-<p>Either we can use a javascript engine, or build the ui functionality in pure rust.</p>
-<h1 id="gtk"><a class="header" href="#gtk">gtk</a></h1>
+<p>Either we can use a javascript engine similar to a web browser,
+or build the UI functionality in pure rust.</p>
+<h2 id="gtk4"><a class="header" href="#gtk4">GTK4</a></h2>
 <ul>
 <li><a href="https://gtk-rs.org/gtk4-rs/git/book/">https://gtk-rs.org/gtk4-rs/git/book/</a></li>
 </ul>
