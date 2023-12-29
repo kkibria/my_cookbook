@@ -63,3 +63,11 @@ cargo tauri dev
 ```
 cargo tauri build
 ```
+
+
+# Use web rendering engine
+WebRender is a GPU-based 2D rendering engine written in Rust. <https://github.com/servo/webrender>
+
+* <https://docs.rs/webrender/latest/webrender/>
+
+Either we can use a javascript engine, or build the ui functionality in pure rust.
