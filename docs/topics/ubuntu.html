@@ -143,6 +143,27 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="ubuntu"><a class="header" href="#ubuntu">Ubuntu</a></h1>
+<h2 id="mount-a-usb-stick"><a class="header" href="#mount-a-usb-stick">Mount a USB stick</a></h2>
+<p>Insert the USB stick. First get the device path of the usb stick by running <code>lsblk</code>.</p>
+<p>It will look something like, assuming that it has only one partition.</p>
+<pre><code class="language-text">sdb      8:16   1  14.9G  0 disk 
+└─sdb1   8:17   1   1.6G  0 part
+</code></pre>
+<p>Get the filesystem type of the partition by running <code>blkid</code>,</p>
+<pre><code>sudo blkid /dev/sdb1
+/dev/sdb1: UUID=&quot;....&quot; TYPE=&quot;fat&quot;
+</code></pre>
+<p>Now assuming that path <code>/media</code> exists, mount the partition.</p>
+<pre><code>sudo mount -t &lt;type&gt; /dev/sdb1 /media
+</code></pre>
+<p>it will mount the usb drive it to path <code>/media</code>.</p>
+<blockquote>
+<p>Note: Default type is <code>fat</code>. </p>
+</blockquote>
+<p>When done with the USB stick, unmount,</p>
+<pre><code>sudo umount /dev/sdb1
+</code></pre>
+<p>and remove the stick.</p>
 <h2 id="debugging-kernel-or-system-program-crash"><a class="header" href="#debugging-kernel-or-system-program-crash">Debugging kernel or system program crash</a></h2>
 <ul>
 <li><a href="https://ruffell.nz/programming/writeups/2019/02/22/beginning-kernel-crash-debugging-on-ubuntu-18-10.html">Beginning Kernel Crash Debugging on Ubuntu 18.10</a>.</li>
@@ -302,21 +323,21 @@ tklpatch-geniso turnkey-core.cdroot/
 <ul>
 <li><a href="https://askubuntu.com/questions/372607/how-to-create-a-bootable-ubuntu-usb-flash-drive-from-terminal">How to create a bootable Ubuntu USB flash drive from terminal?</a></li>
 </ul>
-<p>You can use dd.</p>
-<p>un mount the usb </p>
-<pre><code class="language-bash"> sudo umount /dev/sd&lt;?&gt;&lt;?&gt;  
-</code></pre>
-<p>where <?><?> is a letter followed by a number, look it up by running lsblk.</p>
-<p>It will look something like</p>
+<p>You can use <code>dd</code>.</p>
+<p>usb partition looks like <code>/dev/sd&lt;?&gt;&lt;?&gt;</code> where <code>&lt;?&gt;&lt;?&gt;</code> is a letter followed by a number.</p>
+<p>Look usb disk up first by running <code>lsblk</code>. 
+It will look something like,</p>
 <pre><code class="language-text">sdb      8:16   1  14.9G  0 disk 
 ├─sdb1   8:17   1   1.6G  0 part /media/username/usb volume name
 └─sdb2   8:18   1   2.4M  0 part 
 </code></pre>
-<p>I would un mount sdb1.</p>
-<p>Then, next (this is a destructive command and wipes the entire USB drive with the contents of the iso, so be careful):</p>
-<pre><code class="language-bash"> sudo dd bs=4M if=path/to/my_system.iso of=/dev/sd&lt;?&gt; conv=fdatasync  status=progress
+<p>Now you can unmount the usb as following, </p>
+<pre><code class="language-bash"> sudo umount /dev/sdb1  
 </code></pre>
-<p>where my_system.iso is the input file, and /dev/sd<?> is the USB device you're writing to (run lsblk to see all drives to find out what <?> is for your USB).</p>
+<p>Then, next (this is a destructive command and wipes the entire USB drive with the contents of the iso, so be careful):</p>
+<pre><code class="language-bash"> sudo dd bs=4M if=path/to/my_system.iso of=/dev/sdb1 conv=fdatasync  status=progress
+</code></pre>
+<p>Where <code>my_system.iso</code> is the input file, and <code>/dev/sdb1</code> is the USB device you're writing to.</p>
 <h2 id="reset-password"><a class="header" href="#reset-password">Reset password</a></h2>
 <ul>
 <li><a href="https://askubuntu.com/questions/24006/how-do-i-reset-a-lost-administrative-password">https://askubuntu.com/questions/24006/how-do-i-reset-a-lost-administrative-password</a></li>
