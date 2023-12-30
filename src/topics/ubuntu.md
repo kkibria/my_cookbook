@@ -4,6 +4,36 @@ title: Ubuntu
 
 # {{ page.title }}
 
+## Mount a USB stick
+
+Insert the USB stick. First get the device path of the usb stick by running `lsblk`.
+
+It will look something like, assuming that it has only one partition.
+```text
+sdb      8:16   1  14.9G  0 disk 
+└─sdb1   8:17   1   1.6G  0 part
+```
+
+Get the filesystem type of the partition by running `blkid`,
+```
+sudo blkid /dev/sdb1
+/dev/sdb1: UUID="...." TYPE="fat"
+```
+
+Now assuming that path `/media` exists, mount the partition.
+```
+sudo mount -t <type> /dev/sdb1 /media
+```
+it will mount the usb drive it to path `/media`.
+> Note: Default type is `fat`. 
+
+When done with the USB stick, unmount,
+```
+sudo umount /dev/sdb1
+```
+and remove the stick.
+
+
 ## Debugging kernel or system program crash
 
 * [Beginning Kernel Crash Debugging on Ubuntu 18.10](https://ruffell.nz/programming/writeups/2019/02/22/beginning-kernel-crash-debugging-on-ubuntu-18-10.html).
@@ -206,30 +236,28 @@ burn it to usb
 
 * [How to create a bootable Ubuntu USB flash drive from terminal?](https://askubuntu.com/questions/372607/how-to-create-a-bootable-ubuntu-usb-flash-drive-from-terminal)
 
-You can use dd.
+You can use `dd`.
 
-un mount the usb 
-```bash
- sudo umount /dev/sd<?><?>  
-```
-where <?><?> is a letter followed by a number, look it up by running lsblk.
+usb partition looks like `/dev/sd<?><?>` where `<?><?>` is a letter followed by a number.
 
-It will look something like
+Look usb disk up first by running `lsblk`. 
+It will look something like,
 ```text
 sdb      8:16   1  14.9G  0 disk 
 ├─sdb1   8:17   1   1.6G  0 part /media/username/usb volume name
 └─sdb2   8:18   1   2.4M  0 part 
 ```
-I would un mount sdb1.
 
+Now you can unmount the usb as following, 
+```bash
+ sudo umount /dev/sdb1  
+```
 Then, next (this is a destructive command and wipes the entire USB drive with the contents of the iso, so be careful):
 
-
 ```bash
- sudo dd bs=4M if=path/to/my_system.iso of=/dev/sd<?> conv=fdatasync  status=progress
+ sudo dd bs=4M if=path/to/my_system.iso of=/dev/sdb1 conv=fdatasync  status=progress
 ```
-
-where my_system.iso is the input file, and /dev/sd<?> is the USB device you're writing to (run lsblk to see all drives to find out what <?> is for your USB).
+Where `my_system.iso` is the input file, and `/dev/sdb1` is the USB device you're writing to.
 
 ## Reset password
 * <https://askubuntu.com/questions/24006/how-do-i-reset-a-lost-administrative-password>
