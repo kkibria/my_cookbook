@@ -11,6 +11,9 @@ title: Artificial Intelligence
 * [Image-to-Image Translation with Conditional Adversarial Nets](https://phillipi.github.io/pix2pix/)
 
 
+## courses
+* <https://lightning.ai/courses/deep-learning-fundamentals/>
+
 ## stable diffusion
 * Original SD paper -- [High-Resolution Image Synthesis with Latent Diffusion Models](https://arxiv.org/abs/2112.10752)
 * ControlNet paper -- [Adding Conditional Control to Text-to-Image Diffusion Models](https://arxiv.org/abs/2302.05543)
