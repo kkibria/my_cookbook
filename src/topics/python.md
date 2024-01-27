@@ -177,3 +177,8 @@ header, as well as the normal handshaking. I had to subclass it to make it known
 that the error 206 is not really an error in this case—so you can proceed
 normally. I also do some extra checks to quit the download if I’ve already
 downloaded the whole file.
+
+
+## yaml file
+* <https://pyyaml.org/wiki/PyYAMLDocumentation>
+* <https://www.andrewvillazon.com/validate-yaml-python-schema/>
