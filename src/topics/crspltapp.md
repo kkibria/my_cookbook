@@ -27,6 +27,9 @@ to Electron.
 One such environment is Tauri, which rust based. Here, I will record my notes as
 I try to build a Tauri app, with svelte frontend. 
 
+## Electron Python
+* <https://github.com/fyears/electron-python-example>
+
 ## Tauri
 
 ### Installing

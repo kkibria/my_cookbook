@@ -69,9 +69,15 @@ web audio api for lrc edit
 
 ## yamaha style file
 
+* [Style file specification](../files/StyleFileDescription_v21.pdf)
 * <https://github.com/bures/sff2-tools>
 * <https://wierzba.homepage.t-online.de/StyleFileDescription_v21.pdf>
 * <https://www.jjazzlab.com/en/>
 * <https://psrtutorial.com/index.html>
 * <https://youtu.be/be_0JnhI-Wc>
 * <https://youtu.be/gEGd__2ZQc0>
+
+## python libraries
+* style (sff2) files api <https://github.com/bures/sff2-tools>
+* <https://github.com/bspaans/python-mingus>
+
