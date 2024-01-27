@@ -69,7 +69,7 @@ web audio api for lrc edit
 
 ## yamaha style file
 
-* [Style file specification](../files/StyleFileDescription_v21.pdf)
+* [Style file specification (archived)](../files/StyleFileDescription_v21.pdf)
 * <https://github.com/bures/sff2-tools>
 * <https://wierzba.homepage.t-online.de/StyleFileDescription_v21.pdf>
 * <https://www.jjazzlab.com/en/>
