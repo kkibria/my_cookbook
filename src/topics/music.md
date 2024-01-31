@@ -80,4 +80,5 @@ web audio api for lrc edit
 ## python libraries
 * style (sff2) files api <https://github.com/bures/sff2-tools>
 * <https://github.com/bspaans/python-mingus>
+* SCAMP <https://pypi.org/project/scamp/>. doc <http://scamp.marcevanstein.com/>
 
