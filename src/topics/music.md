@@ -82,3 +82,5 @@ web audio api for lrc edit
 * <https://github.com/bspaans/python-mingus>
 * SCAMP <https://pypi.org/project/scamp/>. doc <http://scamp.marcevanstein.com/>
 
+## AI datasets
+* <https://github.com/bytedance/GiantMIDI-Piano>
