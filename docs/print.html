@@ -461,6 +461,8 @@ $env:Path += &quot;;SomeRandomPath&quot;            (appends to existing path)
 <p>Check <a href="topics/text-content.html#vs-code-to-edit-markdown-files">VS code to edit markdown
 files</a> section to edit comments
 in your source files.</p>
+<h2 id="using-jupyter-notebook-in-vscode"><a class="header" href="#using-jupyter-notebook-in-vscode">Using jupyter notebook in vscode</a></h2>
+<p>Check <a href="topics/jupyter.html#connect-a-vscode-notebook-as-client">Connect a vscode notebook as client</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="windows-msi-installer"><a class="header" href="#windows-msi-installer">Windows MSI installer</a></h1>
 <ul>
 <li><a href="https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-examples">https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-examples</a></li>
@@ -475,6 +477,41 @@ in your source files.</p>
 <li><a href="https://youtu.be/usOh3NQO9Ms">https://youtu.be/usOh3NQO9Ms</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="jupyter-notebook"><a class="header" href="#jupyter-notebook">Jupyter Notebook</a></h1>
+<h2 id="running-jupyter-ipykernel-locally"><a class="header" href="#running-jupyter-ipykernel-locally">Running jupyter ipykernel locally</a></h2>
+<p>Create or open a new terminal for the project. Activate the
+virtual environment.</p>
+<h3 id="get-the-jupyter-installed"><a class="header" href="#get-the-jupyter-installed">Get the jupyter installed</a></h3>
+<p>Install if you haven't already in your virtual environment.</p>
+<pre><code>pip install jupyter notebook
+</code></pre>
+<h3 id="start-the-server"><a class="header" href="#start-the-server">Start the server</a></h3>
+<pre><code>python -m jupyter notebook --no-browser
+</code></pre>
+<p>This will start the server. It will print the url of the
+server with a random token, usually looks something like,</p>
+<pre><code>http://localhost:8888/tree?token=25e02d584db26b33f9171302057b32e19f6b32e6227b48d7
+</code></pre>
+<p>Copy the url.</p>
+<h3 id="connect-a-vscode-notebook-as-client"><a class="header" href="#connect-a-vscode-notebook-as-client">Connect a vscode notebook as client</a></h3>
+<p>There is many benefits using vscode as a client. Editing
+source with intellisense is always beneficial. Follow the
+steps for vscode to connect to the server.</p>
+<ol>
+<li>Open the <code>.ipynb</code> file. This will ask you to select a
+kernel. Select an <code>existing kernel</code>.</li>
+<li>It will ask for url, type url you copied, hit enter.</li>
+<li>Type a display name so that you can identify later,
+project name is a good idea, hit enter.</li>
+</ol>
+<p>It will connect and now you can use it. For other <code>.ipynb</code>
+files in the same project you can select the same display
+name.</p>
+<h3 id="debug-mode"><a class="header" href="#debug-mode">Debug mode</a></h3>
+<p>To run in debug mode, </p>
+<pre><code>python -m jupyter notebook --debug --no-browser
+</code></pre>
+<p>This will produce lot of messages to diagnose problems.</p>
+<h2 id="custom-visualization"><a class="header" href="#custom-visualization">Custom visualization</a></h2>
 <ul>
 <li><a href="https://www.stefaanlippens.net/jupyter-custom-d3-visualization.html">https://www.stefaanlippens.net/jupyter-custom-d3-visualization.html</a></li>
 </ul>
@@ -2080,11 +2117,11 @@ pages later.</p>
 <p>Install <a href="https://stkb.github.io/Rewrap/">Rewrap</a> vscode plugin. &lt;Alt+Q&gt; will
 hard wrap and unwrap your content. Makes life lot easier when you are copy
 pasting excerpts from somewhere else that comes aa long line of text. Also helps
-writing comments in code by wrapping long comments. Read it's documentation</p>
+writing comments in code by wrapping long comments. Read it's documentation.</p>
 <h2 id="html-to-markdown-conversion"><a class="header" href="#html-to-markdown-conversion">html to markdown conversion</a></h2>
 <p>We may need to convert existing html to markdown.
-<a href="topics/github.com/suntong/html2md"><code>html2md</code></a>. Its a tool written in golang. Works
-nice!</p>
+<a href="https://github.com/suntong/html2md"><code>html2md</code></a> is a tool
+written in golang. Works nice!</p>
 <h2 id="hosting-content-in-github-pages"><a class="header" href="#hosting-content-in-github-pages">Hosting Content in github pages</a></h2>
 <p>Github pages is quite popular for hosting as it is free and git controlled.
 Although there are several options available for github pages, there is a idea
