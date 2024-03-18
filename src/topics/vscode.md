@@ -77,3 +77,7 @@ $env:Path += ";SomeRandomPath"            (appends to existing path)
 Check [VS code to edit markdown
 files](text-content.md#vs-code-to-edit-markdown-files) section to edit comments
 in your source files.
+
+## Using jupyter notebook in vscode
+
+Check [Connect a vscode notebook as client](jupyter.md#connect-a-vscode-notebook-as-client)

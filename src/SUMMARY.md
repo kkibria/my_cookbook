@@ -44,6 +44,7 @@
     - [Multithreading](./topics/rust-thread.md)
 - [Powershell](./topics/powershell.md)
 - [Python](topics/python.md)
+    - [Python library](topics/pythonlib.md)
 
 # Transpiling
 - [Java to Go language](./topics/java2go.md)

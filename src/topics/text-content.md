@@ -23,13 +23,14 @@ pages later.
 Install [Rewrap](https://stkb.github.io/Rewrap/) vscode plugin. <Alt+Q> will
 hard wrap and unwrap your content. Makes life lot easier when you are copy
 pasting excerpts from somewhere else that comes aa long line of text. Also helps
-writing comments in code by wrapping long comments. Read it's documentation
+writing comments in code by wrapping long comments. Read it's documentation.
 
 
 ## html to markdown conversion
 We may need to convert existing html to markdown.
-[`html2md`](github.com/suntong/html2md). Its a tool written in golang. Works
-nice!
+[`html2md`](https://github.com/suntong/html2md) is a tool
+written in golang. Works nice!
+
 ## Hosting Content in github pages
 Github pages is quite popular for hosting as it is free and git controlled.
 Although there are several options available for github pages, there is a idea
