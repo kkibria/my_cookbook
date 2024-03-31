@@ -3559,6 +3559,20 @@ print (sa ^ sb)
 </code></pre>
 <p>where a is the list of old python modules and b is the new
 ones.</p>
+<h2 id="python-object"><a class="header" href="#python-object">Python object</a></h2>
+<p>it is easy to create an object and attributes.</p>
+<pre><code class="language-python">obj = lambda: None
+obj.exclude = 'hello'
+</code></pre>
+<h3 id="turning-a-dict-to-object"><a class="header" href="#turning-a-dict-to-object">Turning a dict to object</a></h3>
+<pre><code class="language-python">attr = {&quot;a&quot; : &quot;b&quot;, &quot;c&quot;: &quot;d&quot;, &quot;e&quot;: &quot;f&quot;}
+obj = lambda: None
+obj.__dict__ = attr
+
+print(obj.a)
+print(obj.c)
+print(obj.e)
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="java-to-go-language"><a class="header" href="#java-to-go-language">Java to Go language</a></h1>
 <p>I have written large Java projects in the past, I have used proprietary
 tools to turn them into native executable. The Go language provides a nice 
