@@ -41,3 +41,23 @@ print (sa ^ sb)
 ```
 where a is the list of old python modules and b is the new
 ones.
+
+## Python object
+it is easy to create an object and attributes.
+```python
+obj = lambda: None
+obj.exclude = 'hello'
+```
+
+### Turning a dict to object
+```python
+attr = {"a" : "b", "c": "d", "e": "f"}
+obj = lambda: None
+obj.__dict__ = attr
+
+print(obj.a)
+print(obj.c)
+print(obj.e)
+```
+
+
