@@ -84,3 +84,6 @@ web audio api for lrc edit
 
 ## AI datasets
 * <https://github.com/bytedance/GiantMIDI-Piano>
+
+## tool for representing music for AI
+* <https://github.com/CPJKU/partitura>
