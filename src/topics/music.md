@@ -87,3 +87,6 @@ web audio api for lrc edit
 
 ## tool for representing music for AI
 * <https://github.com/CPJKU/partitura>
+
+## Rust Audio player
+* <https://github.com/pdeljanov/Symphonia>
