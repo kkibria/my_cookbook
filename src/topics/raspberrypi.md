@@ -765,3 +765,4 @@ I tried with GOARM=6 and it worked too.
 ## Some other stuff
 
 * Pair a Raspberry Pi and Android phone <https://bluedot.readthedocs.io/en/latest/pairpiandroid.html>
+> todo: Will this work for pi zero w?
