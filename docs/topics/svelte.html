@@ -1,0 +1,653 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Svelte - My Development Cookbook</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">My Development Cookbook</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="svelte"><a class="header" href="#svelte">Svelte</a></h1>
+<h2 id="general-capabilities"><a class="header" href="#general-capabilities">General capabilities</a></h2>
+<ul>
+<li><a href="https://www.freecodecamp.org/news/the-svelte-handbook/">The Svelte Handbook</a></li>
+</ul>
+<h3 id="create-a-starter-svelte-project"><a class="header" href="#create-a-starter-svelte-project">create a starter svelte project</a></h3>
+<pre><code class="language-bash">npx degit sveltejs/template my-svelte-project
+cd my-svelte-project
+npm install
+npm run dev
+</code></pre>
+<h3 id="vscode-setting"><a class="header" href="#vscode-setting">vscode setting</a></h3>
+<p>Command Palette (⇧⌘P) then: Preferences: Configure Language Specific Settings,</p>
+<pre><code class="language-json">{
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode",
+    "editor.tabSize": 2
+  }
+}
+</code></pre>
+<h2 id="svelte-browser-compatibility"><a class="header" href="#svelte-browser-compatibility">Svelte Browser compatibility</a></h2>
+<ul>
+<li><a href="https://blog.az.sg/posts/svelte-and-ie11/">Making a svelte app compatible with Internet Explorer 11</a></li>
+<li><a href="http://simey.me/svelte3-rollup-and-babel7/">Svelte3, Rollup and Babel7</a></li>
+</ul>
+<h2 id="svelte-components"><a class="header" href="#svelte-components">Svelte components</a></h2>
+<ul>
+<li><a href="https://github.com/hperrin/svelte-material-ui">https://github.com/hperrin/svelte-material-ui</a></li>
+<li><a href="https://github.com/collardeau/svelte-fluid-header">https://github.com/collardeau/svelte-fluid-header</a></li>
+<li><a href="https://flaviocopes.com/svelte-state-management/">https://flaviocopes.com/svelte-state-management/</a></li>
+</ul>
+<h2 id="svelte-component-exported-functions"><a class="header" href="#svelte-component-exported-functions">Svelte Component exported functions</a></h2>
+<p><code>Comp1.svelte</code> file.</p>
+<pre><code class="language-html">&lt;script&gt;
+    import Comp2, {mod_param as C2param} from 'Comp2.svelte';
+
+    console.log(C2param.someText);
+    C2param.someFunc("Comp2 function called from Comp1");
+&lt;/script&gt;
+</code></pre>
+<p><code>Comp2.svelte</code> file.</p>
+<pre><code class="language-html">&lt;script&gt;
+  // This is component instance context
+...
+&lt;/script&gt;
+
+&lt;script context="module"&gt;
+  // This is component module context
+  export const mod_param = {
+    someFunc: (text) =&gt; {
+      console.log(text);
+    },
+
+    someText: "hello from Comp2" 
+  }
+&lt;/script&gt;
+</code></pre>
+<blockquote>
+<p>Exchanging data between components module and instance context is tricky
+So appropriate handling required in such case. It is best to use
+<a href="https://svelte.dev/repl">REPL</a> sandbox <code>JS output</code> window to
+check the exact use case.</p>
+</blockquote>
+<h2 id="component-lifecycle"><a class="header" href="#component-lifecycle">Component lifecycle</a></h2>
+<p>Components,</p>
+<ol>
+<li>are instantiated and composed inside parents.</li>
+<li>are initialized by parents via parameters.
+Parameters are passed by value.</li>
+<li>display information and interact with user.</li>
+<li>manage user interaction via state transitions.</li>
+<li>make the user entered information accessible to parents via bindings.
+Binding keeps parent's variable in sync with components variable.
+Binding makes the parameter behave like as if they were passed
+by pointers.</li>
+<li>send events to parent so that parent can take actions.
+Parent uses event handlers.</li>
+<li>are destroyed by parents when they are no longer needed.</li>
+</ol>
+<blockquote>
+<p>A parent can get component state both via binding and events.
+Bindings provide easy reactive update in parents. Events
+provides an easy way when algorithmic action is required by parent.
+Using both as appropriate is the best approach.</p>
+</blockquote>
+<p>Check <a href="https://dev.to/joshnuss/managing-state-in-svelte-29o7">Managing state in Svelte</a>.</p>
+<h2 id="passing-parameter-to-sub-component"><a class="header" href="#passing-parameter-to-sub-component">Passing parameter to sub-component</a></h2>
+<p>Sub-components act like functions javascript function with parameters, pass parameters individually or
+all the parameters as a dictionary using a spread operator.
+You can have <a href="https://svelte.dev/tutorial/default-values">default values</a> inside the sub-component.</p>
+<pre><code class="language-auto">  &lt;Comp1 param1={data} /&gt;
+  &lt;Comp2 {...selprops} /&gt;
+</code></pre>
+<p>Using spread operator is preferred for large number of parameters.</p>
+<p>Check <a href="https://svelte.dev/repl/aac50a4f24fd4858b1c6fffc0a75e418?version=3.23.1">Passing parameters to components</a>.</p>
+<h2 id="binding"><a class="header" href="#binding">Binding</a></h2>
+<p>Binding is exactly same as passing individual parameters, except you have to attach the
+<code>bind</code> keyword in the association.</p>
+<pre><code class="language-auto">  &lt;Comp1 bind:param1={data} /&gt;
+</code></pre>
+<p>Binding will keep component parameter <code>param1</code> and parent variable
+<code>data</code> always in sync. When components updates <code>param1</code> it will be
+immediately reflected in <code>data</code>. Parent can bind <code>data</code> with multiple
+components and they all will be in sync as well.</p>
+<p>There is no spread style binding syntax supported.</p>
+<p>There is a short hand syntax available for binding in the case when parameter name and variable name are the same.</p>
+<pre><code class="language-auto">  &lt;Comp1 bind:same_name={same_name} /&gt;
+  &lt;!-- short hand syntax for above --&gt;
+  &lt;Comp1 bind:same_name /&gt;
+</code></pre>
+<p>Check <a href="https://svelte.dev/tutorial/component-bindings">component bindings</a>.</p>
+<h2 id="events"><a class="header" href="#events">Events</a></h2>
+<p><code>Parent.svelte</code> source,</p>
+<pre><code class="language-auto">&lt;script&gt;
+	import Comp1 from './Comp1.svelte';
+
+	function handleMessage(event) {
+		alert(event.detail.text);
+	}
+&lt;/script&gt;
+
+&lt;Comp1 on:event_name={handleMessage}/&gt;
+</code></pre>
+<p><code>Comp1.svelte</code> source,</p>
+<pre><code class="language-auto">&lt;script&gt;
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
+	function sayHello() {
+		dispatch('event_name', {
+			text: 'Hello!'
+		});
+	}
+&lt;/script&gt;
+
+&lt;button on:click={sayHello}&gt;
+	Click to say hello
+&lt;/button&gt;
+</code></pre>
+<p>To bubble up component message parent can forward it further up,
+see <a href="https://svelte.dev/tutorial/event-forwarding">event forwarding</a>.</p>
+<h2 id="develop-reusable-components"><a class="header" href="#develop-reusable-components">develop reusable components</a></h2>
+<p>using REPL, Github and npm</p>
+<blockquote>
+<p>todo: write up</p>
+</blockquote>
+<h2 id="generating-web-components-with-svelte"><a class="header" href="#generating-web-components-with-svelte">Generating web components with svelte</a></h2>
+<ul>
+<li><a href="https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j">How to Create a Web Component in Svelte</a>.</li>
+</ul>
+<h2 id="styling"><a class="header" href="#styling">Styling</a></h2>
+<ul>
+<li><a href="https://css-tricks.com/what-i-like-about-writing-styles-with-svelte/">What I Like About Writing Styles with Svelte</a></li>
+<li><a href="https://svelte.dev/blog/the-zen-of-just-writing-css">The zen of Just Writing CSS</a></li>
+<li><a href="https://css-tricks.com/what-i-like-about-writing-styles-with-svelte/">https://css-tricks.com/what-i-like-about-writing-styles-with-svelte/</a></li>
+<li>With tailwind we can import external css file into a component, Although it is not specific for svelte, still is a good read: <a href="https://mattferderer.com/add-postcss-imports-to-tailwind-css">Add Imports to Tailwind CSS with PostCSS</a>.</li>
+<li>css in js for svelte, <a href="https://svelte.dev/blog/svelte-css-in-js">https://svelte.dev/blog/svelte-css-in-js</a></li>
+</ul>
+<h2 id="generated-content-and-global-styling-in-production-build"><a class="header" href="#generated-content-and-global-styling-in-production-build">Generated content and global styling in production build</a></h2>
+<p>Svelte allows css support of generated content with global styling. However
+it (with postcss and purgecss) removes any css that is not being used by
+the static content during production build, if it is loaded from a css file
+using postcss-include facility even it is a global style. During
+development build this doesn't happen though since we don't run purgecss in
+development build. To ensure those styles are retained we need to tell
+purgecss about those. For instance if we used a highlighter such as
+highlight.js which prepends highlight classes with <code>hljs-</code> prefix. Then
+we can retain styling for them by adding a whitelist pattern <code>/hljs-/</code></p>
+<p>in <code>postcss.config.js</code> the same way as it is done for svelte in their
+official svelte template.</p>
+<pre><code class="language-javascript">const purgecss = require('@fullhuman/postcss-purgecss')({
+  content: ['./src/**/*.svelte', './src/**/*.html'],
+  whitelistPatterns: [/svelte-/, /hljs-/],
+  defaultExtractor: content =&gt; content.match(/[A-Za-z0-9-_:/]+/g) || []
+})
+</code></pre>
+<h3 id="transitions-animations"><a class="header" href="#transitions-animations">Transitions, Animations</a></h3>
+<ul>
+<li><a href="https://svelte.dev/repl/865750b1ffb642f59d317747bd9f3534?version=3.4.4">https://svelte.dev/repl/865750b1ffb642f59d317747bd9f3534?version=3.4.4</a></li>
+<li><a href="https://stackoverflow.com/questions/56453366/cant-use-svelte-animate-to-make-a-list-item-fly-into-a-header">https://stackoverflow.com/questions/56453366/cant-use-svelte-animate-to-make-a-list-item-fly-into-a-header</a></li>
+<li><a href="https://svelte.dev/repl/f4386ec88df34e3b9a6b513e19374824?version=3.4.4">https://svelte.dev/repl/f4386ec88df34e3b9a6b513e19374824?version=3.4.4</a> for moving selected item to a position.</li>
+</ul>
+<h2 id="state-management"><a class="header" href="#state-management">state management</a></h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/65092054/how-to-use-svelte-store-with-tree-like-nested-object">https://stackoverflow.com/questions/65092054/how-to-use-svelte-store-with-tree-like-nested-object</a></li>
+<li><a href="https://www.newline.co/@kchan/state-management-with-svelte-props-part-1--73a26f45">https://www.newline.co/@kchan/state-management-with-svelte-props-part-1--73a26f45</a></li>
+<li><a href="https://medium.com/@veeralpatel/things-ive-learned-about-state-management-for-react-apps-174b8bde87fb">https://medium.com/@veeralpatel/things-ive-learned-about-state-management-for-react-apps-174b8bde87fb</a></li>
+<li><a href="https://svelte-recipes.netlify.app/stores/">https://svelte-recipes.netlify.app/stores/</a></li>
+<li><a href="https://mobx.js.org/getting-started">https://mobx.js.org/getting-started</a></li>
+<li><a href="https://blog.logrocket.com/application-state-management-with-svelte/">https://blog.logrocket.com/application-state-management-with-svelte/</a></li>
+</ul>
+<h3 id="contexts-vs-stores"><a class="header" href="#contexts-vs-stores">Contexts vs. stores</a></h3>
+<p>Contexts and stores seem similar. They differ in that stores are available to any part of an app, while a context is only available to a component and its descendants. This can be helpful if you want to use several instances of a component without the state of one interfering with the state of the others.</p>
+<p>In fact, you might use the two together. Since context is not <strong>reactive</strong> and not mutable, values that change over time should be represented as stores:</p>
+<pre><code class="language-auto">const { these, are, stores } = getContext(...);
+</code></pre>
+<ul>
+<li><a href="https://svelte.dev/tutorial/context-api">REPL context API demo</a></li>
+<li><a href="https://www.toptal.com/front-end/svelte-framework-guide">Lighter and Faster - A Guide to the Svelte Framework</a>,
+Github <a href="https://github.com/teimurjan/svelte-login-form">source</a></li>
+</ul>
+<hr />
+<h2 id="svelte-markdown-editor"><a class="header" href="#svelte-markdown-editor">Svelte markdown editor</a></h2>
+<ul>
+<li><a href="https://dev.to/karkranikhil/build-markdown-editor-using-svelte-in-10-minutes-1c69">Build Markdown editor using Svelte in 10 minutes</a>,
+this uses <a href="https://marked.js.org">marked.js</a> parser, <a href="https://github.com/markedjs/marked">github</a>.</li>
+<li>Stackedit is a vue markdown editor, but provides scroll sync. We can take
+a look at the source code and do similar thing in Svelte. Uses <a href="https://github.com/markdown-it/markdown-it">https://github.com/markdown-it/markdown-it</a>. markdown-it has most versatile collection of plugins.</li>
+<li>Nice scrollbar sync example, <a href="https://github.com/vincentcn/markdown-scroll-sync">https://github.com/vincentcn/markdown-scroll-sync</a>.</li>
+<li>Another scrollbar sync example, <a href="https://github.com/jonschlinkert/remarkable">https://github.com/jonschlinkert/remarkable</a>. Look in the demo directory.</li>
+<li>The most promising markdown editing seems to be <code>markdown-it</code>, <code>vscode</code> uses this for their markdown support as well.
+This seems to be a project which evolved from
+<code>remarkable</code>. Check Github <a href="https://github.com/markdown-it/markdown-it">https://github.com/markdown-it/markdown-it</a>
+in the <code>support/demo_template</code> directory for the scroll syncing javascript source.
+With some modification this can be integrated with svelte.
+I like the way vscode does it, whenever the cursor is on a line, it finds
+the whole element in the preview window and draws a side bar to indicate
+the element being edited. I was able to integrate the relevant part of
+the code from <code>support/demo_template</code> with svelte,
+<a href="markdown">read more</a>.</li>
+</ul>
+<h2 id="using-processing-p5js-in-svelte"><a class="header" href="#using-processing-p5js-in-svelte">using processing p5.js in svelte</a></h2>
+<ul>
+<li><a href="https://dev.to/tonyketcham/p5-svelte-a-quick-and-easy-way-to-use-p5-in-svelte-3j8f">p5-Svelte: a quick and easy way to use p5 in Svelte!</a>, <a href="https://github.com/tonyketcham/p5-svelte">Github</a></li>
+<li><a href="https://www.youtube.com/watch?v=OIfEHD3KqCg">Q&amp;A #6: p5.js Sketch as Background</a></li>
+<li><a href="https://p5js.org/reference/#/p5/loadImage">https://p5js.org/reference/#/p5/loadImage</a></li>
+</ul>
+<h2 id="routing"><a class="header" href="#routing">Routing</a></h2>
+<ul>
+<li><a href="https://youtu.be/edFp-vuDlLs">Client-side (SPA) routing in Svelte</a></li>
+<li><a href="https://visionmedia.github.io/page.js/">Micro client-side router inspired by the Express router</a></li>
+<li><a href="https://dev.to/ism/svelte-routing-with-page-js-part-1-2h9h">Svelte routing with page.js, Part 1</a></li>
+<li><a href="https://dev.to/ism/svelte-routing-with-page-js-part-2-4l76">Svelte routing with page.js, Part 2</a>, code in <a href="https://github.com/iljoo/svelte-pagejs">https://github.com/iljoo/svelte-pagejs</a>.</li>
+<li><a href="https://jackwhiting.co.uk/posts/setting-up-routing-in-svelte-with-pagejs/">Setting up Routing In Svelte with Page.js</a></li>
+<li>Svelte with firebase and page.js router- I have built a template, work in progress: <a href="https://github.com/kkibria/svelte-page-markdown">https://github.com/kkibria/svelte-page-markdown</a>.</li>
+</ul>
+<h2 id="spa--search-engine-optimization-seo"><a class="header" href="#spa--search-engine-optimization-seo">SPA &amp; Search Engine Optimization (SEO)</a></h2>
+<ul>
+<li><a href="https://snipcart.com/spa-seo">SPA SEO: A Single-Page App Guide to Google’s 1st Page</a></li>
+<li><a href="https://love2dev.com/blog/why-single-page-application-views-should-be-hydrated-on-the-client-not-the-server/">Why Single Page Application Views Should be Hydrated on the Client, Not the Server</a></li>
+</ul>
+<h2 id="svelte-with-firebase"><a class="header" href="#svelte-with-firebase">Svelte with firebase</a></h2>
+<ul>
+<li><a href="https://svelte.dev/">svelte</a></li>
+<li><a href="https://youtu.be/AdNJ3fydeao">Rich Harris - Rethinking reactivity</a></li>
+<li><a href="https://youtu.be/043h4ugAj4c">Svelte 3 Reaction &amp; QuickStart Tutorial</a></li>
+<li><a href="https://youtu.be/urDLn8RNlCA">Svelte + Firebase = Sveltefire (and it is FIRE 🔥🔥🔥)</a></li>
+<li><a href="https://fireship.io/lessons/svelte-v3-overview-firebase/">Svelte Realtime Todo List with Firebase</a>. I built a template using this in <a href="https://github.com/kkibria/svelte-todo">https://github.com/kkibria/svelte-todo</a>.</li>
+<li>Uses firebase auth web UI <a href="https://sveltecasts.dev/episodes/001-firebase-ui">Sapper/Svelte Firebase Auth UI</a>, github source <a href="https://github.com/sveltecasts/001-auth">code</a>.</li>
+<li>Firebase storage with svelte - <a href="https://dev.to/ajonpllc/rxfire-in-svelte-3-using-firebase-firestore-and-authentication-pca">RxFire in Svelte 3 using Firebase Firestore and Authentication</a></li>
+</ul>
+<h2 id="login-data-passing-with-context-api"><a class="header" href="#login-data-passing-with-context-api">Login data passing with context API</a></h2>
+<p>Firebase can have has it own login subscription via rxfire. However following articles are good read to understand svelte support data sharing across the app.</p>
+<h2 id="web-components"><a class="header" href="#web-components">Web components</a></h2>
+<p>A Svelte component can be compiled into a web component as documented in
+<a href="https://svelte.dev/docs#run-time-custom-element-api">Custom element API</a>, read this carefully.</p>
+<blockquote>
+<p>At the moment this is an incomplete feature. There are many issues as described in the following parts
+of this section. If you are not dependent on them (kebab casing and global: css) you can make web components.</p>
+</blockquote>
+<p>There should be two ways we can interact with web component technology,</p>
+<ul>
+<li>Instantiate web component in a svelte component. Check this as a starting point, <a href="https://youtu.be/-6Hy3MHfPhA">https://youtu.be/-6Hy3MHfPhA</a>.</li>
+<li>instantiate a svelte component in a web component or a existing web page like a web component.</li>
+</ul>
+<h3 id="compile"><a class="header" href="#compile">Compile</a></h3>
+<p>To convert your existing Svelte app into a web component, you need to,</p>
+<ul>
+<li>Add &lt;svelte:options tag="component-name"&gt; somewhere in your .svelte file to assign a html tag name.</li>
+<li>Tell the svelte compiler to create web component by adding <code>customElement: true</code> option.
+However using this way would turn every svelte file it compiles to a web component. In a typical
+project however you might one only the top svelte file compiled to be a web component and all other files to integrated in the top level file. This can be done using <code>customElement</code> option with a filter.</li>
+</ul>
+<p>Following is a filter example that only makes web component when the file has <code>.wc.svelte</code> extension.</p>
+<pre><code>// rollup.config.js
+svelte({ customElement: true, include: /\.wc\.svelte$/ }),
+svelte({ customElement: false, exclude: /\.wc\.svelte$/ }),
+</code></pre>
+<h3 id="global-css-file"><a class="header" href="#global-css-file">Global CSS file</a></h3>
+<p>Using global CSS from a file should be done carefully if they are not scoped properly. They should
+be avoided inside a component, all styles should be defined inside the Svelte components
+so that svelte compiler scope them properly. Using class name to scope CSS is the right approach
+if needed.
+For web components svelte will inline the CSS.
+Note that, CSS with global: specifier for generated content is needed since svelte will remove
+any unused CSS otherwise. But this <a href="https://github.com/sveltejs/svelte/issues/2969">does not work</a> in Custom element right now.</p>
+<p>A workaround proposed is to use webpack <code>ContentReplacePlugin</code>,</p>
+<pre><code>plugins: [
+	new ContentReplacePlugin({
+        	rules: {
+		      '**/*.js': content =&gt; content.replace(/:global\(([\[\]\(\)\-\.\:\*\w]+)\)/g, '$1')
+	          }
+	})
+]
+</code></pre>
+<p>A side note, CSS doesn't leak thru shadow DOM which is used for web components.</p>
+<h3 id="property-name"><a class="header" href="#property-name">Property name</a></h3>
+<p>The property names should be restricted to lower case, camel case and kebab case should not be used
+as they have complications. However if you must, check <a href="https://github.com/sveltejs/svelte/issues/3852">https://github.com/sveltejs/svelte/issues/3852</a>.
+The solution proposed is to create a wrapper,</p>
+<pre><code>import MyCustomComponent from './MyCustomComponent.svelte';
+
+class MyCustomComponentWrapper extends MyCustomComponent {
+  static get observedAttributes() {
+    return (super.observedAttributes || []).map(attr =&gt; attr.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase());
+  }
+
+  attributeChangedCallback(attrName, oldValue, newValue) {
+    attrName = attrName.replace(/-([a-z])/g, (_, up) =&gt; up.toUpperCase());
+    super.attributeChangedCallback(attrName, oldValue, newValue);
+  }
+}
+
+customElements.define('my-custom-component', MyCustomComponentWrapper);
+</code></pre>
+<p>MyCustomComponent.svelte</p>
+<pre><code>&lt;script&gt;
+  export let someDashProperty;
+&lt;/script&gt;
+
+&lt;svelte:options tag={null} /&gt;
+
+{someDashProperty}
+</code></pre>
+<p>Then you can use it in this way:</p>
+<pre><code>&lt;my-custom-component some-dash-property="hello"&gt;&lt;/my-custom-component&gt;
+</code></pre>
+<p>There were variants of this can be used in the bundler to have a automated wrapper injection
+done at the build time.</p>
+<p>If you use esbuild bundler instead of rollup, following would work.</p>
+<p>Original Svelte component like this:</p>
+<pre><code>&lt;!-- src/components/navbar/navbar.wc.svelte --&gt;
+
+&lt;svelte:options tag="elect-navbar" /&gt;
+
+&lt;!-- Svelte Component ... --&gt;
+</code></pre>
+<p>Create a customElements.define</p>
+<pre><code>/* src/utils/custom-element.js */
+
+export const customElements = {
+  define: (tagName, CustomElement) =&gt; {
+    class CustomElementWrapper extends CustomElement {
+      static get observedAttributes() {
+        return (super.observedAttributes || []).map((attr) =&gt;
+          attr.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase(),
+        );
+      }
+
+      attributeChangedCallback(attrName, oldValue, newValue) {
+        super.attributeChangedCallback(
+          attrName.replace(/-([a-z])/g, (_, up) =&gt; up.toUpperCase()),
+          oldValue,
+          newValue === '' ? true : newValue, // [Tweaked] Value of omitted value attribute will be true
+        );
+      }
+    }
+
+    window.customElements.define(tagName, CustomElementWrapper); // &lt;--- Call the actual customElements.define with our wrapper
+  },
+};
+
+</code></pre>
+<p>Then use esbuild inject option to inject the above code to the top of the built file</p>
+<pre><code>/* esbuild.js */
+
+import { build } from 'esbuild';
+import esbuildSvelte from 'esbuild-svelte';
+import sveltePreprocess from 'svelte-preprocess';
+
+// ...
+    build({
+      entryPoints,
+      ourdir,
+      bundle: true,
+      inject: ['src/utils/custom-element.js'], // &lt;--- Inject our custom elements mock
+      plugins: [
+        esbuildSvelte({
+          preprocess: [sveltePreprocess()],
+          compileOptions: { customElement: true },
+        }),
+      ],
+    })
+// ...
+</code></pre>
+<p>Will produce web component like this:</p>
+<pre><code>// components/navbar.js
+
+(() =&gt; {
+  // src/utils/custom-element.js
+  var customElements = {
+    define: (tagName, CustomElement) =&gt; {
+      // Our mocked customElements.define logic ...
+    }
+  };
+
+  // Svelte compiled code ...
+
+  customElements.define("elect-navbar", Navbar_wc); // &lt;--- This code compiled by Svelte will called our mocked function instead of actual customElements.define
+  var navbar_wc_default = Navbar_wc;
+})();
+
+
+
+</code></pre>
+<ul>
+<li><a href="https://javascript.plainenglish.io/can-you-build-web-components-with-svelte-3c8bc3c1cfd8#:~:text=In%20theory%2C%20all%20you%20need,That&#x27;s%20it!">Can You Build Web Components With Svelte?</a>, slightly old, some of the issues have been fixed since then. A must read
+to understand related issues.</li>
+</ul>
+<blockquote>
+<p>Todo: We will explore this in more details in future.</p>
+</blockquote>
+<h3 id="events-1"><a class="header" href="#events-1">Events</a></h3>
+<ul>
+<li><a href="https://github.com/sveltejs/svelte/issues/3119">https://github.com/sveltejs/svelte/issues/3119</a></li>
+</ul>
+<p>Read <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event/Event">MDN events article</a>.
+The read-only <code>composed</code> property of the Event interface returns a Boolean which indicates
+whether or not the event will propagate across the shadow DOM boundary into the standard DOM.</p>
+<pre><code>// App.svelte
+&lt;svelte:options tag="my-component" /&gt;
+&lt;script&gt;
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+&lt;/script&gt;
+
+&lt;button on:click="{() =&gt; dispatch('foo', {detail: 'bar', composed: true})}"&gt;
+    click me 
+&lt;/button&gt;
+</code></pre>
+<h2 id="develop-with-vite"><a class="header" href="#develop-with-vite">Develop with Vite</a></h2>
+<ul>
+<li><a href="https://vitejs.dev/">https://vitejs.dev/</a></li>
+</ul>
+<p>Vite provides very nice response time during development cycle, compile is really fast with vite
+as it doesn't bundle at development time. For production build it uses rollup as usual with
+svelte and bundles everything together. It also has a nice
+<a href="https://github.com/roonie007/vite-plugin-svelte-kebab-props">plugin for kebab casing</a>
+support for svelte component property names.</p>
+<blockquote>
+<p>I am not sure if we make a web component with this plugin, the web component will support
+kebab casing. But using web component with kebab casing in Svelte can be done with this.</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../topics/crspltapp.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../topics/svelte-app.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../topics/crspltapp.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../topics/svelte-app.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

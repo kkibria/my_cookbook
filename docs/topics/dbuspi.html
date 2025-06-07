@@ -1,0 +1,350 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>DBUS in pi - My Development Cookbook</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">My Development Cookbook</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="using-dbus-in-pi"><a class="header" href="#using-dbus-in-pi">Using dbus in pi</a></h1>
+<h2 id="note-on-getting-dbus-interfaces"><a class="header" href="#note-on-getting-dbus-interfaces">Note on getting dbus interfaces</a></h2>
+<blockquote>
+<p>Lot of the followings have been actually updated, check <a href="https://github.com/kkibria/dbus-dev">https://github.com/kkibria/dbus-dev</a></p>
+</blockquote>
+<p>the xml files were generated in raspberry pi</p>
+<pre><code class="language-bash">dbus-send --system --dest=fi.w1.wpa_supplicant1 \
+  --type=method_call --print-reply=literal /fi/w1/wpa_supplicant1 \
+  org.freedesktop.DBus.Introspectable.Introspect &gt; wpa.xml
+
+dbus-send --system --dest=org.freedesktop.timedate1 \
+  --type=method_call --print-reply=literal /org/freedesktop/timedate1 \
+  org.freedesktop.DBus.Introspectable.Introspect &gt; timedate.xml
+</code></pre>
+<p>and copied in the project.</p>
+<p>then on wsl we can use the xml files</p>
+<pre><code class="language-bash">dbus-codegen-rust -s -f org.freedesktop.timedate1 &lt; timedate.xml &gt; src/timedate.rs
+dbus-codegen-rust -s -f fi.w1.wpa_supplicant1 &lt; wpa.xml &gt; src/wpa.rs
+</code></pre>
+<p>alternatively we can use dbus-codegen-rust on pi to generate rust files directly and copy to rust project</p>
+<p>put it all together in <code>get-pi-rs.sh</code></p>
+<pre><code class="language-bash">#assuming RPI is already exported in .bashrc
+ssh $RPI 'bash -s' &lt;&lt;-"EOF"
+ export PATH=$HOME/.cargo/bin:$PATH
+ rm -rf temp-wsl
+ mkdir temp-wsl
+ pushd temp-wsl
+ dbus-codegen-rust -s -d org.freedesktop.timedate1 -p "/org/freedesktop/timedate1" -f org.freedesktop.timedate1 &gt; timedate.rs
+ dbus-codegen-rust -s -d fi.w1.wpa_supplicant1 -p "/fi/w1/wpa_supplicant1" -f fi.w1.wpa_supplicant1 &gt; wpa.rs
+ popd
+EOF
+rcp $RPI:temp-wsl/*.rs src
+</code></pre>
+<h2 id="python-example-for-dbus"><a class="header" href="#python-example-for-dbus">Python example for dbus</a></h2>
+<ul>
+<li><a href="https://android.googlesource.com/platform/external/wpa_supplicant_8/+/master/wpa_supplicant/examples/wpas-dbus-new.py">wpas-dbus-new.py</a></li>
+</ul>
+<h2 id="setting-up-dbus-for-interacting-with-wpa_supplicant"><a class="header" href="#setting-up-dbus-for-interacting-with-wpa_supplicant">Setting up dbus for interacting with WPA_SUPPLICANT</a></h2>
+<p>I was trying to write some code that is to use dbus api to access wpa_supplicant. My understanding from reading various posts that wpa_supplicant must be started with <code>-u</code> flag to fully expose it's apis to dbus. So I edited, <code>/lib/dhcpcd/dhcpcd-hooks/10-wpa_supplicant</code> to by adding the <code>-u</code> flag to the invocation of the <code>wpa_supplicant</code> daemon in the <code>wpa_supplicant_start()</code>.</p>
+<p>At this point I couldn't use wpa_cli to connect to <code>wlan0</code> anymore. I checked the processes with <code>ps</code> and got,</p>
+<pre><code>pi@raspi:~ $ ps -aux | grep wpa_sup
+root       306  0.0  1.0  10724  4732 ?        Ss   21:21   0:00 /sbin/wpa_supplicant -u -s -O /run/wpa_supplicant
+</code></pre>
+<p>So, I edited <code>/lib/dhcpcd/dhcpcd-hooks/10-wpa_supplicant</code> again to remove <code>-u</code> flag, rebooted etc. and again checked the processes. This time I got,</p>
+<pre><code>pi@raspi:~ $ ps -aux | grep wpa_sup
+root       260  0.3  1.0  10724  4640 ?        Ss   21:25   0:00 /sbin/wpa_supplicant -u -s -O /run/wpa_supplicant
+root       350  0.1  0.9  10988  4052 ?        Ss   21:25   0:00 wpa_supplicant -B -c/etc/wpa_supplicant/wpa_supplicant.conf -iwlan0 -Dnl80211,wext
+</code></pre>
+<p>and now I can use wpa_cli to connect to <code>wlan0</code>.</p>
+<p>This is confusing to me. I am not sure why.</p>
+<p>After some digging, it appears that <code>wpa_supplicant.service</code> should be disabled as it was preventing <code>wpa_cli</code> from connecting to <code>wlan0</code>.</p>
+<p>After doing,</p>
+<pre><code class="language-bash">sudo systemctl disable wpa_supplicant
+sudo reboot
+</code></pre>
+<p>I was able to connect.</p>
+<p>I am still not sure why.</p>
+<p><a href="https://raspberrypi.stackexchange.com/questions/132998/confusing-wpa-supplicant-processes-while-trying-to-use-dbus-api">https://raspberrypi.stackexchange.com/questions/132998/confusing-wpa-supplicant-processes-while-trying-to-use-dbus-api</a></p>
+<p>this has an explanation. <a href="https://github.com/mark2b/wpa-connect">https://github.com/mark2b/wpa-connect</a></p>
+<h2 id="cross-compile-dbus"><a class="header" href="#cross-compile-dbus">cross compile dbus</a></h2>
+<ul>
+<li><a href="https://github.com/diwic/dbus-rs/blob/master/libdbus-sys/cross_compile.md">https://github.com/diwic/dbus-rs/blob/master/libdbus-sys/cross_compile.md</a></li>
+<li><a href="https://serverfault.com/questions/892465/starting-systemd-services-sharing-a-session-d-bus-on-headless-system">https://serverfault.com/questions/892465/starting-systemd-services-sharing-a-session-d-bus-on-headless-system</a> headless dbus.</li>
+<li><a href="https://raspberrypi.stackexchange.com/questions/114739/how-to-install-pi-libraries-to-cross-compile-for-pi-zero-in-wsl2">https://raspberrypi.stackexchange.com/questions/114739/how-to-install-pi-libraries-to-cross-compile-for-pi-zero-in-wsl2</a>.</li>
+<li><a href="https://airtower.wordpress.com/2010/07/20/using-gvariant-tuples/">https://airtower.wordpress.com/2010/07/20/using-gvariant-tuples/</a></li>
+<li><a href="https://fosdem.org/2020/schedule/event/rust_dbus_library/">https://fosdem.org/2020/schedule/event/rust_dbus_library/</a></li>
+</ul>
+<h2 id="working-with-dbus"><a class="header" href="#working-with-dbus">Working with dbus</a></h2>
+<h3 id="how-do-i-get-properties-using-dbus"><a class="header" href="#how-do-i-get-properties-using-dbus">How do I get properties using dbus</a></h3>
+<p>I have listed the properties that I am interested in using <code>timedatectl</code> which uses <code>systemd</code> dbus,</p>
+<pre><code>$ timedatectl
+               Local time: Tue 2020-07-28 19:37:00 PDT
+           Universal time: Wed 2020-07-29 02:37:00 UTC
+                 RTC time: n/a
+                Time zone: America/Los_Angeles (PDT, -0700)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
+</code></pre>
+<p>Next, I checked <code>timedatectl.c</code> in <code>systemd</code> <a href="https://github.com/systemd/systemd">source code</a> to get bus endpoint and method using which I went ahead and introspected,</p>
+<pre><code>$ dbus-send --system --dest=org.freedesktop.timedate1 --type=method_call --print-reply /org/freedesktop/timedate1 org.freedesktop.DBus.Introspectable.Introspect
+
+method return time=1595997538.869702 sender=:1.30 -&gt; destination=:1.29 serial=3 reply_serial=2
+   string "&lt;!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd"&gt;
+&lt;node&gt;
+ ...
+ &lt;interface name="org.freedesktop.DBus.Properties"&gt;
+  ...
+  &lt;method name="GetAll"&gt;
+   &lt;arg name="interface" direction="in" type="s"/&gt;
+   &lt;arg name="properties" direction="out" type="a{sv}"/&gt;
+  &lt;/method&gt;
+  ... 
+ &lt;/interface&gt;
+ &lt;interface name="org.freedesktop.timedate1"&gt;
+  &lt;property name="Timezone" type="s" access="read"&gt;
+  &lt;/property&gt;
+  &lt;property name="LocalRTC" type="b" access="read"&gt;
+  &lt;/property&gt;
+  ...
+ &lt;/interface&gt;
+&lt;/node&gt;
+"
+</code></pre>
+<p>Next I tried to use the method <code>GetAll</code>,</p>
+<pre><code>$ dbus-send --system --dest=org.freedesktop.timedate1 --type=method_call --print-reply /org/freedesktop/timedate1 org.freedesktop.DBus.Properties.GetAll string:org.freedesktop.timedate1
+
+method return time=1595997688.111555 sender=:1.33 -&gt; destination=:1.32 serial=4 reply_serial=2
+   array [
+      dict entry(
+         string "Timezone"
+         variant             string "America/Los_Angeles"
+      )
+      dict entry(
+         string "LocalRTC"
+         variant             boolean false
+      )
+      dict entry(
+         string "CanNTP"
+         variant             boolean true
+      )
+      dict entry(
+         string "NTP"
+         variant             boolean true
+      )
+      dict entry(
+         string "NTPSynchronized"
+         variant             boolean true
+      )
+      dict entry(
+         string "TimeUSec"
+         variant             uint64 1595997688110070
+      )
+      dict entry(
+         string "RTCTimeUSec"
+         variant             uint64 0
+      )
+   ]
+</code></pre>
+<p>and we get our desired result same as <code>timedatectl</code>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../topics/rust-native.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../topics/embedded.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../topics/rust-native.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../topics/embedded.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

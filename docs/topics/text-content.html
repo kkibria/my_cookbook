@@ -1,0 +1,330 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Textual Contents - My Development Cookbook</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">My Development Cookbook</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="textual-contents"><a class="header" href="#textual-contents">Textual Contents</a></h1>
+<p>Textual content authoring in html is quite tedious and alternative authoring is
+preferred for web sites. As such,
+<a href="https://www.markdownguide.org/getting-started/">markdown</a> format has gathered
+popularity and is being used quite widely. This format is really just a simple
+text file that can be produced by any text editor.</p>
+<p>We will look into Content Management with markdown for web sites. These sites
+can contain a collection of markdown files. Content Management allows them to be
+organized and navigated n a useful way. They are transformed to html before they
+are rendered in a browser.</p>
+<p>However, wherever you will host the content, their flow is something important
+to understand clearly before you start. For instance, we can talk about github
+pages later.</p>
+<h2 id="vs-code-to-edit-markdown-files"><a class="header" href="#vs-code-to-edit-markdown-files">VS code to edit markdown files</a></h2>
+<p>Install <a href="https://stkb.github.io/Rewrap/">Rewrap</a> vscode plugin. &lt;Alt+Q&gt; will
+hard wrap and unwrap your content. Makes life lot easier when you are copy
+pasting excerpts from somewhere else that comes aa long line of text. Also helps
+writing comments in code by wrapping long comments. Read it's documentation.</p>
+<h2 id="html-to-markdown-conversion"><a class="header" href="#html-to-markdown-conversion">html to markdown conversion</a></h2>
+<p>We may need to convert existing html to markdown.
+<a href="https://github.com/suntong/html2md"><code>html2md</code></a> is a tool
+written in golang. Works nice!</p>
+<h2 id="hosting-content-in-github-pages"><a class="header" href="#hosting-content-in-github-pages">Hosting Content in github pages</a></h2>
+<p>Github pages is quite popular for hosting as it is free and git controlled.
+Although there are several options available for github pages, there is a idea
+of separation of concern behind those options. They implemented the idea by
+using two different git branches. One for textual content like markdown source
+files and the other for generated html. Usually, the markdown source file lives
+in the default branch <code>master</code> as we may edit those files more frequently. When
+we are ready to deploy our content, the generated html will live in another
+branch, lets call it <code>gh-pages</code>. github allows configuring the repository such
+that it's web server will check out html from <code>gh-pages</code> branch and use.</p>
+<h3 id="scaffolding-setup"><a class="header" href="#scaffolding-setup">Scaffolding setup</a></h3>
+<p>Knowing this, we will need to scaffold our project in way so that it is
+convenient to manage. As such, I will suggest one way that felt most convenient
+for me.</p>
+<pre><code class="language-text">my_project (folder)
+   +-- .git (points to master branch)
+   +-- .gitignore (set to ignore gh-pages folder)
+   +-- (markdown contents)
+   +-- deploy.sh (used for deploying generated content)
+   +-- gh-pages (folder)
+         +-- .git (points to gh-pages branch)
+         +-- (generated html contents)
+</code></pre>
+<p>Using terminal, create a project folder and open it in vscode,</p>
+<pre><code class="language-bash">mkdir my_project
+cd my_project
+echo "gh-pages" &gt; .gitignore
+mkdir gh-pages
+
+# This will create the master branch
+git init
+git add .
+git commit -m "first commit" 
+
+code .
+</code></pre>
+<h3 id="create-repository-in-github-and-publish-the-default-branch"><a class="header" href="#create-repository-in-github-and-publish-the-default-branch">Create repository in github and publish the default branch</a></h3>
+<p>With vscode, in source control panel, create a github repository and push
+everything we have so far to github.</p>
+<p>If you are not using vscode, then you can manually create github repository and
+push the <code>master</code> branch.</p>
+<h3 id="create-and-publish-the-html-branch"><a class="header" href="#create-and-publish-the-html-branch">Create and publish the html branch</a></h3>
+<p>Now we create the <code>gh-pages</code> branch.
+Following bash script will do this,</p>
+<pre><code class="language-bash">URL=`git remote get-url origin`
+pushd gh-pages
+echo "gh-pages site" &gt; index.html
+git init
+git remote add origin $URL
+
+# create gh-pages branch
+git checkout -b gh-pages
+git add .
+git commit -m "initial commit"
+
+# push the branch to github
+git push origin gh-pages
+popd
+</code></pre>
+<p>Now the scaffolding is ready. We need to create a script that will deploy
+generated content.</p>
+<h3 id="setup-a-deploy-script"><a class="header" href="#setup-a-deploy-script">Setup a deploy script</a></h3>
+<p><code>deploy.sh</code></p>
+<pre><code class="language-bash">command_to_generate_html
+pushd gh-pages
+git add .
+git commit -m "deploy"
+git push origin gh-pages
+popd
+</code></pre>
+<p>If you are in windows, you can create equivalent powershell or command line
+scripts.</p>
+<h3 id="setup-github-to-pick-up-the-branch-and-folder"><a class="header" href="#setup-github-to-pick-up-the-branch-and-folder">Setup github to pick up the branch and folder</a></h3>
+<p>In github repo settings go to <code>github pages</code> and setup branch to <code>gh-pages</code> and
+change folder to <code>docs</code> and note the public url they provide for the site.</p>
+<h3 id="create-and-publish-the-html-branch-powershell-version"><a class="header" href="#create-and-publish-the-html-branch-powershell-version">Create and publish the html branch (powershell version)</a></h3>
+<pre><code>$url = git remote get-url origin
+mkdir gh-pages
+Set-Location gh-pages
+echo "gh-pages site" &gt; index.html
+git init
+git remote add origin $url
+
+git checkout -b gh-pages
+git add .
+git commit -m "initial commit"
+
+git push origin gh-pages
+Set-Location ..
+</code></pre>
+<h3 id="setup-a-deploy-script-powershell-version"><a class="header" href="#setup-a-deploy-script-powershell-version">Setup a deploy script (powershell version)</a></h3>
+<p><code>deploy.ps1</code></p>
+<pre><code>command_to_generate_html
+Set-Location gh-pages
+git add .
+git commit -m "deploy"
+git push origin gh-pages
+Set-Location ..
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../topics/flutterreading.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../topics/mdbook.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../topics/flutterreading.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../topics/mdbook.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

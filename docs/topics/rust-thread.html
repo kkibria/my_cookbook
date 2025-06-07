@@ -1,0 +1,513 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Rust Multithreading - My Development Cookbook</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">My Development Cookbook</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="rust-multithreading"><a class="header" href="#rust-multithreading">Rust Multithreading</a></h1>
+<p>Rust's ownership and borrow checking at compile time makes it easy to use
+threads. However sharing data between threads requires some consideration.</p>
+<h2 id="sharing-data"><a class="header" href="#sharing-data">Sharing data</a></h2>
+<p>Let's say we have two threads. One for gui, another for processing. We need to
+share a big data structure which is modified in gui thread. But they are
+accessed in the processing thread which could perform lengthy processing. How do
+we achieve this?</p>
+<p>Accessing shared data between threads can be tricky, especially when the data is
+large and frequently modified. In such Read-copy-update can be considered.</p>
+<h2 id="read-copy-update"><a class="header" href="#read-copy-update">Read copy update</a></h2>
+<p>Sharing data with read copy update (RCU) is a technique used in concurrent
+programming to allow multiple threads or processes to access a shared data
+structure simultaneously without the need for explicit locking. The RCU
+technique is commonly used in high-performance computing environments where lock
+contention can be a significant bottleneck.</p>
+<p>The basic idea behind RCU is to maintain multiple versions of the shared data
+structure simultaneously, with each version accessible by a different thread or
+process. When a thread wants to read the shared data, it simply accesses the
+current version. When a thread wants to modify the shared data, it creates a new
+version of the data structure, modifies it, and then updates a global pointer to
+indicate that the new version is now the current version.</p>
+<p>The RCU technique provides fast read access because readers do not need to
+acquire locks or wait for other threads to release locks. Instead, they simply
+access the current version of the shared data. The write operations are
+serialized using some other synchronization mechanism such as atomic operations
+or locks, but the read operations are not blocked by these write operations.</p>
+<p>In the read-copy-update technique, a process or thread requesting to modify the
+shared data structure can create a copy of the data structure and work on it in
+isolation. Other threads that are still using the old version of the data
+structure can continue to use it without locking or blocking. The updated data
+structure is made available only when the current users are no longer using the
+old data structure. This process of sharing old data and allowing read-only
+access to it while a copy is modified is called copy-on-write.</p>
+<p>RCU is particularly useful for shared data structures that are read frequently
+but updated infrequently, or where lock contention is a bottleneck. However, it
+requires careful design and implementation to ensure that the different versions
+of the shared data are correctly managed and that updates to the data structure
+do not result in inconsistencies or race conditions.</p>
+<h2 id="rust-data-sharing"><a class="header" href="#rust-data-sharing">Rust data sharing</a></h2>
+<p>In Rust we can share by using,</p>
+<ul>
+<li><code>Arc</code> (atomic reference counting) and <code>Mutex</code> (mutual exclusion) types.</li>
+<li>Message passing.</li>
+<li>Combination of both.</li>
+</ul>
+<p>Following cases are not exhaustive use cases but shows some common uses.</p>
+<h2 id="using-mutex"><a class="header" href="#using-mutex">Using Mutex</a></h2>
+<p>Wrap your data structure in an <code>Arc&lt;Mutex&lt;T&gt;&gt;</code>. This will allow multiple threads
+to share the data structure and access it safely.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::sync::{Arc, Mutex};
+
+// Define your data structure.
+struct MyDataStructure {
+    // ...
+}
+
+// Wrap it in an Arc&lt;Mutex&lt;T&gt;&gt;.
+let shared_data = Arc::new(Mutex::new(MyDataStructure { /* ... */ }));
+<span class="boring">}</span></code></pre></pre>
+<p>In the gui thread, when you need to modify the data structure, you can acquire a
+lock on the <code>Mutex</code> using the <code>lock()</code> method. This will give you a mutable
+reference to the data structure that you can modify.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut data = shared_data.lock().unwrap();
+// Modify the data structure as needed.
+data.modify_something();
+<span class="boring">}</span></code></pre></pre>
+<p>In the processing thread, when you need to access the data structure, you can
+also acquire a lock on the <code>Mutex</code> using the <code>lock()</code> method. This will give you
+an immutable reference to the data structure that you can safely access.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let data = shared_data.lock().unwrap();
+// Access the data structure as needed.
+let value = data.get_something();
+<span class="boring">}</span></code></pre></pre>
+<p>Note that calling <code>lock()</code> on a <code>Mutex</code> can block if another thread has already
+acquired the lock. To avoid deadlocks, be sure to acquire locks on the <code>Mutex</code>
+in a consistent order across all threads that access it.</p>
+<p>Also, keep in mind that accessing shared data across threads can have
+performance implications, especially if the data structure is large and
+frequently modified. You may want to consider other strategies such as message
+passing to minimize the need for shared mutable state.</p>
+<h2 id="message-passing"><a class="header" href="#message-passing">Message passing</a></h2>
+<p>Using message passing can be a good way to minimize the need for shared mutable
+state, especially for large data structures. Instead of sharing the data
+structure directly, you can send messages between threads to communicate changes
+to the data.</p>
+<p>Here's an example of how you could use message passing to modify a large data
+structure between two threads:</p>
+<p>Define your data structure and a message type that can be used to modify it.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Define your data structure.
+struct MyDataStructure {
+    // ...
+}
+
+// Define a message type that can modify the data structure.
+enum Message {
+    ModifyDataStructure(Box&lt;dyn FnOnce(&amp;mut MyDataStructure) + Send + 'static&gt;),
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Create a channel for sending messages between the gui and processing threads.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::sync::mpsc::{channel, Sender, Receiver};
+
+// Create a channel for sending messages between threads.
+let (sender, receiver): (Sender&lt;Message&gt;, Receiver&lt;Message&gt;) = channel();
+<span class="boring">}</span></code></pre></pre>
+<p>In the gui thread, when you need to modify the data structure, create a closure
+that modifies the data structure and send it as a message to the processing
+thread.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Create a closure that modifies the data structure.
+let modify_data = Box::new(|data: &amp;mut MyDataStructure| {
+    // Modify the data structure as needed.
+    data.modify_something();
+});
+
+// Send the closure as a message to the processing thread.
+let message = Message::ModifyDataStructure(modify_data);
+sender.send(message).unwrap();
+<span class="boring">}</span></code></pre></pre>
+<p>In the processing thread, receive messages from the channel and apply them to
+the data structure.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Receive messages from the channel and apply them to the data structure.
+loop {
+    match receiver.recv() {
+        Ok(message) =&gt; {
+            match message {
+                Message::ModifyDataStructure(modify_data) =&gt; {
+                    // Acquire a lock on the data structure and apply the closure.
+                    let mut data = shared_data.lock().unwrap();
+                    modify_data(&amp;mut data);
+                },
+            }
+        },
+        Err(_) =&gt; break,
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Note that this example is simplified and doesn't handle errors, such as when
+sending or receiving messages fails. Also, keep in mind that message passing can
+have performance implications, especially for large data structures or frequent
+updates. You may want to consider using a combination of message passing and
+shared mutable state, depending on your specific requirements and constraints.</p>
+<h2 id="combination-of-message-passing-and-shared-mutable-state"><a class="header" href="#combination-of-message-passing-and-shared-mutable-state">Combination of message passing and shared mutable state</a></h2>
+<p>This can be a good way to balance the need for communication and performance.
+You can use message passing to communicate high-level changes (small updates) to
+the data structure, and shared mutable state to allow for low-level access
+(large updates or initial state) and modification.</p>
+<p>Here's an example of how you could use a combination of message passing and
+shared mutable state to modify a large data structure between two threads:</p>
+<p>Define your data structure and a message type that can be used to modify it.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Define your data structure.
+struct MyDataStructure {
+    // ...
+}
+
+// Define a message type that can modify the data structure.
+enum Message {
+    ModifyDataStructure(Box&lt;dyn FnOnce(&amp;mut MyDataStructure) + Send + 'static&gt;),
+}
+
+<span class="boring">}</span></code></pre></pre>
+<p>Create a channel for sending messages between the gui and processing threads.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::sync::mpsc::{channel, Sender, Receiver};
+
+// Create a channel for sending messages between threads.
+let (sender, receiver): (Sender&lt;Message&gt;, Receiver&lt;Message&gt;) = channel();
+<span class="boring">}</span></code></pre></pre>
+<p>Wrap your data structure in an <code>Arc&lt;Mutex&lt;T&gt;&gt;</code>. This will allow multiple threads
+to share the data structure and access it safely.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::sync::{Arc, Mutex};
+
+// Wrap your data structure in an Arc&lt;Mutex&lt;T&gt;&gt;.
+let shared_data = Arc::new(Mutex::new(MyDataStructure { /* ... */ }));
+<span class="boring">}</span></code></pre></pre>
+<p>In the gui thread, when you need to modify the data structure, create a closure
+that modifies the data structure and send it as a message to the processing
+thread.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Create a closure that modifies the data structure.
+let modify_data = Box::new(|data: &amp;mut MyDataStructure| {
+    // Modify the data structure as needed.
+    data.modify_something();
+});
+
+// Send the closure as a message to the processing thread.
+let message = Message::ModifyDataStructure(modify_data);
+sender.send(message).unwrap();
+<span class="boring">}</span></code></pre></pre>
+<p>In the processing thread, receive messages from the channel and apply them to
+the data structure. In addition, you can acquire a lock on the Mutex to allow
+for low-level access and modification.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Receive messages from the channel and apply them to the data structure.
+loop {
+    match receiver.recv() {
+        Ok(message) =&gt; {
+            match message {
+                Message::ModifyDataStructure(modify_data) =&gt; {
+                    // Acquire a lock on the data structure and apply the closure.
+                    let mut data = shared_data.lock().unwrap();
+                    modify_data(&amp;mut data);
+                },
+            }
+        },
+        Err(_) =&gt; break,
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Note that in the processing thread, you can also access the data structure
+outside of the messages by acquiring a lock on the Mutex. This will allow for
+low-level access and modification, without the overhead of message passing.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Acquire a lock on the data structure for low-level access.
+let mut data = shared_data.lock().unwrap();
+// Modify the data structure as needed.
+data.modify_something_else();
+<span class="boring">}</span></code></pre></pre>
+<p>Using a combination of message passing and shared mutable state can be a
+powerful way to balance the need for communication and performance. Keep in mind
+that this approach requires careful synchronization and error handling,
+especially when modifying the data structure from multiple threads.</p>
+<h2 id="read-only-access"><a class="header" href="#read-only-access">Read only access</a></h2>
+<p>Read access has the possibilities of data races.</p>
+<p>If you're only reading the data structure, and you don't care about data race,
+then you generally don't need to acquire a lock. Otherwise, if you're accessing
+the data structure, even if only for reading, you should use a lock to
+synchronize access and prevent data races.</p>
+<h2 id="locking-for-both-read-and-write"><a class="header" href="#locking-for-both-read-and-write">Locking for both read and write</a></h2>
+<p>Following shows both accesses,</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::sync::Arc;
+use std::sync::Mutex;
+
+// Wrap your data structure in an Arc&lt;Mutex&lt;T&gt;&gt;.
+let shared_data = Arc::new(Mutex::new(MyDataStructure { /* ... */ }));
+
+// In the processing thread, receive messages from the channel and read the data structure.
+loop {
+    match receiver.recv() {
+        Ok(message) =&gt; {
+            match message {
+                Message::GetSample =&gt; {
+                    // Acquire a lock on the data structure for read-only access.
+                    let data = shared_data.lock().unwrap();
+                    // Read the data structure as needed.
+                    let sample = data.get_sample();
+                    // Use the sample in the processing thread.
+                    // ...
+                },
+                Message::ModifyDataStructure(modify_data) =&gt; {
+                    // Acquire a lock on the data structure and apply the closure.
+                    let mut data = shared_data.lock().unwrap();
+                    modify_data(&amp;mut data);
+                },
+            }
+        },
+        Err(_) =&gt; break,
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>In this example, the processing thread acquires a lock on the data structure for
+read-only access when it receives a message to get a sample, but acquires a lock
+for write access when it receives a message to modify the data structure. This
+ensures safe access to the data structure from multiple threads.</p>
+<h2 id="links-to-materials-related-to-data-sharing"><a class="header" href="#links-to-materials-related-to-data-sharing">Links to materials related to data sharing</a></h2>
+<ul>
+<li><a href="https://youtu.be/a10JpqI-CvU">https://youtu.be/a10JpqI-CvU</a></li>
+<li><a href="https://forum.juce.com/t/timur-doumler-talks-on-c-audio-sharing-data-across-threads/26311/1">https://forum.juce.com/t/timur-doumler-talks-on-c-audio-sharing-data-across-threads/26311/1</a></li>
+<li><a href="https://github.com/hogliux/farbot">https://github.com/hogliux/farbot</a></li>
+<li><a href="https://youtu.be/7fKxIZOyBCE">https://youtu.be/7fKxIZOyBCE</a></li>
+<li><a href="https://cfsamsonbooks.gitbook.io/explaining-atomics-in-rust/">https://cfsamsonbooks.gitbook.io/explaining-atomics-in-rust/</a></li>
+<li><a href="https://github.com/preshing/junction">https://github.com/preshing/junction</a></li>
+<li><a href="https://preshing.com/20160726/using-quiescent-states-to-reclaim-memory/">https://preshing.com/20160726/using-quiescent-states-to-reclaim-memory/</a></li>
+<li><a href="http://www.cs.toronto.edu/~tomhart/papers/tomhart_thesis.pdf">http://www.cs.toronto.edu/~tomhart/papers/tomhart_thesis.pdf</a></li>
+<li><a href="https://codeandbitters.com/learning-rust-crossbeam-epoch/">https://codeandbitters.com/learning-rust-crossbeam-epoch/</a></li>
+<li><a href="https://github.com/ericseppanen/epoch_playground">https://github.com/ericseppanen/epoch_playground</a></li>
+<li><a href="https://aturon.github.io/blog/2015/08/27/epoch/">https://aturon.github.io/blog/2015/08/27/epoch/</a> most comprehensive explanation</li>
+<li><a href="https://marabos.nl/atomics/">https://marabos.nl/atomics/</a> most comprehensive explanation</li>
+<li><a href="https://www.packtpub.com/en-us/product/hands-on-concurrency-with-rust-9781788399975">https://www.packtpub.com/en-us/product/hands-on-concurrency-with-rust-9781788399975</a></li>
+<li><a href="https://youtu.be/9XAx279s7gs">https://youtu.be/9XAx279s7gs</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../topics/rust-plugin.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../topics/powershell.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../topics/rust-plugin.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../topics/powershell.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

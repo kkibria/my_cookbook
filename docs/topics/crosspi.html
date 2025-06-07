@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Cross Compiling for Pi - My Development Cookbook</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">My Development Cookbook</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="cross-compiling-for-pi"><a class="header" href="#cross-compiling-for-pi">Cross Compiling for Pi</a></h1>
+<h2 id="cross-compile"><a class="header" href="#cross-compile">cross compile</a></h2>
+<ul>
+<li><a href="https://youtu.be/Pbt330zuNPc">Anatomy of Cross-Compilation Toolchains</a>. The <a href="https://elinux.org/images/1/15/Anatomy_of_Cross-Compilation_Toolchains.pdf">slides</a>.</li>
+</ul>
+<h2 id="go-lang-for-pi-0"><a class="header" href="#go-lang-for-pi-0">go lang for pi 0</a></h2>
+<ul>
+<li><a href="https://www.thepolyglotdeveloper.com/2017/04/cross-compiling-golang-applications-raspberry-pi/">Cross Compiling Golang Applications For Use On A Raspberry Pi</a>.
+You tube <a href="https://youtu.be/lDvlysiMbCs">video</a>.</li>
+</ul>
+<h2 id="using-rust-in-raspberry-pi"><a class="header" href="#using-rust-in-raspberry-pi">Using rust in Raspberry pi</a></h2>
+<ul>
+<li><a href="pirust.html#setup-wsl2-for-cross-compile">Cross Compile with WSL2 for the Raspberry Pi</a>.</li>
+<li><a href="https://chacin.dev/blog/cross-compiling-rust-for-the-raspberry-pi/">Cross Compiling Rust for the Raspberry Pi</a>.</li>
+<li><a href="https://gnutoolchains.com/raspberry/">Prebuilt Windows Toolchain for Raspberry Pi</a>. Question: who are these people? where are the sources fro these tools?</li>
+<li><a href="https://medium.com/@wizofe/cross-compiling-rust-for-arm-e-g-raspberry-pi-using-any-os-11711ebfc52b">Cross compiling Rust for ARM (e.g. Raspberry Pi) using any OS!</a></li>
+<li><a href="https://github.com/rust-embedded/cross">“Zero setup” cross compilation and “cross testing” of Rust crates</a></li>
+<li><a href="https://www.vagrantup.com/">Vagrant, Virtual machine for cross development</a>. I really like this setup, easy to use. Plays well with virtualbox.</li>
+<li><a href="https://github.com/kunerd/clerk/wiki/How-to-use-HD44780-LCD-from-Rust#setting-up-the-cross-toolchain">https://github.com/kunerd/clerk/wiki/How-to-use-HD44780-LCD-from-Rust#setting-up-the-cross-toolchain</a></li>
+<li><a href="https://opensource.com/article/19/3/physical-computing-rust-raspberry-pi">https://opensource.com/article/19/3/physical-computing-rust-raspberry-pi</a></li>
+<li><a href="https://github.com/japaric/rust-cross">https://github.com/japaric/rust-cross</a></li>
+<li><a href="https://gist.github.com/sol-prog/94b2ba84559975c76111afe6a0499814">RPi-GCC-cross-compiler</a></li>
+</ul>
+<h3 id="qemu-for-library-dependencies"><a class="header" href="#qemu-for-library-dependencies">QEMU for library dependencies</a></h3>
+<ul>
+<li><a href="http://linux-sunxi.org/Debootstrap">Debootstrap</a></li>
+<li><a href="http://logan.tw/posts/2017/01/21/introduction-to-qemu-debootstrap/">Introduction to qemu-debootstrap</a>.</li>
+<li><a href="https://headmelted.com/using-qemu-to-produce-debian-filesystems-for-multiple-architectures-280df41d28eb">https://headmelted.com/using-qemu-to-produce-debian-filesystems-for-multiple-architectures-280df41d28eb</a>.</li>
+<li><a href="https://youtu.be/PBY9l97-lto">Kernel Recipes 2015 - Speed up your kernel development cycle with QEMU - Stefan Hajnoczi</a>.</li>
+<li><a href="https://youtu.be/L_r3z3402do">Debootstrap #1 Creating a Filesystem for Debian install Linux tutorial</a>.</li>
+<li><a href="https://youtu.be/OLFH4Ov6bJQ">Creating Ubuntu and Debian container base images, the old and simple way</a>.</li>
+<li><a href="https://youtu.be/xiQX0YXYuqU">Raspberry Pi Emulator for Windows 10 Full Setup Tutorial and Speed Optimization</a>.</li>
+<li><a href="https://azeria-labs.com/emulate-raspberry-pi-with-qemu/">RASPBERRY PI ON QEMU</a>.</li>
+<li><a href="https://stackoverflow.com/questions/60127086/run-raspberry-pi-zero-w-image-in-qemu">Run Raspberry Pi Zero W image in qemu</a>, github <a href="https://github.com/igwtech/qemu">source</a>.</li>
+<li><a href="https://www.reddit.com/r/VFIO/comments/9pi2cd/how_to_set_up_qemu_30_on_ubuntu_1804/">How to set up QEMU 3.0 on Ubuntu 18.04</a>.</li>
+</ul>
+<h2 id="building-qemu-from-raspberri-pi-zero-in-wsl2-ubuntu"><a class="header" href="#building-qemu-from-raspberri-pi-zero-in-wsl2-ubuntu">building qemu from raspberri pi zero in wsl2 ubuntu</a></h2>
+<p>It is best if you make a directory somewhere in windows for the sources. Using powershell to keep wsl2 VHD files small,</p>
+<pre><code class="language-bash">cd c:\Users\&lt;user_name&gt;\Documents
+mkdir qemu-build
+</code></pre>
+<p>Start ubuntu wsl2 instance. Now using shell,</p>
+<pre><code class="language-bash">cd ~/&lt;some_dir&gt;
+mkdir qemu-build
+sudo mount --bind "/mnt/c/Users/&lt;user_name&gt;/Documents/qemu-build" qemu-build
+cd qemu-build
+</code></pre>
+<p>This is where we will build qemu for raspberry pi zero.</p>
+<p>Get qemu sources and dependencies,</p>
+<pre><code class="language-bash">git clone https://github.com/igwtech/qemu
+# do followings only if you need to modify submodule sources
+# git submodule init
+# git submodule update --recursive
+</code></pre>
+<p>We are using a forked qemu source above because the official qemu repo doesn't provide support for raspberry pi zero. Feel free to diff the code with tags from original source, which will provide valuable insight to adding another arm processor support.</p>
+<p>Activate source repositories by un-commenting the <code>deb-src</code> lines in <code>/etc/apt/sources.list</code>.</p>
+<p>Get qemu dependencies,</p>
+<pre><code class="language-bash">sudo apt-get update
+sudo apt-get build-dep qemu
+</code></pre>
+<p>Create a build directory</p>
+<pre><code class="language-bash">mkdir build
+cd build
+</code></pre>
+<p>Configure qemu to build all qemu binaries,</p>
+<pre><code class="language-bash">../qemu/configure
+</code></pre>
+<p>Otherwise if you already have installed all the binaries, or only interested in <code>qemu-arm</code> and <code>qemu-system-arm</code>,
+this configures to build just those,</p>
+<pre><code class="language-bash">../qemu/configure --target-list=arm-softmmu,arm-linux-user
+</code></pre>
+<p>To find all the configuration options, run <code>configure --help</code>.</p>
+<p>Build and install qemu,</p>
+<pre><code class="language-bash">make
+sudo make install
+</code></pre>
+<p>Now we can remove the mount,</p>
+<pre><code class="language-bash">cd ../..
+sudo umount qemu-build
+</code></pre>
+<p>You can remove the build directory <code>qemu-build\build</code> if you like, or keep it for later development.</p>
+<p>Run qemu for raspi0,</p>
+<pre><code class="language-bash">qemu-system-arm -machine raspi0 -serial stdio  -dtb bcm2708-rpi-zero-w.dtb -kernel kernel.img -append 'printk.time=0 earlycon=pl011,0x20201000 console=ttyAMA0'
+</code></pre>
+<p>qemu-kvm has problems in wsl2, currently it does not work properly.</p>
+<h2 id="raspbian-apt-sources"><a class="header" href="#raspbian-apt-sources">Raspbian apt sources</a></h2>
+<p><code>/etc/apt/sources.list</code>,</p>
+<pre><code>deb http://raspbian.raspberrypi.org/raspbian/ buster main contrib non-free rpi
+# Uncomment line below then 'apt-get update' to enable 'apt-get source'
+#deb-src http://raspbian.raspberrypi.org/raspbian/ buster main contrib non-free rpi
+</code></pre>
+<p><code>/etc/apt/sources.list.d/raspi.list</code>,</p>
+<pre><code>deb http://archive.raspberrypi.org/debian/ buster main
+# Uncomment line below then 'apt-get update' to enable 'apt-get source'
+#deb-src http://archive.raspberrypi.org/debian/ buster main
+</code></pre>
+<h2 id="install-the-cross-compiler"><a class="header" href="#install-the-cross-compiler">install the cross compiler</a></h2>
+<p>check <a href="https://github.com/Pro/raspi-toolchain">https://github.com/Pro/raspi-toolchain</a> to use their prebuilt toolchain in wsl2</p>
+<pre><code># Download the toolchain:
+wget https://github.com/Pro/raspi-toolchain/releases/latest/download/raspi-toolchain.tar.gz
+# The toolchain has to be in /opt/cross-pi-gcc since it's not location independent.
+sudo tar xfz raspi-toolchain.tar.gz --strip-components=1 -C /opt
+</code></pre>
+<h2 id="raspbian-filesystem"><a class="header" href="#raspbian-filesystem">raspbian filesystem</a></h2>
+<p><code>/etc/fstab</code>,</p>
+<pre><code>proc            /proc           proc    defaults          0       0
+PARTUUID=288695f5-01  /boot           vfat    defaults          0       2
+PARTUUID=288695f5-02  /               ext4    defaults,noatime  0       1
+# a swapfile is not a swap partition, no line here
+#   use  dphys-swapfile swap[on|off]  for that
+</code></pre>
+<p><code>pi-sd-2/etc/ld.so.preload</code>,</p>
+<pre><code>/usr/lib/arm-linux-gnueabihf/libarmmem-${PLATFORM}.so
+</code></pre>
+<h3 id="installing-library-dependencies-in-a-image"><a class="header" href="#installing-library-dependencies-in-a-image">Installing library dependencies in a image</a></h3>
+<p>If there is a dependency on additional libraries, we should install those
+in the raspberry pi SD. Then we can save an image of the SD using <code>Win32DiskImage</code>
+in a <code>.img</code> file. Now we can mount the image and copy the
+necessary libraries to the toolchain sysroot we installed earlier.</p>
+<pre><code class="language-bash">$ fdisk -lu /mnt/d/pi_images/pi-sd.img
+Disk /mnt/d/pi_images/pi-sd.img: 28.97 GiB, 31086084096 bytes, 60715008 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x288695f5
+
+Device                      Boot  Start      End  Sectors  Size Id Type
+/mnt/d/pi_images/pi-sd.img1        8192   532479   524288  256M  c W95 FAT32 (LBA)
+/mnt/d/pi_images/pi-sd.img2      532480 60715007 60182528 28.7G 83 Linux
+</code></pre>
+<p>The <code>fat32</code> partition is the first one. The offset is 8192*512=4194304 and
+size is 524288*512=268435456 in bytes.</p>
+<p>The <code>ext4</code> partition is the second one. The offset is 512*532480=272629760 and size is 512*60182528=30813454336 in bytes.</p>
+<p>Now you can mount them,</p>
+<pre><code class="language-bash">mkdir /home/pi/pi-sd-1
+mkdir /home/pi/pi-sd-2
+
+mount -o loop,offset=4194304,sizelimit=268435456 /mnt/d/pi-images/pi-sd.img /home/pi/pi-sd-1
+mount -o loop,offset=272629760 /mnt/d/pi_images/pi-sd.img /home/pi/pi-sd-2
+
+ls -la /home/pi/pi-sd-1
+ls -la /home/pi/pi-sd-2
+</code></pre>
+<p>There is no need to specify size for the last partition.
+At this point we can edit the image to get it ready for emulation.</p>
+<p>to cross compile copy all libraries</p>
+<pre><code>rsync -vR --progress -rl --delete-after --safe-links /home/pi/pi-sd-2/{lib,usr,etc/ld.so.conf.d,opt/vc/lib} $HOME/rpi/rootfs
+</code></pre>
+<p>(TODO)
+Now you can copy appropriate libraries to
+<code>/opt/rpi_tools/arm-bcm2708/arm-linux-gnueabihf/arm-linux-gnueabihf/sysroot</code>.</p>
+<h2 id="qemu-rpi-kernel-todo"><a class="header" href="#qemu-rpi-kernel-todo">qemu rpi kernel (TODO)</a></h2>
+<ul>
+<li><a href="https://github.com/dhruvvyas90/qemu-rpi-kernel">https://github.com/dhruvvyas90/qemu-rpi-kernel</a> this claims some adjustment on rpi kernel for qemu need to investigate what this adjustment is and is it  relevant any more.</li>
+</ul>
+<h2 id="disk-images"><a class="header" href="#disk-images">disk images</a></h2>
+<ul>
+<li><a href="https://askubuntu.com/questions/667291/create-blank-disk-image-for-file-storage">Create blank disk image for file storage</a></li>
+<li><a href="https://superuser.com/questions/693158/can-i-expand-the-size-of-a-file-based-disk-image/693162">Can I expand the size of a file based disk image?</a></li>
+</ul>
+<h2 id="utilities"><a class="header" href="#utilities">utilities</a></h2>
+<ul>
+<li><a href="https://github.com/johnlane/rpi-utils">Raspberry-Pi Utilities</a>.
+A very nice place to learn how to chroot and get emulation going.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../topics/raspberrypi.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../topics/pirust.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../topics/raspberrypi.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../topics/pirust.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
