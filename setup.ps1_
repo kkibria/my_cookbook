@@ -1,11 +1,9 @@
-git push origin -d gh-pages
+$url = git remote get-url origin
 mkdir gh-pages
 Set-Location gh-pages
-$url = git remote get-url origin
-git clone $url .
+git init
+git remote add origin $url
+
 git checkout -b gh-pages
-git rm -r .
-git commit -m "clearing master contents"
-git push origin gh-pages
-git branch -D master
+git pull origin gh-pages
 Set-Location ..
