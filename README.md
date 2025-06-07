@@ -13,7 +13,22 @@ I used this gist to push generated html,
 
 
 ## Developing content
+make sure rust is up to date
+```
+rustup update
+```
 
+install mdbook
+```
+cargo install mdbook
+```
+
+install frontmatter processor
+```
+cargo install --git https://github.com/kkibria/mdbook-frntmtr.git
+```
+
+If you have all of the above set up, run.
 ```
 mdbook serve --open
 ```

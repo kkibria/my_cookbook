@@ -57,6 +57,7 @@ d3 has bunch of cool features like force simulation, goe projections etc.
 ## Canvas arts
 * <http://www.malinc.se/>
 * <https://www.openprocessing.org/>
+* <https://p5js.org/>
 
 
 ## polyfills

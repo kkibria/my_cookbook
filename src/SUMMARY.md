@@ -10,6 +10,7 @@
 # Frontend Development
 - [Frontend code development](./topics/fronend.md)
     - [Markdown renderer and editor in browser](./topics/markdown.md)
+    - [Using Flexbox](./topics/flexbox.md)
 
 # Backend Development
 - [Server side and/or Headless rendering](./topics/ssr.md)
@@ -85,6 +86,7 @@
 
 # Media Topics
 - [Audio Processing](./topics/audio.md)
+    - [Understanding Soundfont Synthesis](./topics/sfsynth.md)
 - [Broadcasting](./topics/broadcasting.md)
 - [Movie production tools](./topics/movie.md)
     - [Animation](topics/animation.md)
