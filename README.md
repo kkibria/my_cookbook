@@ -34,7 +34,8 @@ mdbook will create the file. Now go edit the file to add the frontmatter and tit
 
 ## deploying setup 
 This is one time setup after cloning the repo. 
-Copy `setup.ps1_` to `temp.ps1` and run `temp.ps1`. Delete `temp.ps1`
+Copy `setup.ps1_` to `temp.ps1` and run `temp.ps1`. It might give
+an error message, 'fatal: couldn't find remote ref gh-pages'. Not to worry. Delete `temp.ps1`.
 
 ## deploy
 run `deploy.ps1`
