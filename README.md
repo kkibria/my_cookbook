@@ -39,3 +39,9 @@ an error message, 'fatal: couldn't find remote ref gh-pages'. Not to worry. Dele
 
 ## deploy
 run `deploy.ps1`
+
+
+## fix frontmatter
+```
+python .\frontmatter.py .\src\topics\ .\fm.template
+```

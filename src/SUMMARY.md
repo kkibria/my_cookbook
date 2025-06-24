@@ -41,6 +41,7 @@
 - [Java development](./topics/java.md)
 - [Javascript library](./topics/jslib.md)
 - [Rust language](./topics/rust.md)
+    - [Rust setup in wsl](./topics/rust-wsl.md)
     - [Plugins](./topics/rust-plugin.md)
     - [Multithreading](./topics/rust-thread.md)
 - [Powershell](./topics/powershell.md)

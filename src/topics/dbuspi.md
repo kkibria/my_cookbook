@@ -1,4 +1,9 @@
-# Using dbus in pi
+---
+title: Using dbus in pi
+---
+
+
+# {{ page.title }}
 
 ## Note on getting dbus interfaces
 
