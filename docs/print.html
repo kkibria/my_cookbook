@@ -3231,6 +3231,41 @@ into html files on the fly when serving.</li>
 <li><a href="https://github.com/GraphiteEditor/Graphite">https://github.com/GraphiteEditor/Graphite</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-setup-in-wsl"><a class="header" href="#rust-setup-in-wsl">Rust setup in wsl</a></h1>
+<h2 id="rust-with-vscode"><a class="header" href="#rust-with-vscode">rust with vscode</a></h2>
+<p>I installed the VS Code extension,</p>
+<ul>
+<li>rust-analyzer (for IDE support)</li>
+</ul>
+<p>It provides lot of helpers, including
+refactoring that makes it easy to write code. This also puts a command in
+command pallet (ctrl+shift+p) called <code>rust analyzer: debug</code> which starts the
+debug, without setting vscode debug configuration which is nice!</p>
+<p>But then it started becoming frustrating.</p>
+<h2 id="rust-in-wsl"><a class="header" href="#rust-in-wsl">rust in wsl</a></h2>
+<p>Why do we need to even use wsl to build rust. It has to do with symbolic debug
+with vscode. In windows the default is MSVC-style debugging using <code>cppvsdbg</code>
+for debugging. Unfortunately with this many symbols were reported as "gotten
+optimized away". Even when <code>cargo.toml</code> contains,</p>
+<pre><code>[profile.dev]
+opt-level = 0           # no optimizations
+debug = true            # emit debug info (level 2 by default)
+</code></pre>
+<p>So, the common recommendation I found was to use <code>lldb</code> for debug. So I
+installed the VS Code extension,</p>
+<ul>
+<li>CodeLLDB (LLDB frontend)</li>
+</ul>
+<p>Under windows, LLDB did give symbols that were missing before, but lldb was
+running so slow that it was almost unusable. When I tried in wsl under vscode,
+things were running very nicely.</p>
+<h2 id="cross-compile-for-windows-msvc-in-wsl"><a class="header" href="#cross-compile-for-windows-msvc-in-wsl">Cross compile for windows msvc in wsl</a></h2>
+<p>But I wanted windows binary. Rust toolchain can compile for windows <code>msvc</code>
+target, but I needed to use <code>msvc</code> linker which lives in windows side. In order
+to use the linker in the cargo flow, I followed instructions from
+<a href="https://github.com/strickczq/msvc-wsl-rust">https://github.com/strickczq/msvc-wsl-rust</a> for setting up the linker. In my
+case I use vscode. So I downloaded Build Tools for Visual Studio and then
+installed <code>C++ Build Tools</code> workload.</p>
+<p>This setup works great.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-plugins"><a class="header" href="#rust-plugins">Rust Plugins</a></h1>
 <ul>
 <li><a href="https://adventures.michaelfbryan.com/posts/plugins-in-rust/">https://adventures.michaelfbryan.com/posts/plugins-in-rust/</a></li>
