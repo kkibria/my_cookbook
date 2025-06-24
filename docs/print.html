@@ -42,6 +42,17 @@
         <script src="toc.js"></script>
     </head>
     <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
     <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
@@ -119,7 +130,7 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -3219,6 +3230,7 @@ into html files on the fly when serving.</li>
 <ul>
 <li><a href="https://github.com/GraphiteEditor/Graphite">https://github.com/GraphiteEditor/Graphite</a></li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-setup-in-wsl"><a class="header" href="#rust-setup-in-wsl">Rust setup in wsl</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-plugins"><a class="header" href="#rust-plugins">Rust Plugins</a></h1>
 <ul>
 <li><a href="https://adventures.michaelfbryan.com/posts/plugins-in-rust/">https://adventures.michaelfbryan.com/posts/plugins-in-rust/</a></li>
