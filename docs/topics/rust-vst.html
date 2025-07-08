@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Audio Processing - My Development Cookbook</title>
+        <title>Rust Audio plugins - My Development Cookbook</title>
 
 
         <!-- Custom HTML head -->
@@ -166,79 +166,20 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="audio-processing"><a class="header" href="#audio-processing">Audio Processing</a></h1>
-<h2 id="dsp"><a class="header" href="#dsp">DSP</a></h2>
+                        <h1 id="rust-audio-plugins"><a class="header" href="#rust-audio-plugins">Rust Audio plugins</a></h1>
 <ul>
-<li><a href="http://www.dspguide.com/">The Scientist and Engineer's Guide to Digital Signal Processing</a></li>
-<li><a href="https://faust.grame.fr/">Faust (Functional Audio Stream) programming language</a></li>
-</ul>
-<h2 id="vst3-with-mingw"><a class="header" href="#vst3-with-mingw">vst3 with MINGW</a></h2>
-<ul>
-<li><a href="https://forum.juce.com/t/is-vst3-sdk-compatible-with-mingw/12385">https://forum.juce.com/t/is-vst3-sdk-compatible-with-mingw/12385</a></li>
-<li><a href="http://kxstudio.sourceforge.net/Paste/repo/GMOVw">http://kxstudio.sourceforge.net/Paste/repo/GMOVw</a></li>
-<li><a href="https://github.com/steinbergmedia/vst3sdk/issues/8">https://github.com/steinbergmedia/vst3sdk/issues/8</a></li>
-<li><a href="http://www.martin-finke.de/blog/tags/making_audio_plugins.html">http://www.martin-finke.de/blog/tags/making_audio_plugins.html</a></li>
-<li><a href="https://ccrma.stanford.edu/~jos/fp/Generating_VST_Plugin_Faust.html">Generating a VST Plugin via Faust</a>.</li>
-<li><a href="https://cycling74.com/">MAX</a>.</li>
-<li><a href="https://juce.com/">https://juce.com/</a></li>
-</ul>
-<h2 id="vst-framework"><a class="header" href="#vst-framework">VST framework</a></h2>
-<ul>
-<li><a href="https://github.com/DISTRHO/DPF">https://github.com/DISTRHO/DPF</a></li>
-</ul>
-<h2 id="open-source-synths"><a class="header" href="#open-source-synths">open source synths</a></h2>
-<ul>
-<li><a href="https://github.com/TheWaveWarden/odin2">https://github.com/TheWaveWarden/odin2</a></li>
-<li><a href="https://github.com/zynaddsubfx/zynaddsubfx">https://github.com/zynaddsubfx/zynaddsubfx</a></li>
-</ul>
-<h2 id="reason-livestreams"><a class="header" href="#reason-livestreams">reason livestreams</a></h2>
-<ul>
-<li><a href="https://www.reasonstudios.com/blog/reason-livestream">https://www.reasonstudios.com/blog/reason-livestream</a></li>
-</ul>
-<h2 id="physical-synthesis-libraries-papers"><a class="header" href="#physical-synthesis-libraries-papers">physical synthesis libraries/ papers</a></h2>
-<ul>
-<li><a href="https://github.com/thestk/stk">https://github.com/thestk/stk</a> Perry R. Cook and Gary P. Scavone.</li>
-<li><a href="https://ccrma.stanford.edu/~jos/jnmr/jnmr.pdf">https://ccrma.stanford.edu/~jos/jnmr/jnmr.pdf</a></li>
-<li><a href="https://ccrma.stanford.edu/~jos/wgj/wgj.pdf">https://ccrma.stanford.edu/~jos/wgj/wgj.pdf</a></li>
-<li><a href="https://www.osar.fr/notes/waveguides/">https://www.osar.fr/notes/waveguides/</a></li>
-<li><a href="https://ccrma.stanford.edu/~jos/wg.html">https://ccrma.stanford.edu/~jos/wg.html</a></li>
-<li><a href="https://ccrma.stanford.edu/~jos/pasp/pasp.html">https://ccrma.stanford.edu/~jos/pasp/pasp.html</a></li>
-<li><a href="https://github.com/mi-creative/mi-gen">https://github.com/mi-creative/mi-gen</a></li>
-<li><a href="https://github.com/mi-creative/miPhysics_Processing">https://github.com/mi-creative/miPhysics_Processing</a></li>
-<li><a href="https://youtu.be/sxt5rxF_PdI">Martin Shuppius - Physical modelling of guitar strings (ADC'17)</a></li>
-<li><a href="https://drive.google.com/drive/folders/1URgFdMjBttXfwUdbf_C2p-XacsSe6hEQ?usp=sharing">Some pdf papers</a></li>
-</ul>
-<h2 id="audiomidi-interface-libraries"><a class="header" href="#audiomidi-interface-libraries">audio/midi interface libraries</a></h2>
-<ul>
-<li><a href="https://wiki.linuxaudio.org/wiki/programming_libraries">https://wiki.linuxaudio.org/wiki/programming_libraries</a></li>
-<li><a href="http://www.portaudio.com/">http://www.portaudio.com/</a>. Audacity uses this.</li>
-<li><a href="https://github.com/AuLib/AuLib">https://github.com/AuLib/AuLib</a></li>
-</ul>
-<h2 id="daw-golang-in-audio"><a class="header" href="#daw-golang-in-audio">DAW golang in audio</a></h2>
-<ul>
-<li><a href="https://github.com/dskinner/snd">https://github.com/dskinner/snd</a></li>
-</ul>
-<h2 id="headless-daw"><a class="header" href="#headless-daw">headless DAW</a></h2>
-<ul>
-<li><a href="https://github.com/hq9000/py_headless_daw">https://github.com/hq9000/py_headless_daw</a></li>
-</ul>
-<h2 id="hls-audio-streaming"><a class="header" href="#hls-audio-streaming">HLS audio streaming</a></h2>
-<pre><code>ffmpeg -i song1.mp3 -map 0 -map 0 -c:a aac -b:a:0 320k -b:a:1 128k -var_stream_map "a:0,name:320k a:1,name:128k" -master_pl_name song1_manifest.m3u8 -f hls -hls_flags single_file -hls_playlist_type vod -hls_segment_filename "song1_%v/classroom.ts" song1_%v/index.m3u8
-</code></pre>
-<h1 id="speaker-frequency-response"><a class="header" href="#speaker-frequency-response">speaker frequency response</a></h1>
-<ul>
-<li><a href="https://blog.audiokinetic.com/en/loudness-and-frequency-response-on-popular-smart-phones/">https://blog.audiokinetic.com/en/loudness-and-frequency-response-on-popular-smart-phones/</a></li>
+<li><a href="https://enphnt.github.io/blog/vst-plugins-rust/">https://enphnt.github.io/blog/vst-plugins-rust/</a></li>
 </ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../topics/cloth.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../topics/audio.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../topics/rust-vst.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../topics/sfsynth.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -248,11 +189,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../topics/cloth.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../topics/audio.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../topics/rust-vst.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../topics/sfsynth.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
