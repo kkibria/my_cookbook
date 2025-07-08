@@ -87,6 +87,7 @@
 
 # Media Topics
 - [Audio Processing](./topics/audio.md)
+    - [Rust Audio plugins](./topics/rust-vst.md)
     - [Understanding Soundfont Synthesis](./topics/sfsynth.md)
 - [Broadcasting](./topics/broadcasting.md)
 - [Movie production tools](./topics/movie.md)

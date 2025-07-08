@@ -1,4 +1,7 @@
-# scan.py checks for inconsistencies
+# scan.py checks for title inconsistencies
+# between SUMMARY.md and a topic md file
+# and fixes it. 
+
 # pip install python-frontmatter
 import os
 import frontmatter

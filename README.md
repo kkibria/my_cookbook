@@ -43,5 +43,5 @@ run `deploy.ps1`
 
 ## fix frontmatter
 ```
-python .\frontmatter.py .\src\topics\ .\fm.template
+python .\fixfm.py .\src\topics\ .\fm.template
 ```
