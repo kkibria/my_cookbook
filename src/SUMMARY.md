@@ -44,9 +44,11 @@
     - [Rust setup in wsl](./topics/rust-wsl.md)
     - [Plugins](./topics/rust-plugin.md)
     - [Multithreading](./topics/rust-thread.md)
+    - [Decorator like behavior](./topics/rust-deco.md)
 - [Powershell](./topics/powershell.md)
 - [Python](topics/python.md)
     - [Python library](topics/pythonlib.md)
+    - [Python CLI](topics/pythoncli.md)
 
 # Transpiling
 - [Java to Go language](./topics/java2go.md)
@@ -93,7 +95,10 @@
 - [Movie production tools](./topics/movie.md)
     - [Animation](topics/animation.md)
 - [Music](./topics/music.md)
+    - [Mixing and mastering](./topics/mix.md)
 - [Converting old DVDs/cd into mp4/mp3](./topics/dvd2mp4.md)
 
 # AI Topics
 - [Text to speech](./topics/tts.md)
+- [Music](./topics/ai_music.md)
+- [3d model](./topics/ai_3d.md)

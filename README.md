@@ -45,3 +45,30 @@ run `deploy.ps1`
 ```
 python .\fixfm.py .\src\topics\ .\fm.template
 ```
+
+
+Some thoughts:
+
+I love rust mdbook, however I feel it lacks some features. So I am contemplating two possibilities.
+a. Write a plugin that can add this feature.
+b. If adding the feature using plugin is too complex, then fork mdbook and make my own version of mdbook with the feature.
+
+here are the features I am thinking of right now. 
+1. I like to support frontmatter in the markdown files. The variables from frontmatter will be applied to the document templating.
+2. If I open the mdbook locally using 'mdbook serve --open', then "SUMMARY.md" 
+   file is live scanned and any relative link added there, mdbook will create a corresponding file if it doesn't not exit.
+3. For any new markdown file it creates I like them being created from some template file.
+4. When a file is markdown is created, it should look like,
+```
+---
+title: Textual Contents
+---
+
+# {{ page.title }}
+
+(stuff picked up from template) Textual content authoring in html is quite tedious and alternative authoring is
+preferred for web sites. As such, blah blah.....
+```
+5. In the document if I change the title in the front matter, it should be auto-reflected by updating links in "SUMMARY.md"
+6. its tagging is currently convoluted feels like. but its have tags and clicking tags should automatically open some tag search sidebar that presents
+   list of documents matching the tag anf hyperlinks mush like how SUMMARY.md is used.  

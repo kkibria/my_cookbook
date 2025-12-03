@@ -63,6 +63,7 @@ def report(doclist, sumlist):
                 if doclist[doc] != sumlist[doc]:
                     print(f"Title mismatch for {doc} in SUMMARY.md")
 
+#### Use rep_tit.py update titles in summary.md
 
 if __name__ == "__main__":
     os.chdir("src")
