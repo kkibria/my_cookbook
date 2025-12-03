@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Music - My Development Cookbook</title>
+        <title>Decorator like behavior - My Development Cookbook</title>
 
 
         <!-- Custom HTML head -->
@@ -175,101 +175,230 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="music"><a class="header" href="#music">Music</a></h1>
-<h2 id="drum-patterns"><a class="header" href="#drum-patterns">Drum patterns</a></h2>
+                        <h1 id="decorator-like-behavior"><a class="header" href="#decorator-like-behavior">Decorator like behavior</a></h1>
 <ul>
-<li><a href="https://cecm.indiana.edu/361/drumpatterns.html">https://cecm.indiana.edu/361/drumpatterns.html</a></li>
+<li><a href="https://users.rust-lang.org/t/are-derive-macros-in-rust-similar-to-decorators-in-python/46686/4">https://users.rust-lang.org/t/are-derive-macros-in-rust-similar-to-decorators-in-python/46686/4</a></li>
 </ul>
-<h2 id="rust-midi-library"><a class="header" href="#rust-midi-library">rust midi library</a></h2>
+<h2 id="rust-macros"><a class="header" href="#rust-macros">Rust Macros</a></h2>
+<p>Rust macros can programmatically alter the source to to add additional behavior
+like decorators do. There are two types we can mention in this context.</p>
 <ul>
-<li><a href="https://docs.rs/midly/latest/midly/">https://docs.rs/midly/latest/midly/</a></li>
-<li><a href="https://tauri.studio">https://tauri.studio</a></li>
-<li><a href="https://crates.io/crates/serde_json">https://crates.io/crates/serde_json</a></li>
+<li>
+<p><code>#[derive(SomeName)]</code> is an attribute that can only be applied to
+<code>struct/enum/union</code> type definitions, and it then applies the <code>SomeName</code>
+procedural macro (called a <em>derive</em> macro) to the <em>source code</em> that makes the
+type definition. The macro can then output / spit / emit its own forged source
+code, <strong>that will be emitted <em>alongside</em> the original type definition source,
+which remains unaffected by the macro</strong>.</p>
+</li>
+<li>
+<p><code>#[some_name]</code> is an attribute that can be applied to any Rust item (and in the
+future, even Rust expressions and statements (and maybe even types and
+patterns)), including functions. It applies the procedural macro <code>some_name</code> to
+the <em>source code</em> that makes the item definition. That <strong>input source code is
+not re-emitted</strong>, so the attribute macro has all the power to decide what gets
+emitted instead.</p>
+</li>
 </ul>
-<p>We can load midi file in a rust based tauri app. Use svelte for for the app logic.
-We can try functions in rust to do even midi processing at native speed.
-or we can use wasm library using rust <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm">https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm</a>. Although I cant really see much of a benefit with wasm over native rust function in tauri for all practical uses. We can use plain javascript for all the processing if we really need
-in browser processing.</p>
-<p>The plan is to convert the midi structure to json and send to browser and then convert back to midi
-before saving.</p>
-<h2 id="rust-based-daw"><a class="header" href="#rust-based-daw">rust based DAW</a></h2>
-<p>This is an interesting possibility, may be a tauri based user interface and backend in rust.
-We can probably utilize a pure rust cross platform audio library,</p>
+<p>Their mechanisms are very different. But in practice, you can achieve very
+similar things with both.
+The main difference being using some form of global state; the Python
+decorator, by virtue of just having to be a classic Python callable, can hold
+some internal state; whereas the procedural macros are executed within a
+special compilation pass, and the order of the different calls, or even the
+amount of times the macro may be called is not guaranteed. Ideally, procedural
+macros should hold no state. That's why crates providing procedural macros
+also provide other stuff, to handle that shared state.</p>
+<h2 id="examples--comparison"><a class="header" href="#examples--comparison">Examples / comparison</a></h2>
+<h4 id="0---hold-internal-state-for-python-function-calls-scoped-globals"><a class="header" href="#0---hold-internal-state-for-python-function-calls-scoped-globals">0 - hold internal state for Python function calls (scoped "globals"):</a></h4>
+<pre><code class="language-python">def with_state(f):
+    return f()
+
+# Usage:
+@with_state
+def add_x():
+    x = 0
+    def add_x(y):
+        nonlocal x
+        return x + y
+    return add_x
+
+x = 27  # Internal scope is untouchable
+assert add_x(42) == 42
+</code></pre>
+<h4 id="1---memoization"><a class="header" href="#1---memoization">1 - Memoization</a></h4>
 <ul>
-<li><a href="https://github.com/RustAudio/cpal">https://github.com/RustAudio/cpal</a></li>
-<li><a href="https://github.com/MeadowlarkDAW/Meadowlark">https://github.com/MeadowlarkDAW/Meadowlark</a></li>
-<li><a href="https://youtu.be/Z4P5f6ZJ_nE">https://youtu.be/Z4P5f6ZJ_nE</a></li>
-<li><a href="https://youtu.be/Yom9E-67bdI">https://youtu.be/Yom9E-67bdI</a></li>
-<li><a href="https://github.com/SolarLiner/nih-reverb">https://github.com/SolarLiner/nih-reverb</a></li>
-<li><a href="https://github.com/vizia/vizia">https://github.com/vizia/vizia</a> for gui</li>
-<li><a href="https://github.com/Auritia/Auritia">https://github.com/Auritia/Auritia</a></li>
-<li><a href="https://npm.io/package/svelte-tauri-filedrop">https://npm.io/package/svelte-tauri-filedrop</a> This will allow file drop in on DAW</li>
-<li><a href="https://github.com/emilyskidsister/oxygen">https://github.com/emilyskidsister/oxygen</a> audio recording and playback using cpal</li>
+<li>
+<p><strong>Python</strong></p>
+<pre><code class="language-python">from contextlib import suppress
+from functools import wraps
+
+def memoized(f):
+    cache = {}
+    @wraps(f)
+    def wrapped_f(*args):  # kwargs not supported for simplicity
+        nonlocal cache
+        with suppress(KeyError):
+            return cache[args]
+        cache[args] = ret = f(*args)
+        return ret
+    return wrapped_f
+
+@memoized
+def fibo(n):
+    """Naive recursive implementation."""
+    return n if n &lt;= 1 else fibo(n - 1) + fibo(n - 2)
+
+print(fibo(80))  # Would never compute unless cached
+</code></pre>
+</li>
+<li>
+<p><strong>Rust</strong>
+(using a <code>macro_rules!</code> macro with <a href="https://docs.rs/macro_rules_attribute"><code>#[macro_rules_attribute]</code></a>)</p>
+<pre><pre class="playground"><code class="language-rust">#[macro_use]
+extern crate macro_rules_attribute;
+
+macro_rules! memoize {(
+    $( #[$attr:meta] )*
+    $pub:vis
+    fn $fname:ident (
+        $( $arg_name:ident : $ArgTy:ty ),* $(,)?
+    ) $( -&gt; $RetTy:ty)?
+    $body:block
+) =&gt; (
+    $( #[$attr] )*
+    #[allow(unused_parens)]
+    $pub
+    fn $fname (
+        $( $arg_name : $ArgTy ),*
+    ) $(-&gt; $RetTy)?
+    {
+        /// Re-emit the original function definition, but as a scoped helper
+        $( #[$attr] )*
+        fn __original_func__ (
+            $($arg_name: $ArgTy),*
+        ) $(-&gt; $RetTy)?
+        $body
+
+        ::std::thread_local! {
+            static CACHE
+                : ::std::cell::RefCell&lt;
+                    ::std::collections::HashMap&lt;
+                        ( $($ArgTy ,)* ),
+                        ( $($RetTy)? ),
+                    &gt;
+                &gt;
+                = ::std::default::Default::default()
+            ;
+        }
+        CACHE.with(|cache| {
+            let args = ($($arg_name ,)*);
+            if let Some(value) = cache.borrow().get(&amp;args) {
+                return value.clone();
+            }
+            let ($($arg_name ,)*) = args.clone();
+            let value = __original_func__($($arg_name),*);
+            cache.borrow_mut().insert(args, ::std::clone::Clone::clone(&amp;value));
+            value
+        })
+    }
+)}
+
+#[macro_rules_attribute(memoize!)]
+fn fibo (n: u64) -&gt; u64
+{
+    dbg!(n);
+    if n &lt;= 1 { n } else { fibo(n - 1) + fibo(n - 2) }
+}
+
+fn main ()
+{
+    dbg!(fibo(5));
+    dbg!(fibo(5));
+}</code></pre></pre>
+</li>
 </ul>
-<h2 id="audio-and-vst3-with-rust"><a class="header" href="#audio-and-vst3-with-rust">audio and vst3 with rust</a></h2>
+<h4 id="2---tracing-function-calls"><a class="header" href="#2---tracing-function-calls">2 - Tracing function calls</a></h4>
 <ul>
-<li><a href="https://github.com/RustAudio/vst3-sys">https://github.com/RustAudio/vst3-sys</a></li>
-<li><a href="https://github.com/t-sin/rust-vst3-example">https://github.com/t-sin/rust-vst3-example</a></li>
+<li>
+<p><strong>Python</strong></p>
+<pre><code class="language-python">from functools import wraps
+
+@with_state
+def traced():
+    depth = 0
+    def traced(f):
+        @wraps(f)
+        def wrapped_f(*args, **kwargs):
+            nonlocal depth
+            print("{pad}{fname}({args}{sep}{kwargs})".format(
+                pad = "    " * depth,
+                fname = f.__name__,
+                args = ", ".join(map(repr, args)),
+                sep = ", " if args and kwargs else "",
+                kwargs = ", ".join("{} = {!r}".format(k, v) for k, v in kwargs.items()),
+            ))
+            depth += 1
+            try:
+                ret = f(*args, **kwargs)
+            except Exception as e:
+                depth -= 1
+                print("{}raised {!r}".format("    " * depth, e))
+                raise
+            else:
+                depth -= 1
+                print("{}= {!r}".format("    " * depth, ret))
+                return ret
+        return wrapped_f
+    return traced
+</code></pre>
+<ul>
+<li>
+<p>so that:</p>
+<pre><code class="language-python">@traced
+def fibo(n):
+    return n if n &lt;= 1 else fibo(n - 1) + fibo(n - 2)
+
+fibo(4)
+</code></pre>
+<p>outputs:</p>
+<pre><code class="language-text">fibo(4)
+    fibo(3)
+        fibo(2)
+            fibo(1)
+            = 1
+            fibo(0)
+            = 0
+        = 1
+        fibo(1)
+        = 1
+    = 2
+    fibo(2)
+        fibo(1)
+        = 1
+        fibo(0)
+        = 0
+    = 1
+= 3
+</code></pre>
+</li>
 </ul>
-<h2 id="open-source-plugins"><a class="header" href="#open-source-plugins">open source plugins</a></h2>
-<ul>
-<li><a href="https://github.com/TheWaveWarden/odin2">https://github.com/TheWaveWarden/odin2</a></li>
-<li><a href="https://github.com/surge-synthesizer/surge">https://github.com/surge-synthesizer/surge</a></li>
-<li><a href="https://github.com/zynaddsubfx/zynaddsubfx">https://github.com/zynaddsubfx/zynaddsubfx</a></li>
-<li><a href="https://github.com/surge-synthesizer/stochas">https://github.com/surge-synthesizer/stochas</a></li>
-<li><a href="https://github.com/trummerschlunk/master_me">https://github.com/trummerschlunk/master_me</a> for mastering</li>
-</ul>
-<h2 id="karaoke"><a class="header" href="#karaoke">karaoke</a></h2>
-<ul>
-<li><a href="https://github.com/gyunaev/spivak">https://github.com/gyunaev/spivak</a></li>
-<li><a href="https://github.com/magic-akari/lrc-maker">https://github.com/magic-akari/lrc-maker</a> it also is a player react app.</li>
-<li><a href="https://github.com/outloudvi/lrcedit.js">https://github.com/outloudvi/lrcedit.js</a> a simple example using
-web audio api for lrc edit</li>
-</ul>
-<h2 id="rust-soundfont-and-synthesis"><a class="header" href="#rust-soundfont-and-synthesis">rust soundfont and synthesis</a></h2>
-<ul>
-<li><a href="https://github.com/sinshu/rustysynth">https://github.com/sinshu/rustysynth</a></li>
-<li><a href="https://github.com/PolyMeilex/OxiSynth">https://github.com/PolyMeilex/OxiSynth</a> fluidsynth in rust</li>
-<li><a href="https://github.com/ameobea/web-synth">https://github.com/ameobea/web-synth</a> fm synthesis</li>
-<li><a href="https://www.youtube.com/watch?v=v0Qp7eWVyes">https://www.youtube.com/watch?v=v0Qp7eWVyes</a> wavetable synthesis</li>
-<li><a href="https://rustrepo.com/repo/geom3trik-tuix_audio_synth">https://rustrepo.com/repo/geom3trik-tuix_audio_synth</a></li>
-<li><a href="https://github.com/geom3trik/vizia-audio-synth">https://github.com/geom3trik/vizia-audio-synth</a></li>
-</ul>
-<h2 id="rust-libraries"><a class="header" href="#rust-libraries">rust libraries</a></h2>
-<ul>
-<li><a href="https://github.com/RazrFalcon/resvg">https://github.com/RazrFalcon/resvg</a> svg rendering</li>
-<li><a href="https://github.com/servo/servo">https://github.com/servo/servo</a> browser</li>
-</ul>
-<h2 id="yamaha-style-file"><a class="header" href="#yamaha-style-file">yamaha style file</a></h2>
-<ul>
-<li><a href="../files/StyleFileDescription_v21.pdf">Style file specification (archived)</a></li>
-<li><a href="https://github.com/bures/sff2-tools">https://github.com/bures/sff2-tools</a></li>
-<li><a href="https://wierzba.homepage.t-online.de/StyleFileDescription_v21.pdf">https://wierzba.homepage.t-online.de/StyleFileDescription_v21.pdf</a></li>
-<li><a href="https://www.jjazzlab.com/en/">https://www.jjazzlab.com/en/</a></li>
-<li><a href="https://psrtutorial.com/index.html">https://psrtutorial.com/index.html</a></li>
-<li><a href="https://youtu.be/be_0JnhI-Wc">https://youtu.be/be_0JnhI-Wc</a></li>
-<li><a href="https://youtu.be/gEGd__2ZQc0">https://youtu.be/gEGd__2ZQc0</a></li>
-</ul>
-<h2 id="python-libraries"><a class="header" href="#python-libraries">python libraries</a></h2>
-<ul>
-<li>style (sff2) files api <a href="https://github.com/bures/sff2-tools">https://github.com/bures/sff2-tools</a></li>
-<li><a href="https://github.com/bspaans/python-mingus">https://github.com/bspaans/python-mingus</a></li>
-<li>SCAMP <a href="https://pypi.org/project/scamp/">https://pypi.org/project/scamp/</a>. doc <a href="http://scamp.marcevanstein.com/">http://scamp.marcevanstein.com/</a></li>
-</ul>
-<h2 id="rust-audio-player"><a class="header" href="#rust-audio-player">Rust Audio player</a></h2>
-<ul>
-<li><a href="https://github.com/pdeljanov/Symphonia">https://github.com/pdeljanov/Symphonia</a></li>
+</li>
+<li>
+<p><strong>Rust</strong>
+(Actual attribute macro)</p>
+</li>
 </ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../topics/animation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../topics/rust-thread.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../topics/mix.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../topics/powershell.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -279,11 +408,11 @@ web audio api for lrc edit</li>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../topics/animation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../topics/rust-thread.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../topics/mix.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../topics/powershell.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

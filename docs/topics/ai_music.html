@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Music - My Development Cookbook</title>
+        <title>Music with AI - My Development Cookbook</title>
 
 
         <!-- Custom HTML head -->
@@ -175,101 +175,29 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="music"><a class="header" href="#music">Music</a></h1>
-<h2 id="drum-patterns"><a class="header" href="#drum-patterns">Drum patterns</a></h2>
+                        <h1 id="music-with-ai"><a class="header" href="#music-with-ai">Music with AI</a></h1>
+<h2 id="stem-separator"><a class="header" href="#stem-separator">Stem separator</a></h2>
 <ul>
-<li><a href="https://cecm.indiana.edu/361/drumpatterns.html">https://cecm.indiana.edu/361/drumpatterns.html</a></li>
+<li><a href="https://github.com/deezer/spleeter">https://github.com/deezer/spleeter</a></li>
 </ul>
-<h2 id="rust-midi-library"><a class="header" href="#rust-midi-library">rust midi library</a></h2>
+<h2 id="ai-datasets"><a class="header" href="#ai-datasets">AI datasets</a></h2>
 <ul>
-<li><a href="https://docs.rs/midly/latest/midly/">https://docs.rs/midly/latest/midly/</a></li>
-<li><a href="https://tauri.studio">https://tauri.studio</a></li>
-<li><a href="https://crates.io/crates/serde_json">https://crates.io/crates/serde_json</a></li>
+<li><a href="https://github.com/bytedance/GiantMIDI-Piano">https://github.com/bytedance/GiantMIDI-Piano</a></li>
 </ul>
-<p>We can load midi file in a rust based tauri app. Use svelte for for the app logic.
-We can try functions in rust to do even midi processing at native speed.
-or we can use wasm library using rust <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm">https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm</a>. Although I cant really see much of a benefit with wasm over native rust function in tauri for all practical uses. We can use plain javascript for all the processing if we really need
-in browser processing.</p>
-<p>The plan is to convert the midi structure to json and send to browser and then convert back to midi
-before saving.</p>
-<h2 id="rust-based-daw"><a class="header" href="#rust-based-daw">rust based DAW</a></h2>
-<p>This is an interesting possibility, may be a tauri based user interface and backend in rust.
-We can probably utilize a pure rust cross platform audio library,</p>
+<h2 id="tool-for-representing-music-for-ai"><a class="header" href="#tool-for-representing-music-for-ai">tool for representing music for AI</a></h2>
 <ul>
-<li><a href="https://github.com/RustAudio/cpal">https://github.com/RustAudio/cpal</a></li>
-<li><a href="https://github.com/MeadowlarkDAW/Meadowlark">https://github.com/MeadowlarkDAW/Meadowlark</a></li>
-<li><a href="https://youtu.be/Z4P5f6ZJ_nE">https://youtu.be/Z4P5f6ZJ_nE</a></li>
-<li><a href="https://youtu.be/Yom9E-67bdI">https://youtu.be/Yom9E-67bdI</a></li>
-<li><a href="https://github.com/SolarLiner/nih-reverb">https://github.com/SolarLiner/nih-reverb</a></li>
-<li><a href="https://github.com/vizia/vizia">https://github.com/vizia/vizia</a> for gui</li>
-<li><a href="https://github.com/Auritia/Auritia">https://github.com/Auritia/Auritia</a></li>
-<li><a href="https://npm.io/package/svelte-tauri-filedrop">https://npm.io/package/svelte-tauri-filedrop</a> This will allow file drop in on DAW</li>
-<li><a href="https://github.com/emilyskidsister/oxygen">https://github.com/emilyskidsister/oxygen</a> audio recording and playback using cpal</li>
-</ul>
-<h2 id="audio-and-vst3-with-rust"><a class="header" href="#audio-and-vst3-with-rust">audio and vst3 with rust</a></h2>
-<ul>
-<li><a href="https://github.com/RustAudio/vst3-sys">https://github.com/RustAudio/vst3-sys</a></li>
-<li><a href="https://github.com/t-sin/rust-vst3-example">https://github.com/t-sin/rust-vst3-example</a></li>
-</ul>
-<h2 id="open-source-plugins"><a class="header" href="#open-source-plugins">open source plugins</a></h2>
-<ul>
-<li><a href="https://github.com/TheWaveWarden/odin2">https://github.com/TheWaveWarden/odin2</a></li>
-<li><a href="https://github.com/surge-synthesizer/surge">https://github.com/surge-synthesizer/surge</a></li>
-<li><a href="https://github.com/zynaddsubfx/zynaddsubfx">https://github.com/zynaddsubfx/zynaddsubfx</a></li>
-<li><a href="https://github.com/surge-synthesizer/stochas">https://github.com/surge-synthesizer/stochas</a></li>
-<li><a href="https://github.com/trummerschlunk/master_me">https://github.com/trummerschlunk/master_me</a> for mastering</li>
-</ul>
-<h2 id="karaoke"><a class="header" href="#karaoke">karaoke</a></h2>
-<ul>
-<li><a href="https://github.com/gyunaev/spivak">https://github.com/gyunaev/spivak</a></li>
-<li><a href="https://github.com/magic-akari/lrc-maker">https://github.com/magic-akari/lrc-maker</a> it also is a player react app.</li>
-<li><a href="https://github.com/outloudvi/lrcedit.js">https://github.com/outloudvi/lrcedit.js</a> a simple example using
-web audio api for lrc edit</li>
-</ul>
-<h2 id="rust-soundfont-and-synthesis"><a class="header" href="#rust-soundfont-and-synthesis">rust soundfont and synthesis</a></h2>
-<ul>
-<li><a href="https://github.com/sinshu/rustysynth">https://github.com/sinshu/rustysynth</a></li>
-<li><a href="https://github.com/PolyMeilex/OxiSynth">https://github.com/PolyMeilex/OxiSynth</a> fluidsynth in rust</li>
-<li><a href="https://github.com/ameobea/web-synth">https://github.com/ameobea/web-synth</a> fm synthesis</li>
-<li><a href="https://www.youtube.com/watch?v=v0Qp7eWVyes">https://www.youtube.com/watch?v=v0Qp7eWVyes</a> wavetable synthesis</li>
-<li><a href="https://rustrepo.com/repo/geom3trik-tuix_audio_synth">https://rustrepo.com/repo/geom3trik-tuix_audio_synth</a></li>
-<li><a href="https://github.com/geom3trik/vizia-audio-synth">https://github.com/geom3trik/vizia-audio-synth</a></li>
-</ul>
-<h2 id="rust-libraries"><a class="header" href="#rust-libraries">rust libraries</a></h2>
-<ul>
-<li><a href="https://github.com/RazrFalcon/resvg">https://github.com/RazrFalcon/resvg</a> svg rendering</li>
-<li><a href="https://github.com/servo/servo">https://github.com/servo/servo</a> browser</li>
-</ul>
-<h2 id="yamaha-style-file"><a class="header" href="#yamaha-style-file">yamaha style file</a></h2>
-<ul>
-<li><a href="../files/StyleFileDescription_v21.pdf">Style file specification (archived)</a></li>
-<li><a href="https://github.com/bures/sff2-tools">https://github.com/bures/sff2-tools</a></li>
-<li><a href="https://wierzba.homepage.t-online.de/StyleFileDescription_v21.pdf">https://wierzba.homepage.t-online.de/StyleFileDescription_v21.pdf</a></li>
-<li><a href="https://www.jjazzlab.com/en/">https://www.jjazzlab.com/en/</a></li>
-<li><a href="https://psrtutorial.com/index.html">https://psrtutorial.com/index.html</a></li>
-<li><a href="https://youtu.be/be_0JnhI-Wc">https://youtu.be/be_0JnhI-Wc</a></li>
-<li><a href="https://youtu.be/gEGd__2ZQc0">https://youtu.be/gEGd__2ZQc0</a></li>
-</ul>
-<h2 id="python-libraries"><a class="header" href="#python-libraries">python libraries</a></h2>
-<ul>
-<li>style (sff2) files api <a href="https://github.com/bures/sff2-tools">https://github.com/bures/sff2-tools</a></li>
-<li><a href="https://github.com/bspaans/python-mingus">https://github.com/bspaans/python-mingus</a></li>
-<li>SCAMP <a href="https://pypi.org/project/scamp/">https://pypi.org/project/scamp/</a>. doc <a href="http://scamp.marcevanstein.com/">http://scamp.marcevanstein.com/</a></li>
-</ul>
-<h2 id="rust-audio-player"><a class="header" href="#rust-audio-player">Rust Audio player</a></h2>
-<ul>
-<li><a href="https://github.com/pdeljanov/Symphonia">https://github.com/pdeljanov/Symphonia</a></li>
+<li><a href="https://github.com/CPJKU/partitura">https://github.com/CPJKU/partitura</a></li>
 </ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../topics/animation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../topics/tts.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../topics/mix.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../topics/ai_3d.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -279,11 +207,11 @@ web audio api for lrc edit</li>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../topics/animation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../topics/tts.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../topics/mix.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../topics/ai_3d.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

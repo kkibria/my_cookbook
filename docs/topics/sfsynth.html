@@ -36,6 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc.js"></script>
@@ -92,10 +93,13 @@
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
+                sidebar_toggle.checked = false;
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -146,7 +150,12 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -639,8 +648,11 @@ runtime, each component invokes the next.</p>
 <li>
 <p><strong>Build-time/compile-time structure</strong></p>
 <ul>
-<li>At compile time, Cargo’s feature resolver v2 (see <code>resolver = "2"</code> in <code>Cargo.toml</code>) wires up all these modules into one library.</li>
-<li>The <code>lib.rs</code> (in <code>rustysynth/src/lib.rs</code>) has lines like:
+<li>
+<p>At compile time, Cargo’s feature resolver v2 (see <code>resolver = "2"</code> in <code>Cargo.toml</code>) wires up all these modules into one library.</p>
+</li>
+<li>
+<p>The <code>lib.rs</code> (in <code>rustysynth/src/lib.rs</code>) has lines like:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>mod error;
@@ -665,12 +677,14 @@ pub use synthesizer_settings::SynthesizerSettings;
 pub use synthesizer::Synthesizer;
 <span class="boring">}</span></code></pre></pre>
 </li>
-<li>This exports exactly the high-level types a user needs:<br />
+<li>
+<p>This exports exactly the high-level types a user needs:<br />
 • <code>SoundFont</code> (plus associated errors)<br />
 • <code>MidiFile</code> (plus associated errors)<br />
 • <code>SynthesizerSettings</code><br />
 • <code>Synthesizer</code> (and its methods: <code>note_on</code>, <code>note_off</code>, <code>render</code>)<br />
-• <code>MidiFileSequencer</code> (and its methods: <code>play</code>, <code>render</code>)</li>
+• <code>MidiFileSequencer</code> (and its methods: <code>play</code>, <code>render</code>)</p>
+</li>
 </ul>
 </li>
 <li>
@@ -787,6 +801,7 @@ midi_file_sequencer.rs                └─ reverb.rs (also depends on comb &am
         <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
+
 
 
     </div>

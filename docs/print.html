@@ -37,6 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
@@ -93,10 +94,13 @@
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
+                sidebar_toggle.checked = false;
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -147,7 +151,12 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -3575,6 +3584,220 @@ ensures safe access to the data structure from multiple threads.</p>
 <li><a href="https://www.packtpub.com/en-us/product/hands-on-concurrency-with-rust-9781788399975">https://www.packtpub.com/en-us/product/hands-on-concurrency-with-rust-9781788399975</a></li>
 <li><a href="https://youtu.be/9XAx279s7gs">https://youtu.be/9XAx279s7gs</a></li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="decorator-like-behavior"><a class="header" href="#decorator-like-behavior">Decorator like behavior</a></h1>
+<ul>
+<li><a href="https://users.rust-lang.org/t/are-derive-macros-in-rust-similar-to-decorators-in-python/46686/4">https://users.rust-lang.org/t/are-derive-macros-in-rust-similar-to-decorators-in-python/46686/4</a></li>
+</ul>
+<h2 id="rust-macros"><a class="header" href="#rust-macros">Rust Macros</a></h2>
+<p>Rust macros can programmatically alter the source to to add additional behavior
+like decorators do. There are two types we can mention in this context.</p>
+<ul>
+<li>
+<p><code>#[derive(SomeName)]</code> is an attribute that can only be applied to
+<code>struct/enum/union</code> type definitions, and it then applies the <code>SomeName</code>
+procedural macro (called a <em>derive</em> macro) to the <em>source code</em> that makes the
+type definition. The macro can then output / spit / emit its own forged source
+code, <strong>that will be emitted <em>alongside</em> the original type definition source,
+which remains unaffected by the macro</strong>.</p>
+</li>
+<li>
+<p><code>#[some_name]</code> is an attribute that can be applied to any Rust item (and in the
+future, even Rust expressions and statements (and maybe even types and
+patterns)), including functions. It applies the procedural macro <code>some_name</code> to
+the <em>source code</em> that makes the item definition. That <strong>input source code is
+not re-emitted</strong>, so the attribute macro has all the power to decide what gets
+emitted instead.</p>
+</li>
+</ul>
+<p>Their mechanisms are very different. But in practice, you can achieve very
+similar things with both.
+The main difference being using some form of global state; the Python
+decorator, by virtue of just having to be a classic Python callable, can hold
+some internal state; whereas the procedural macros are executed within a
+special compilation pass, and the order of the different calls, or even the
+amount of times the macro may be called is not guaranteed. Ideally, procedural
+macros should hold no state. That's why crates providing procedural macros
+also provide other stuff, to handle that shared state.</p>
+<h2 id="examples--comparison"><a class="header" href="#examples--comparison">Examples / comparison</a></h2>
+<h4 id="0---hold-internal-state-for-python-function-calls-scoped-globals"><a class="header" href="#0---hold-internal-state-for-python-function-calls-scoped-globals">0 - hold internal state for Python function calls (scoped "globals"):</a></h4>
+<pre><code class="language-python">def with_state(f):
+    return f()
+
+# Usage:
+@with_state
+def add_x():
+    x = 0
+    def add_x(y):
+        nonlocal x
+        return x + y
+    return add_x
+
+x = 27  # Internal scope is untouchable
+assert add_x(42) == 42
+</code></pre>
+<h4 id="1---memoization"><a class="header" href="#1---memoization">1 - Memoization</a></h4>
+<ul>
+<li>
+<p><strong>Python</strong></p>
+<pre><code class="language-python">from contextlib import suppress
+from functools import wraps
+
+def memoized(f):
+    cache = {}
+    @wraps(f)
+    def wrapped_f(*args):  # kwargs not supported for simplicity
+        nonlocal cache
+        with suppress(KeyError):
+            return cache[args]
+        cache[args] = ret = f(*args)
+        return ret
+    return wrapped_f
+
+@memoized
+def fibo(n):
+    """Naive recursive implementation."""
+    return n if n &lt;= 1 else fibo(n - 1) + fibo(n - 2)
+
+print(fibo(80))  # Would never compute unless cached
+</code></pre>
+</li>
+<li>
+<p><strong>Rust</strong>
+(using a <code>macro_rules!</code> macro with <a href="https://docs.rs/macro_rules_attribute"><code>#[macro_rules_attribute]</code></a>)</p>
+<pre><pre class="playground"><code class="language-rust">#[macro_use]
+extern crate macro_rules_attribute;
+
+macro_rules! memoize {(
+    $( #[$attr:meta] )*
+    $pub:vis
+    fn $fname:ident (
+        $( $arg_name:ident : $ArgTy:ty ),* $(,)?
+    ) $( -&gt; $RetTy:ty)?
+    $body:block
+) =&gt; (
+    $( #[$attr] )*
+    #[allow(unused_parens)]
+    $pub
+    fn $fname (
+        $( $arg_name : $ArgTy ),*
+    ) $(-&gt; $RetTy)?
+    {
+        /// Re-emit the original function definition, but as a scoped helper
+        $( #[$attr] )*
+        fn __original_func__ (
+            $($arg_name: $ArgTy),*
+        ) $(-&gt; $RetTy)?
+        $body
+
+        ::std::thread_local! {
+            static CACHE
+                : ::std::cell::RefCell&lt;
+                    ::std::collections::HashMap&lt;
+                        ( $($ArgTy ,)* ),
+                        ( $($RetTy)? ),
+                    &gt;
+                &gt;
+                = ::std::default::Default::default()
+            ;
+        }
+        CACHE.with(|cache| {
+            let args = ($($arg_name ,)*);
+            if let Some(value) = cache.borrow().get(&amp;args) {
+                return value.clone();
+            }
+            let ($($arg_name ,)*) = args.clone();
+            let value = __original_func__($($arg_name),*);
+            cache.borrow_mut().insert(args, ::std::clone::Clone::clone(&amp;value));
+            value
+        })
+    }
+)}
+
+#[macro_rules_attribute(memoize!)]
+fn fibo (n: u64) -&gt; u64
+{
+    dbg!(n);
+    if n &lt;= 1 { n } else { fibo(n - 1) + fibo(n - 2) }
+}
+
+fn main ()
+{
+    dbg!(fibo(5));
+    dbg!(fibo(5));
+}</code></pre></pre>
+</li>
+</ul>
+<h4 id="2---tracing-function-calls"><a class="header" href="#2---tracing-function-calls">2 - Tracing function calls</a></h4>
+<ul>
+<li>
+<p><strong>Python</strong></p>
+<pre><code class="language-python">from functools import wraps
+
+@with_state
+def traced():
+    depth = 0
+    def traced(f):
+        @wraps(f)
+        def wrapped_f(*args, **kwargs):
+            nonlocal depth
+            print("{pad}{fname}({args}{sep}{kwargs})".format(
+                pad = "    " * depth,
+                fname = f.__name__,
+                args = ", ".join(map(repr, args)),
+                sep = ", " if args and kwargs else "",
+                kwargs = ", ".join("{} = {!r}".format(k, v) for k, v in kwargs.items()),
+            ))
+            depth += 1
+            try:
+                ret = f(*args, **kwargs)
+            except Exception as e:
+                depth -= 1
+                print("{}raised {!r}".format("    " * depth, e))
+                raise
+            else:
+                depth -= 1
+                print("{}= {!r}".format("    " * depth, ret))
+                return ret
+        return wrapped_f
+    return traced
+</code></pre>
+<ul>
+<li>
+<p>so that:</p>
+<pre><code class="language-python">@traced
+def fibo(n):
+    return n if n &lt;= 1 else fibo(n - 1) + fibo(n - 2)
+
+fibo(4)
+</code></pre>
+<p>outputs:</p>
+<pre><code class="language-text">fibo(4)
+    fibo(3)
+        fibo(2)
+            fibo(1)
+            = 1
+            fibo(0)
+            = 0
+        = 1
+        fibo(1)
+        = 1
+    = 2
+    fibo(2)
+        fibo(1)
+        = 1
+        fibo(0)
+        = 0
+    = 1
+= 3
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Rust</strong>
+(Actual attribute macro)</p>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="powershell-scripts"><a class="header" href="#powershell-scripts">Powershell Scripts</a></h1>
 <h2 id="addremove-path-in-path-variable"><a class="header" href="#addremove-path-in-path-variable">Add/Remove path in path variable</a></h2>
 <pre><code>Set-PathVariable {
@@ -3858,6 +4081,88 @@ obj.__dict__ = attr
 print(obj.a)
 print(obj.c)
 print(obj.e)
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="python-cli"><a class="header" href="#python-cli">Python CLI</a></h1>
+<h2 id="1-treat-your-tools-as-a-single-studio-toolbox-project"><a class="header" href="#1-treat-your-tools-as-a-single-studio-toolbox-project">1. Treat your tools as a single “studio toolbox” project</a></h2>
+<p>Instead of a bunch of one-off scripts scattered everywhere, I’d do:</p>
+<pre><code class="language-text">~/dev/videotools/
+    pyproject.toml   ← uv project
+    src/
+        templates/
+            my_template.txt
+        videotools/
+            __init__.py
+            trim.py
+            thumbs.py
+            rename.py
+            captions.py
+            ...
+</code></pre>
+<ul>
+<li>One repo, one <code>pyproject.toml</code>.</li>
+<li>Each <code>.py</code> inside <code>videotools</code> is a small CLI with a <code>main()</code> function.</li>
+<li>Version-controlled with git so you can clone it anywhere later.</li>
+</ul>
+<h2 id="2-let-uv-own-everything"><a class="header" href="#2-let-uv-own-everything">2. Let <code>uv</code> own everything</a></h2>
+<p>Install <code>uv</code> if uv is not already installed,</p>
+<pre><code>pip3 install uv
+</code></pre>
+<p>Create project</p>
+<pre><code>mkdir videotools
+cd videotools
+uv init --package
+</code></pre>
+<p>In <code>pyproject.toml</code>, define your console scripts:</p>
+<pre><code class="language-toml">[project]
+name = "videotools"
+version = "0.1.0"
+# ...
+
+[project.scripts]
+studio-trim   = "videotools.trim:main"
+studio-thumbs = "videotools.thumbs:main"
+studio-rename = "videotools.rename:main"
+</code></pre>
+<p>Now your workflow on <strong>any</strong> machine becomes:</p>
+<p>Inside <code>videotools</code>,</p>
+<pre><code class="language-bash">uv sync           # once per machine
+uv run studio-trim ...
+uv run studio-rename ...
+</code></pre>
+<h2 id="3-promote-the-important-commands-to-real-clis"><a class="header" href="#3-promote-the-important-commands-to-real-clis">3. Promote the important commands to “real” CLIs</a></h2>
+<p>Once a tool feels “stable” and you want it globally available:</p>
+<p>Inside <code>videotools</code>,</p>
+<pre><code class="language-bash">uv tool install .   # or uv tool install --upgrade .
+</code></pre>
+<p>Now you can just:</p>
+<pre><code class="language-bash">studio-trim ...
+studio-rename ...
+</code></pre>
+<p>This uses uv’s shim system, not system Python, so it stays clean but feels “native”.</p>
+<p>If you later switch machines:</p>
+<pre><code class="language-bash">git clone videotools
+cd videotools
+uv tool install .
+</code></pre>
+<blockquote>
+<p>Keep OS-specific stuff outside Python</p>
+</blockquote>
+<h2 id="when-you-have-data-files"><a class="header" href="#when-you-have-data-files">When you have data files</a></h2>
+<p>For instance you can have a template file you need to use</p>
+<h3 id="minimal-example-for-your-template-loader"><a class="header" href="#minimal-example-for-your-template-loader">Minimal example for your template loader:</a></h3>
+<p>Folder:</p>
+<pre><code>src/videotools/templates/my_template.txt
+</code></pre>
+<p><code>pyproject.toml</code>:</p>
+<pre><code class="language-toml">[tool.setuptools.package-data]
+"studio_tools" = ["templates/*.txt"]
+</code></pre>
+<p>Python:
+In cli you can read the file,</p>
+<pre><code class="language-python">from importlib.resources import files
+
+def load_template(name="my_template.txt"):
+    return files("studio_tools").joinpath(f"templates/{name}").read_text()
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="java-to-go-language"><a class="header" href="#java-to-go-language">Java to Go language</a></h1>
 <p>I have written large Java projects in the past, I have used proprietary
@@ -7231,8 +7536,11 @@ runtime, each component invokes the next.</p>
 <li>
 <p><strong>Build-time/compile-time structure</strong></p>
 <ul>
-<li>At compile time, Cargo’s feature resolver v2 (see <code>resolver = "2"</code> in <code>Cargo.toml</code>) wires up all these modules into one library.</li>
-<li>The <code>lib.rs</code> (in <code>rustysynth/src/lib.rs</code>) has lines like:
+<li>
+<p>At compile time, Cargo’s feature resolver v2 (see <code>resolver = "2"</code> in <code>Cargo.toml</code>) wires up all these modules into one library.</p>
+</li>
+<li>
+<p>The <code>lib.rs</code> (in <code>rustysynth/src/lib.rs</code>) has lines like:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>mod error;
@@ -7257,12 +7565,14 @@ pub use synthesizer_settings::SynthesizerSettings;
 pub use synthesizer::Synthesizer;
 <span class="boring">}</span></code></pre></pre>
 </li>
-<li>This exports exactly the high-level types a user needs:<br />
+<li>
+<p>This exports exactly the high-level types a user needs:<br />
 • <code>SoundFont</code> (plus associated errors)<br />
 • <code>MidiFile</code> (plus associated errors)<br />
 • <code>SynthesizerSettings</code><br />
 • <code>Synthesizer</code> (and its methods: <code>note_on</code>, <code>note_off</code>, <code>render</code>)<br />
-• <code>MidiFileSequencer</code> (and its methods: <code>play</code>, <code>render</code>)</li>
+• <code>MidiFileSequencer</code> (and its methods: <code>play</code>, <code>render</code>)</p>
+</li>
 </ul>
 </li>
 <li>
@@ -7471,18 +7781,45 @@ web audio api for lrc edit</li>
 <li><a href="https://github.com/bspaans/python-mingus">https://github.com/bspaans/python-mingus</a></li>
 <li>SCAMP <a href="https://pypi.org/project/scamp/">https://pypi.org/project/scamp/</a>. doc <a href="http://scamp.marcevanstein.com/">http://scamp.marcevanstein.com/</a></li>
 </ul>
-<h2 id="ai-datasets"><a class="header" href="#ai-datasets">AI datasets</a></h2>
-<ul>
-<li><a href="https://github.com/bytedance/GiantMIDI-Piano">https://github.com/bytedance/GiantMIDI-Piano</a></li>
-</ul>
-<h2 id="tool-for-representing-music-for-ai"><a class="header" href="#tool-for-representing-music-for-ai">tool for representing music for AI</a></h2>
-<ul>
-<li><a href="https://github.com/CPJKU/partitura">https://github.com/CPJKU/partitura</a></li>
-</ul>
 <h2 id="rust-audio-player"><a class="header" href="#rust-audio-player">Rust Audio player</a></h2>
 <ul>
 <li><a href="https://github.com/pdeljanov/Symphonia">https://github.com/pdeljanov/Symphonia</a></li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mixing-and-mastering"><a class="header" href="#mixing-and-mastering">Mixing and mastering</a></h1>
+<p>Mix everything in context.</p>
+<h2 id="processing-vocals"><a class="header" href="#processing-vocals">Processing vocals</a></h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=9g70Xu5e1i4">https://www.youtube.com/watch?v=9g70Xu5e1i4</a></li>
+</ul>
+<p>Steps:</p>
+<ol>
+<li>Chop it and adjust position wrt beats.</li>
+<li>Pitch edit.</li>
+<li>Adjust clip gain for sibilants.</li>
+</ol>
+<p>This goes to 2 parallel channels a and b.</p>
+<p>Channel a:</p>
+<ol>
+<li>Dynamic control.</li>
+<li>Add harmonics with saturation (little bit).</li>
+<li>Dynamic control (which will add more harmonics).</li>
+<li>Multiband compression.</li>
+<li>Clean sibilants and breath.</li>
+</ol>
+<p>Channel b:</p>
+<ol>
+<li>Heavily compressed, to blend in.</li>
+</ol>
+<p>Channel a and b merges to:</p>
+<ol>
+<li>Low shelf 100Hz.</li>
+<li>Filter for boominess or chest resonance.</li>
+<li>Low end fix for car speaker (aroud 125Hz).</li>
+<li>Add saturation to increase dynamics.</li>
+<li>Clean sibilants again.</li>
+<li>Some slight eq.</li>
+<li>Boost high end to add sparkle.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="converting-old-dvdscd-into-mp4mp3"><a class="header" href="#converting-old-dvdscd-into-mp4mp3">Converting old DVDs/cd into mp4/mp3</a></h1>
 <h1 id="dvds"><a class="header" href="#dvds">DVDs</a></h1>
 <p>Old DVDs take space and bulky. I have tons of those that I accumulated over the years and running out of space in my cabinet. This will be an ongoing project for me to turn them into mp4 so that I can store them in a hard drive and view them from my TV.</p>
@@ -7583,6 +7920,24 @@ file 'def.ts'
 <p>I used coqui tts in colab and tried different models and vocoder combinations they have and produced
 a zip file consisting of all the audio clips it produced. You can obtain the zip file
 <a href="topics/../files/tts_gen.zip">here</a>, if you are interested to take a listen to the audio clips.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="music-with-ai"><a class="header" href="#music-with-ai">Music with AI</a></h1>
+<h2 id="stem-separator"><a class="header" href="#stem-separator">Stem separator</a></h2>
+<ul>
+<li><a href="https://github.com/deezer/spleeter">https://github.com/deezer/spleeter</a></li>
+</ul>
+<h2 id="ai-datasets"><a class="header" href="#ai-datasets">AI datasets</a></h2>
+<ul>
+<li><a href="https://github.com/bytedance/GiantMIDI-Piano">https://github.com/bytedance/GiantMIDI-Piano</a></li>
+</ul>
+<h2 id="tool-for-representing-music-for-ai"><a class="header" href="#tool-for-representing-music-for-ai">tool for representing music for AI</a></h2>
+<ul>
+<li><a href="https://github.com/CPJKU/partitura">https://github.com/CPJKU/partitura</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="3d-model-with-ai"><a class="header" href="#3d-model-with-ai">3D model with AI</a></h1>
+<ul>
+<li><a href="https://github.com/microsoft/TRELLIS">https://github.com/microsoft/TRELLIS</a></li>
+<li><a href="https://github.com/IgorAherne/trellis-stable-projectorz">One click installer of trellis for windows</a></li>
+</ul>
 
                     </main>
 
@@ -7624,6 +7979,7 @@ a zip file consisting of all the audio clips it produced. You can obtain the zip
             window.setTimeout(window.print, 100);
         });
         </script>
+
 
     </div>
     </body>
